@@ -6,8 +6,8 @@ NAME=cub3d
 # Compiler options
 CC = cc
 CFLAGS = -g -Wall -Werror -Wextra
-CLIBS = -L$(LIB_FOLDER) -lft -lm -lreadline
-CINCLUDES  = -I$(INCLUDE_FOLDER) 
+CLIBS = -L$(LIB_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
+CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -rf
 
 # Colors
@@ -19,13 +19,16 @@ PURPLE = 	\033[35m
 RESET  = 	\033[0m
 
 # Folders
-INCLUDE_FOLDER = ./includes/
-SRC_FOLDER     = ./src/
-OBJ_FOLDER     = ./obj/
-LIB_FOLDER     = ./lib/
+INCLUDE_FOLDER 	= ./includes/
+SRC_FOLDER     	= ./src/
+OBJ_FOLDER     	= ./obj/
+LIB_FOLDER     	= ./lib/
+MLX_FOLDER		= ./mlx/
+MAPS_FOLDER 	= ./maps/
 
 # Files
 LIBFT = $(LIB_FOLDER)libft.a
+MLX = $(MLX_FOLDER)libmlx.a
 SRCS = $(addprefix $(SRC_FOLDER), 						\
 	main.c)
 
@@ -39,31 +42,32 @@ OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJ_FOLDER)%.o)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
+	@./make_banner.sh $(NAME) compiling "$(ORANGE)"
 	@$(CC) $(OBJS) $(CFLAGS) $(CLIBS) $(CINCLUDES) -o $(NAME)
-	@echo "\n$(ORANGE)╔══════════════════════════╗"
-	@echo "$(ORANGE)║    $(GREEN)$(NAME):   created$(ORANGE)      ║"
-	@echo "$(ORANGE)╚══════════════════════════╝$(RESET)"
+	@./make_banner.sh $(NAME) done "$(GREEN)"
 
 $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.c 
 	@mkdir -p $(@D)
 	@echo -n "$(BLUE).$(RESET)"
-	@$(CC) $(CFLAGS) $(CINCLUDES)-c $< -o $@
+	@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 $(LIBFT):
-	@echo "$(BLUE)┌───────────────────────┐"
-	@echo "│  $(ORANGE)Compiling:  libft.a$(BLUE)  │"
-	@echo "$(BLUE)└───────────────────────┘$(RESET)"
+	@./make_banner.sh libft.a compiling "$(ORANGE)"
 	@$(MAKE) -sC $(LIB_FOLDER) DEBUG=$(DEBUG)
 
+$(MLX):
+	@./make_banner.sh mlx.a compiling "$(BLUE)"
+	@make --no-print-directory -C > /dev/null 2>&1 $(MLX_FOLDER)
+	@./make_banner.sh mlx.a created "$(GREEN)"
+
 clean:
-	@$(RM) $(OBJ_FOLDER) readline.supp
-	@echo "$(PURPLE)┌───────────────────────┐"
-	@echo "│     $(RED)[✓]  CLEANED!$(PURPLE)     │"
-	@echo "$(PURPLE)└───────────────────────┘$(RESET)"
+	@$(RM) $(OBJ_FOLDER)
+	@./make_banner.sh $(NAME) cleaned "$(RED)"
 
 fclean: clean
 	@make -sC $(LIB_FOLDER) fclean
+	@make -sC $(MLX_FOLDER) clean
 	@$(RM) $(NAME)
 
 re: fclean all

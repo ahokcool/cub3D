@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 11:26:35 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/29 15:32:57 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define CUB3D_H
 
 # include "../lib/libft_printf.h"
+# include "../mlx/mlx.h"
 
 #endif
