@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   model.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 18:53:26 by astein           ###   ########.fr       */
+/*   Created: 2024/01/29 18:26:36 by astein            #+#    #+#             */
+/*   Updated: 2024/01/29 19:26:07 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int ac, char **av)
+static void   equip_ray_img(t_cub *cub)
 {
-	t_cub cub;
+	// calculate the current view and draw it to the img
+}
 
-	ft_putstr_fd("Lets gooooo!", STDOUT_FILENO);
-	
-	// check args
-	if (ac != 2)
-	{
-		ft_putstr_fd("Error\nWrong number of arguments\n", STDERR_FILENO);
-		exit (1);
-	}
-	
-	init_cub(&cub);
-	
-	// parse map
-	if(!parse(&cub, av[1]))
-	{
-		ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
-		//exit (1);
-	}
-	
-	//start mlx
-	mlx_main(&cub);
+static void   equip_mini_img(t_cub *cub)
+{
+	// calculate the current view and draw it to the img
+}
 
-	return (0);
+void eqip_imgs(t_cub *cub)
+{
+	equip_ray_img(cub);
+	if(cub->show_mini)
+		equip_mini_img(cub);
+	update_view(cub);
 }

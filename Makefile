@@ -1,11 +1,11 @@
-# Makefile for cub3d
+# Makefile for cub3D
 
 # Variables
-NAME=cub3d
+NAME=cub3D
 
 # Compiler options
 CC = cc
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -g #-Wall -Werror -Wextra
 CLIBS = -L$(LIB_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -rf
@@ -30,7 +30,15 @@ MAPS_FOLDER 	= ./maps/
 LIBFT = $(LIB_FOLDER)libft.a
 MLX = $(MLX_FOLDER)libmlx.a
 SRCS = $(addprefix $(SRC_FOLDER), 						\
-	main.c)
+	main.c												\
+	cub.c												\
+	mlx_main.c											\
+	parser.c											\
+	controller.c										\
+	view.c												\
+	model.c												\
+	img.c												\
+	)
 
 # Object files
 OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJ_FOLDER)%.o)
@@ -71,3 +79,6 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
+
+run: all
+	@./$(NAME) $(MAPS_FOLDER)test.cub

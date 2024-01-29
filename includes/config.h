@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 18:53:26 by astein           ###   ########.fr       */
+/*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
+/*   Updated: 2024/01/29 18:49:09 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# ifndef CONFIG_H
+# define CONFIG_H
 
-int main(int ac, char **av)
-{
-	t_cub cub;
 
-	ft_putstr_fd("Lets gooooo!", STDOUT_FILENO);
-	
-	// check args
-	if (ac != 2)
-	{
-		ft_putstr_fd("Error\nWrong number of arguments\n", STDERR_FILENO);
-		exit (1);
-	}
-	
-	init_cub(&cub);
-	
-	// parse map
-	if(!parse(&cub, av[1]))
-	{
-		ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
-		//exit (1);
-	}
-	
-	//start mlx
-	mlx_main(&cub);
+# define WIN_WIDTH 1000
+# define WIN_HEIGHT 600
 
-	return (0);
-}
+# define K_ESC 65307
+
+#endif

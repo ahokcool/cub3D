@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"libft_printf.h": "c",
+		"math.h": "c",
+		"cub3d.h": "c",
+		"mlx.h": "c",
+		"stdbool.h": "c",
+		"config.h": "c"
+	}
+}
