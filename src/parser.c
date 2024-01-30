@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:09:14 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 19:13:31 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/30 16:38:56 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,27 @@ static bool	check_map(char **map)
 	return(false);
 }
 
+static bool	check_format(char *path, char *expected_format)
+{
+	char	*file_format;
+
+	file_format = ft_strrchr(path, '.');
+	if (file_format && ft_strcmp(file_format, expected_format) == 0)
+		return (true);
+	return (false);
+}
+
 bool parse(t_cub *cub, char *path)
 {
 	(void)cub;
-	(void)path;
-	char * looong_str;
-	//TODO:
+	char	*map_content;
+
+	if (!check_format(path, ".cub"))
+		return (false);
+	
+	
+
+
 
 	// open file
 	// get next line

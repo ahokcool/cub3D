@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 19:24:58 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/30 16:41:15 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,24 @@ typedef struct s_player
 	double			plane_y;
 }						t_player;
 
+typedef struct s_map_config
+{
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	char	*floor_clr;
+	char	*ceiling_clr;
+	char	**map;
+	char	*sides[4];
+}				t_map_config;
+
 typedef struct s_cub
 {
 	t_win				win;
 	t_img				img_ray;
 	t_img				img_mini;
-	char				**map;
+	t_map_config		map_config;
 	t_player			player;
 	bool				show_mini;
 }						t_cub;
