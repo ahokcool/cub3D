@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:53 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 19:28:00 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/30 13:03:46 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	ini_win(t_cub *cub)
 void	update_view(t_cub *cub)
 {
 	//put raycast to window
-	mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_ray.mlx_img, 0, 0);
+	//mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_ray.mlx_img, 0, 0);
 	
 	//put minimap to wind.
-	if (cub->show_mini)
-		mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_mini.mlx_img, 0, 0);
+	// if (cub->show_mini)
+		// mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_mini.mlx_img, 50, 50);
 }

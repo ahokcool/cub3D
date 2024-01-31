@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:18:39 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 19:05:48 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/30 13:04:27 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	mlx_main(t_cub *cub)
 {
 	// load window
+	create_test_map(cub);
 	ini_win(cub);
+	ini_minimap(cub);
+	ini_player(cub);
 	ini_img(cub, &cub->img_ray);
 	ini_img(cub, &cub->img_mini);
 
@@ -28,6 +31,6 @@ void	mlx_main(t_cub *cub)
 
 	
 	// mlx loop
-	//update_view(cub);
+	eqip_imgs(cub);
 	mlx_loop(cub->win.mlx);
 }

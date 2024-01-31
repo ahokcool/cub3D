@@ -38,6 +38,9 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	view.c												\
 	model.c												\
 	img.c												\
+	dbg.c												\
+	minimap.c											\
+	player.c											\
 	)
 
 # Object files
@@ -82,3 +85,6 @@ re: fclean all
 
 run: all
 	@./$(NAME) $(MAPS_FOLDER)test.cub
+
+val: all
+	@valgrind ./$(NAME) $(MAPS_FOLDER)test.cub

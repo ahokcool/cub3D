@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 18:49:09 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/30 15:11:40 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,11 @@
 # define WIN_HEIGHT 600
 
 # define K_ESC 65307
+# define K_ARROW_LEFT 65361
+# define K_ARROW_UP 65362
+# define K_ARROW_RIGHT 65363
+# define K_ARROW_DOWN 65364
+# define MINIMAP_PIXEL_WIDTH 10
+# define TILE_SIZE 10
 
 #endif
