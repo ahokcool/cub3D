@@ -6,11 +6,21 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/01/30 13:18:13 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/31 18:18:18 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	put_wall(t_cub *cub, int x, int y)
+{
+	// copy the wall from the image to the minimap frame of minimap at postion x y
+	// the frame is here
+	// cub->minimap.img_mini.mlx_img;
+	
+	// the wall image is here
+	// cub->minimap.wall.mlx_img
+}
 
 void	ini_minimap(t_cub *cub)
 {

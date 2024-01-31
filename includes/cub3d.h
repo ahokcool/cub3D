@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/01/31 16:39:17 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/31 18:47:52 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_cub
 	t_img				img_ray;
 	t_img				img_mini;
 	char				**map;	//map[y][x]
+	char				**map_;	//map[y][x]
 	t_player			player;
 	t_minimap			minimap;
 	bool				show_mini;

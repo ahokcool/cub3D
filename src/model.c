@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:36 by astein            #+#    #+#             */
-/*   Updated: 2024/01/31 17:57:32 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/31 18:18:53 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void   equip_mini_img(t_cub *cub)
 	int	y;
 	int x;
 	
+	// TODO: change to create the frame using "put_wall" from minimap.c
 	y = 0;
 	ft_putstr_fd("Map:\n", STDOUT_FILENO);
 	while (cub->map[y])
