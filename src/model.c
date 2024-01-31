@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:36 by astein            #+#    #+#             */
-/*   Updated: 2024/01/30 15:16:55 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/31 17:57:32 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,35 @@ static void   equip_ray_img(t_cub *cub)
 static void   equip_mini_img(t_cub *cub)
 {
 	// calculate the current view and draw it to the img
-	int	i;
-	int j;
+	int	y;
+	int x;
 	
-	i = 0;
+	y = 0;
 	ft_putstr_fd("Map:\n", STDOUT_FILENO);
-	while (cub->map[i])
+	while (cub->map[y])
 	{
-		j = 0;
-		while (cub->map[i][j])
+		x = 0;
+		while (cub->map[y][x])
 		{
-			if(j == cub->player.pos_x && i == cub->player.pos_y)
+			if(x == (int)(cub->player.pos_x / TILE_SIZE) && y == (int)(cub->player.pos_y / TILE_SIZE))
 			{
 				if (cub->player.rot_angle == 0)
-					mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.player_E.mlx_img, j*MINIMAP_PIXEL_WIDTH, i*MINIMAP_PIXEL_WIDTH);	
+					mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.player_N.mlx_img, x*MINIMAP_PIXEL_WIDTH, y*MINIMAP_PIXEL_WIDTH);	
 				else if (cub->player.rot_angle == 90)
-					mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.player_N.mlx_img, j*MINIMAP_PIXEL_WIDTH, i*MINIMAP_PIXEL_WIDTH);	
+					mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.player_E.mlx_img, x*MINIMAP_PIXEL_WIDTH, y*MINIMAP_PIXEL_WIDTH);	
 				else if (cub->player.rot_angle == 180)
-					mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.player_W.mlx_img, j*MINIMAP_PIXEL_WIDTH, i*MINIMAP_PIXEL_WIDTH);	
+					mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.player_S.mlx_img, x*MINIMAP_PIXEL_WIDTH, y*MINIMAP_PIXEL_WIDTH);	
 				else if (cub->player.rot_angle == 270)
-					mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.player_S.mlx_img, j*MINIMAP_PIXEL_WIDTH, i*MINIMAP_PIXEL_WIDTH);	
+					mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.player_W.mlx_img, x*MINIMAP_PIXEL_WIDTH, y*MINIMAP_PIXEL_WIDTH);	
 
 			}
-			else if (cub->map[i][j] == '1')
-				mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.wall.mlx_img, j*MINIMAP_PIXEL_WIDTH, i*MINIMAP_PIXEL_WIDTH);	
-			else if (cub->map[i][j] == '0')
-				mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.empty.mlx_img, j*MINIMAP_PIXEL_WIDTH, i*MINIMAP_PIXEL_WIDTH);	
-			j++;
+			else if (cub->map[y][x] == '1')
+				mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.wall.mlx_img, x*MINIMAP_PIXEL_WIDTH, y*MINIMAP_PIXEL_WIDTH);	
+			else if (cub->map[y][x] == '0')
+				mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->minimap.empty.mlx_img, x*MINIMAP_PIXEL_WIDTH, y*MINIMAP_PIXEL_WIDTH);	
+			x++;
 		}
-		i++;
+		y++;
 	}
 	
 }

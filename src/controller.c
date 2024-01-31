@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/01/30 15:25:01 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/31 17:52:33 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	turn(int key, t_cub *cub)
 	// call a function that chanes the struct params of the player ( changing the model)
 	//after changing the model we have to calculate the new images (ray and mini) and show them
 	if (key == K_ARROW_LEFT)
-	    cub->player.rot_angle += offset;
-	else if (key == K_ARROW_RIGHT)
 	    cub->player.rot_angle -= offset;
+	else if (key == K_ARROW_RIGHT)
+	    cub->player.rot_angle += offset;
 	
 	// Correctly wrap the angle between 0 and 360 degrees
 	if (cub->player.rot_angle >= 360)

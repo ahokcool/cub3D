@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:43:08 by astein            #+#    #+#             */
-/*   Updated: 2024/01/30 15:22:08 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/31 17:55:35 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,37 @@ void	dbg_put_player(t_cub *cub)
 
 void	dbg_put_minimap(t_cub *cub)
 {
-	int	i;
-	int j;
+	int	y;
+	int x;
 	
-	i = 0;
+	y = 0;
 	ft_putstr_fd("Map:\n", STDOUT_FILENO);
-	while (cub->map[i])
+	while (cub->map[y])
 	{
-		j = 0;
-		while (cub->map[i][j])
+		x = 0;
+		while (cub->map[y][x])
 		{
-			if(j == cub->player.pos_x && i == cub->player.pos_y)
+			if(x == (int)(cub->player.pos_x / TILE_SIZE) && y == (int)(cub->player.pos_y / TILE_SIZE))
 			{
 				if (cub->player.rot_angle == 0)
-					ft_putstr_fd("E", STDOUT_FILENO);
-				else if (cub->player.rot_angle == 90)
 					ft_putstr_fd("N", STDOUT_FILENO);
+				else if (cub->player.rot_angle == 90)
+					ft_putstr_fd("E", STDOUT_FILENO);
 				else if (cub->player.rot_angle == 180)
-					ft_putstr_fd("W", STDOUT_FILENO);
-				else if (cub->player.rot_angle == 270)
 					ft_putstr_fd("S", STDOUT_FILENO);
+				else if (cub->player.rot_angle == 270)
+					ft_putstr_fd("W", STDOUT_FILENO);
 			}
-			else if(cub->map[i][j] == '1')
+			else if(cub->map[y][x] == '1')
 				ft_putstr_fd("#", STDOUT_FILENO);
-			else if(cub->map[i][j] == '0')
+			else if(cub->map[y][x] == '0')
 				ft_putstr_fd(" ", STDOUT_FILENO);
 			else
-				ft_putchar_fd(cub->map[i][j], STDOUT_FILENO);
-			j++;
+				ft_putchar_fd(cub->map[y][x], STDOUT_FILENO);
+			x++;
 		}
 		ft_putchar_fd('\n', STDOUT_FILENO);
-		i++;
+		y++;
 	}
 }
 

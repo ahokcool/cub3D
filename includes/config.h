@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
-/*   Updated: 2024/01/30 15:11:40 by astein           ###   ########.fr       */
+/*   Updated: 2024/01/31 17:58:07 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 # define K_ARROW_RIGHT 65363
 # define K_ARROW_DOWN 65364
 # define MINIMAP_PIXEL_WIDTH 10
-# define TILE_SIZE 10
+# define TILE_SIZE 1
 
 #endif
