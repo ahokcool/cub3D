@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/01/30 16:40:00 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:49:30 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 void	init_map(t_cub *cub)
 {
-	cub->map_config.no_texture = NULL;
-	cub->map_config.so_texture = NULL;
-	cub->map_config.we_texture = NULL;
-	cub->map_config.ea_texture = NULL;
-	cub->map_config.floor_clr = NULL;
-	cub->map_config.ceiling_clr = NULL;
+	cub->map_config.no_texture.param = NULL;
+	cub->map_config.no_texture.valid = false;
+	cub->map_config.so_texture.param = NULL;
+	cub->map_config.so_texture.valid = false;
+	cub->map_config.we_texture.param = NULL;
+	cub->map_config.we_texture.valid = false;
+	cub->map_config.ea_texture.param = NULL;
+	cub->map_config.ea_texture.valid = false;
+	cub->map_config.floor_clr.param = NULL;
+	cub->map_config.floor_clr.valid = false;
+	cub->map_config.ceiling_clr.param = NULL;
+	cub->map_config.ceiling_clr.valid = false;
 	cub->map_config.map = NULL;
 	cub->map_config.sides[0] = "NO";
 	cub->map_config.sides[1] = "SO";
