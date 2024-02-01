@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 15:53:07 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:53:59 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,14 @@ typedef struct s_player
 	double			plane_y;
 }						t_player;
 
-typedef struct s_hash_map
-{
-	char	*param;
-	bool	checked;
-} 		t_hash_map;
-
 typedef struct s_map_config
 {
-	t_hash_map no_texture;
-	t_hash_map so_texture;
-	t_hash_map we_texture;
-	t_hash_map ea_texture;
-	t_hash_map floor_clr;
-	t_hash_map ceiling_clr;
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	char	*floor_clr;
+	char	*ceiling_clr;
 	char	**map;
 }				t_map_config;
 

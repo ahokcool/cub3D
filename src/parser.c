@@ -6,18 +6,11 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:09:14 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 16:30:29 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:33:07 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static bool	check_map(char **map)
-{
-	(void)map;
-	//flood fill or something
-	return(false);
-}
 
 static bool	check_format(char *path, char *expected_format)
 {
@@ -59,7 +52,8 @@ static void	free_matrix(void **matrix)
 	{
 		while (matrix[arr_i])
 		{
-			free(matrix[arr_i]);
+			if (matrix[arr_i])
+				free(matrix[arr_i]);
 			arr_i++;
 		}
 		free(matrix);
@@ -81,7 +75,7 @@ static char	**prepare_line(char *line)
 	int		part_count;
 
 	replace_whitespaces(line);
-	parts = ft_split(line, ' ');
+	parts = ft_split(line, ' '); //TODO: if everthing is ok, free part1 and assign part2 to a texture or color
 	if (!parts)
 		return (NULL);
 	part_count = ft_size_matrix(parts);
@@ -95,46 +89,55 @@ static char	**prepare_line(char *line)
 	return (parts);
 }
 
+char	**check_rgb_parts(char **rgb_parts)
+{
+	if (ft_size_matrix(rgb_parts) != 3 || !rgb_parts[0] || !rgb_parts[1] ||
+		!rgb_parts[2])
+	{	
+		free_matrix(rgb_parts);
+		return (false);
+	}
+	if (!ft_str_is_numeric(rgb_parts[0]) || !ft_str_is_numeric(rgb_parts[1]) || 
+		!ft_str_is_numeric(rgb_parts[2]) || ft_atoi(rgb_parts[0]) < 0 || 
+		ft_atoi(rgb_parts[0]) > 255 || ft_atoi(rgb_parts[1]) < 0 || 
+		ft_atoi(rgb_parts[1]) > 255 || ft_atoi(rgb_parts[2]) < 0 || 
+		ft_atoi(rgb_parts[2]) > 255)
+	{	
+		free_matrix(rgb_parts);
+		return (false);
+	}
+	return (true);
+}
+
 bool	validate_colors(t_cub *cub, char **parts, int *found)
 {
 	char	**rgb_parts;
 
-	if (!parts)
-		return (false);
 	rgb_parts = ft_split(parts[1], ',');
-	if (!rgb_parts || ft_size_matrix(rgb_parts) != 3 || !rgb_parts[0] || 
-		!rgb_parts[1] || !rgb_parts[2])
+	if (!rgb_parts || !check_rgb_parts(rgb_parts))
 		return (false);
-	if (!ft_isdigit(rgb_parts[0]) || !ft_isdigit(rgb_parts[1]) || 
-		!ft_isdigit(rgb_parts[2]) || ft_atoi(rgb_parts[0]) < 0 || 
-		ft_atoi(rgb_parts[0]) > 255 || ft_atoi(rgb_parts[1]) < 0 || 
-		ft_atoi(rgb_parts[1]) > 255 || ft_atoi(rgb_parts[2]) < 0 || 
-		ft_atoi(rgb_parts[2]) > 255)
-	{
-		free_matrix(rgb_parts);
-		return (false);
-	}
 	if (!ft_strcmp(parts[0], "F"))
 	{
-		if (cub->map_config.floor_clr.checked)
+		if (cub->map_config.floor_clr)
 		{
 			free_matrix(rgb_parts);
 			return (false);
 		}
-		cub->map_config.floor_clr.param = parts[1];
-		cub->map_config.floor_clr.checked = true;
+		cub->map_config.floor_clr = parts[1];
 	}
 	else if (!ft_strcmp(parts[0], "C"))
 	{
-		if (cub->map_config.ceiling_clr.checked)
+		if (cub->map_config.ceiling_clr)
 		{
 			free_matrix(rgb_parts);
 			return (false);
 		}
-		cub->map_config.ceiling_clr.param = parts[1];
-		cub->map_config.ceiling_clr.checked = true;
+		cub->map_config.ceiling_clr = parts[1];
 	}
+	if (parts[0])
+		free(parts[0]);
 	*found--;
+	return (true);
 }
 
 bool	file_exists(const char *path)
@@ -148,43 +151,36 @@ bool	file_exists(const char *path)
     return true;
 }
 
-
 bool	validate_textures(t_cub *cub, char **parts, int *found)
 {
-	if (!parts)
+	if (!check_format(parts[1], ".xpm") || !file_exists(parts[1]))
 		return (false);
 	if (!ft_strcmp(parts[0], "NO"))
 	{
-		if (cub->map_config.no_texture.checked || 
-		!check_format(parts[1], ".xpm") || !file_exists(parts[1]))
+		if (cub->map_config.no_texture)
 			return (false);
-		cub->map_config.no_texture.param = parts[1];
-		cub->map_config.no_texture.checked = true;
+		cub->map_config.no_texture = parts[1];
 	}
 	else if (!ft_strcmp(parts[0], "SO"))
 	{
-		if (cub->map_config.so_texture.checked || 
-		!check_format(parts[1], ".xpm") || !file_exists(parts[1]))
+		if (cub->map_config.so_texture)
 			return (false);
-		cub->map_config.so_texture.param = parts[1];
-		cub->map_config.so_texture.checked = true;
+		cub->map_config.so_texture = parts[1];
 	}
 	else if (!ft_strcmp(parts[0], "WE"))
 	{
-		if (cub->map_config.we_texture.checked || 
-		!check_format(parts[1], ".xpm") || !file_exists(parts[1]))
+		if (cub->map_config.we_texture)
 			return (false);
-		cub->map_config.we_texture.param = parts[1];
-		cub->map_config.we_texture.checked = true;
+		cub->map_config.we_texture = parts[1];
 	}
 	else if (!ft_strcmp(parts[0], "EA"))
 	{
-		if (cub->map_config.ea_texture.checked || 
-		!check_format(parts[1], ".xpm") || !file_exists(parts[1]))
+		if (cub->map_config.ea_texture)
 			return (false);
-		cub->map_config.ea_texture.param = parts[1];
-		cub->map_config.ea_texture.checked = true;
+		cub->map_config.ea_texture = parts[1];
 	}
+	if (parts[0])
+		free(parts[0]);
 	*found--;
 	return (true);
 }
@@ -221,6 +217,13 @@ static bool	validate_map_config_part1(t_cub *cub, int map_fd)
 	return (validate_map_config_part2(cub, map_fd));
 }
 
+static bool	check_map(char **map)
+{
+	(void)map;
+	//flood fill or something
+	return(false);
+}
+
 bool parse(t_cub *cub, char *path)
 {
 	(void)cub;
@@ -232,9 +235,9 @@ bool parse(t_cub *cub, char *path)
 	map_fd = open(path, O_RDONLY);
 	if (map_fd < 0)
 		return (false);
-	validate_map_config_part1(cub, map_fd);
+	if (!validate_map_config_part1(cub, map_fd))
+		return (false);
 	
-
 
 
 	// open file
