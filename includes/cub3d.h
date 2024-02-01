@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/01/31 16:03:18 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/01 15:53:07 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_player
 typedef struct s_hash_map
 {
 	char	*param;
-	bool	valid;
+	bool	checked;
 } 		t_hash_map;
 
 typedef struct s_map_config
@@ -67,7 +67,6 @@ typedef struct s_map_config
 	t_hash_map floor_clr;
 	t_hash_map ceiling_clr;
 	char	**map;
-	char	*sides[4];
 }				t_map_config;
 
 typedef struct s_cub
