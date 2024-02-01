@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/01/31 14:45:56 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:31:57 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main(int ac, char **av)
 {
 	t_cub cub;
 
-	ft_putstr_fd("Lets gooooo!", STDOUT_FILENO);
+	ft_putendl_fd("Lets gooooo!", STDOUT_FILENO);
 	
 	// check args
 	if (ac != 2)
@@ -31,7 +31,7 @@ int main(int ac, char **av)
 	if(!parse(&cub, av[1]))
 	{
 		ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
-		//exit (1);
+		exit (1);
 	}
 	
 	//start mlx

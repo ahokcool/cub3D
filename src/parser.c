@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:09:14 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 17:33:07 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:10:34 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	replace_whitespaces(char *line)
 	}
 }
 
-static void	free_matrix(void **matrix)
+static void	free_matrix(char **matrix)
 {
 	int	arr_i;
 
@@ -60,36 +60,14 @@ static void	free_matrix(void **matrix)
 	}
 }
 
-static bool	error_exit(char *error, char *line, char **components)
+static bool	error_exit(char *error, char **components)
 {
-	if (line)
-		free (line);
 	free_matrix(components);
-	ft_putendl_fd(2, error);
+	ft_putendl_fd(error, 2);
 	return (false);
 }
 
-static char	**prepare_line(char *line)
-{
-	char	**parts;
-	int		part_count;
-
-	replace_whitespaces(line);
-	parts = ft_split(line, ' '); //TODO: if everthing is ok, free part1 and assign part2 to a texture or color
-	if (!parts)
-		return (NULL);
-	part_count = ft_size_matrix(parts);
-	if (part_count != 2)
-	{
-		if (line)
-			free(line);
-		free_matrix(parts);
-		return (NULL);
-	}
-	return (parts);
-}
-
-char	**check_rgb_parts(char **rgb_parts)
+bool	check_rgb_parts(char **rgb_parts)
 {
 	if (ft_size_matrix(rgb_parts) != 3 || !rgb_parts[0] || !rgb_parts[1] ||
 		!rgb_parts[2])
@@ -136,7 +114,7 @@ bool	validate_colors(t_cub *cub, char **parts, int *found)
 	}
 	if (parts[0])
 		free(parts[0]);
-	*found--;
+	(*found)--;
 	return (true);
 }
 
@@ -181,8 +159,32 @@ bool	validate_textures(t_cub *cub, char **parts, int *found)
 	}
 	if (parts[0])
 		free(parts[0]);
-	*found--;
+	(*found)--;
 	return (true);
+}
+
+static char	**prepare_parts(char *line)
+{
+	char	**parts;
+	int		part_count;
+
+		// printf ("jajajajajja %s\n", line);
+	replace_whitespaces(line);
+	parts = ft_split(line, ' ');
+		// printf ("Forking %s\n", parts[0]);
+	if (!parts)
+		return (NULL);
+	if (line)
+		free (line);
+	part_count = ft_size_matrix(parts);
+	if (part_count != 2)
+	{
+		free_matrix(parts);
+		// printf ("JOAOOOOOOOOOOOOOOOOOOOOOO\n");
+
+		return (NULL);
+	}
+	return (parts);
 }
 
 static bool	validate_map_config_part1(t_cub *cub, int map_fd)
@@ -197,24 +199,24 @@ static bool	validate_map_config_part1(t_cub *cub, int map_fd)
 		line = gnl(map_fd);
 		if (!line)
 			return (false);
-		parts = prepare_line(line);
+		parts = prepare_parts(line);
 		if (!parts)
-			return (error_exit("Wrong map file configuration!", line, parts));
+			return (error_exit("Wrong map file configuration!", parts));
 		if (parts[0] && (!ft_strcmp(parts[0], "F") || !ft_strcmp(parts[0], "C")))
 		{
 			if (!validate_colors(cub, parts, &found))
-				return (error_exit("Wrong color format", line, parts));
+				return (error_exit("Wrong color format", parts));
 		}
 		else if (parts[0] && (!ft_strcmp(parts[0], "NO") || !ft_strcmp(parts[0], "SO") || 
 			!ft_strcmp(parts[0], "WE") || !ft_strcmp(parts[0], "EA")))
 		{
 			if (!validate_textures(cub, parts, &found))
-				return (error_exit("Wrong texture format", line, parts));
+				return (error_exit("Wrong texture format", parts));
 		}
 		else
-			return (error_exit("Unknown map components!", line, parts));
+			return (error_exit("Unknown map components!", parts));
 	}
-	return (validate_map_config_part2(cub, map_fd));
+	return (true);
 }
 
 static bool	check_map(char **map)

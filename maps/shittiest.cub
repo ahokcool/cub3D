@@ -1,7 +1,7 @@
-               NO                        ./textures/greystone.xpm                 
-SO ./textures/purplestone.xpm
-WE ./textures/redbrick.xpm
-EA ./textures/wood.xpm
+NO ./textures/testwall.xpm                 
+SO ./textures/testwall.xpm
+WE ./textures/testwall.xpm
+EA ./textures/testwall.xpm
 
 F 77,92,53
 C 163,208,230
