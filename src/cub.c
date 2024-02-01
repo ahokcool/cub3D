@@ -6,13 +6,13 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/01/30 11:34:48 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/01 17:50:41 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_cub(t_cub *cub)
+void	ini_cub(t_cub *cub)
 {
 	cub->win.mlx = NULL;
 	cub->win.win = NULL;
@@ -33,6 +33,7 @@ void	init_cub(t_cub *cub)
 	cub->player.pos_x = 0;
 	cub->player.pos_y = 0;
 	cub->player.rot_angle = 0;
+	cub->minimap.mini_map_str = NULL;
 }
 
 void	free_cub(t_cub *cub)

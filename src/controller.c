@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/01/31 18:07:06 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/01 17:56:36 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ int	deal_key(int key, t_cub *cub)
 		cub->show_mini = !cub->show_mini;
 	move(key, cub);
 	turn(key, cub);
-	eqip_imgs(cub);
+	update_model(cub);
 	return (0);
 }

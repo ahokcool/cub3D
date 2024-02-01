@@ -6,21 +6,38 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 19:06:19 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/01 17:02:59 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ini_img(t_cub *cub, t_img *img)
+void	ini_img_screen(t_cub *cub, t_img *img)
 {
 	size_t	img_size;
 
+	img->height = cub->win.win_height;
+	img->width = cub->win.win_width;
 	img->mlx_img = mlx_new_image(cub->win.mlx, cub->win.win_width, cub->win.win_height);
 	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp),
 			&(img->line_len), &(img->endian));
-	img_size = cub->win.win_height * cub->win.win_width * sizeof(img->bpp);
+	img_size = img->height * img->width * sizeof(img->bpp);
 	ft_bzero(img->addr, img_size);
+}
+void	ini_img_mini(t_cub *cub, t_img *img)
+{
+	size_t	img_size;
+	int		heigth;
+
+	heigth = MINIMAP_PIXEL_WIDTH*(MINIMAP_BORDER_SIZE*2+1);
+	img->mlx_img = mlx_new_image(cub->win.mlx, heigth, heigth);
+	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp),
+			&(img->line_len), &(img->endian));
+	img_size = img->width * img->height * (img->bpp / 8);
+	img->height = heigth;
+	img->width = heigth;
+	ft_bzero(img->addr, img_size);
+	printf("minimap image dimensions (%d, %d)\n", img->width, img->height);
 }
 
 // void	img_pix_put(t_model *mod, t_pnt_2d *point, int clr)

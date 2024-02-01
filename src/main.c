@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/01/30 11:46:35 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/01 18:47:59 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,10 @@ int main(int ac, char **av)
 		exit (1);
 	}
 	
-	init_cub(&cub);
+	cub = ini_main();	
+	config_main(&cub,av[1]);
+	mlx_key_hook(cub.win.win, deal_key, &cub);
+	mlx_loop(cub.win.mlx);
 	
-	// parse map
-	if(!parse(&cub, av[1]))
-	{
-		ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
-		//exit (1);
-	}
-	
-	//start mlx
-	mlx_main(&cub);
-
 	return (0);
 }

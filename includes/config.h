@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
-/*   Updated: 2024/01/31 18:35:29 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/01 19:06:32 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define K_ARROW_RIGHT 65363
 # define K_ARROW_DOWN 65364
 # define MINIMAP_PIXEL_WIDTH 10
+# define MINIMAP_BORDER_SIZE 2 //if value is 3 it will be a 7x7 square
 # define TILE_SIZE 1
 
 #endif

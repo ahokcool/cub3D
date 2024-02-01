@@ -40,6 +40,7 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	img.c												\
 	dbg.c												\
 	minimap.c											\
+	utils.c												\
 	player.c											\
 	)
 
