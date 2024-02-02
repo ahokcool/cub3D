@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:40:40 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 19:21:33 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/02 15:16:20 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,21 @@ void	config_main(t_cub *cub, char *path)
 	ini_img_mini(cub, &cub->img_mini);
 	ini_minimap(cub);
 	update_model(cub);
-
+	ini_vision(cub);
 
 	//View
+}
+
+void angleToVector(double angleDegrees, t_pnt_2d_dbl *vector)
+{
+	// Adjust the angle since 0 degrees is north
+    double adjustedAngle = angleDegrees - 90.0;
+
+    // Convert the adjusted angle to radians
+    double angleRadians = adjustedAngle * (M_PI / 180.0);
+	printf("roation in rad %f\n",angleRadians);
+
+    // Calculate the normalized vector components
+    vector->x = (double)cos(angleRadians);
+    vector->y = (double)sin(angleRadians);
 }

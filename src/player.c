@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 18:07:20 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/02 17:31:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	get_player_pos(t_cub *cub, char format)
 {
 	if (format == 'x')
-		return (cub->player.pos_x / TILE_SIZE);
+		return (cub->player.pos_x);
 	else if (format == 'y')
-		return (cub->player.pos_y / TILE_SIZE);
+		return (cub->player.pos_y);
 	else
 		return (0);
 }
@@ -36,8 +36,8 @@ void ini_player(t_cub *cub)
 		{
 			if (cub->map[y][x] == 'N' || cub->map[y][x] == 'S' || cub->map[y][x] == 'E' || cub->map[y][x] == 'W')
 			{
-				cub->player.pos_x = x * TILE_SIZE;
-				cub->player.pos_y = y * TILE_SIZE;
+				cub->player.pos_x = x;
+				cub->player.pos_y = y;
 				if (cub->map[y][x] == 'N')
 					cub->player.rot_angle = 0;
 				else if (cub->map[y][x] == 'E')
@@ -79,9 +79,9 @@ void player_move(t_cub *cub, char direction)
     // Calculate the rotated walking vector
     double walk_x = walk_vectors[dir_index][0] * cos(rad) - walk_vectors[dir_index][1] * sin(rad);
     double walk_y = walk_vectors[dir_index][0] * sin(rad) + walk_vectors[dir_index][1] * cos(rad);
-
+	printf("walking vector: %f, %f\n", walk_x, walk_y);
     // Update player's position if allowed
 	// TODO: check if the player is walking into a wall
-	cub->player.pos_x += walk_x;
-	cub->player.pos_y += walk_y;
+	cub->player.pos_x += (walk_x / TILE_SIZE);
+	cub->player.pos_y += (walk_y / TILE_SIZE);
 }

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 17:56:36 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/02 17:46:45 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	turn(int key, t_cub *cub)
 {
 	double	offset;
 
-	offset = 90;
+	offset = 22.5;
 	// call a function that chanes the struct params of the player ( changing the model)
 	//after changing the model we have to calculate the new images (ray and mini) and show them
 	if (key == K_ARROW_LEFT)
@@ -34,9 +34,6 @@ static void	turn(int key, t_cub *cub)
 
 static void	move(int key, t_cub *cub)
 {
-	int		offset;
-
-	offset = 1;
 	if (key == 'a')
 		player_move(cub, 'L');
 	else if (key == 'd')

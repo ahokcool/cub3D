@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 19:21:15 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/02 17:45:29 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../mlx/mlx.h"
 # include "config.h"
 # include <stdbool.h>
+# include <stdint.h>
 
 typedef struct s_clr
 {
@@ -67,6 +68,31 @@ typedef struct s_minimap
 	int				y1;
 }						t_minimap;
 
+typedef struct s_pnt_2d
+{
+	int					x;
+	int					y;
+}						t_pnt_2d;
+
+typedef struct s_pnt_3d
+{
+	int					x;
+	int					y;
+	int					z;
+}						t_pnt_3d;
+
+typedef struct s_pnt_2_dbl
+{
+	double				x;
+	double				y;
+}						t_pnt_2d_dbl;
+
+typedef struct s_raycast
+{
+	t_pnt_2d_dbl		v_direction;
+	t_pnt_2d_dbl		v_plane;	
+} 						t_raycast;
+
 typedef struct s_cub
 {
 	t_win				win;
@@ -76,6 +102,7 @@ typedef struct s_cub
 	t_player			player;
 	t_minimap			minimap;
 	bool				show_mini;
+	t_raycast			ray;
 }						t_cub;
 
 void	ini_cub(t_cub *cub);
@@ -83,8 +110,9 @@ bool 	parse(t_cub *cub, char *path);
 void	mlx_main(t_cub *cub);
 void	ini_view(t_cub *cub);
 void	ini_img_screen(t_cub *cub, t_img *img);
+void 	angleToVector(double angleDegrees, t_pnt_2d_dbl *vector);
 void	ini_img_mini(t_cub *cub, t_img *img);
-void	update_minimap(t_cub *cub);
+void	update_minimap_frame(t_cub *cub);
 void	create_frame(t_cub *cub);
 int		deal_key(int key, t_cub *cub);
 void 	update_model(t_cub *cub);
@@ -102,4 +130,8 @@ void player_move(t_cub *cub, char direction);
 void	dbg_put_minimap_small(t_cub *cub);
 void	dbg_put_minimap_small(t_cub *cub);
 void create_test_map_rectangle(t_cub *cub);
+void	ini_vision(t_cub *cub);
+void	update_ray_frame(t_cub *cub);
+char	*player_cardinal_direction(t_cub *cub);
+
 #endif

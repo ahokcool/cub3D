@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 19:17:41 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/02 17:34:01 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	put_tile(t_cub *cub, int x, int y, t_img *img)
 				*(unsigned int*)dst_pxl = *(unsigned int*)src_pxl;
 			}
 			else
-				printf("put_tile (%d, %d) out of bounds\n");
+				printf("put_tile (%d, %d) out of bounds\n", x + j, y + i);
 			j++;
 		}
 		i++;
@@ -115,7 +115,7 @@ static void	update_minimap_string(t_cub *cub)
 	{
 		while (cord[0] <= cub->minimap.x1)
 		{
-			if (cord[0] == player[0] && cord[1] == player[1])
+			if (cord[0] == (int)player[0] && cord[1] == (int)player[1])
 				cub->minimap.mini_map_str[i] = 'P';
 			else
 				cub->minimap.mini_map_str[i] = cub->map[cord[1]][cord[0]];
@@ -136,7 +136,7 @@ void	minimap_main(t_cub *cub)
 	update_minimap_string(cub);
 }
 
-void	update_minimap(t_cub *cub)
+void	update_minimap_frame(t_cub *cub)
 {
 	// put_wall(cub, 0, 0);
 	int	i;

@@ -6,22 +6,40 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:43:08 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 19:14:45 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/02 17:50:17 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+char	*player_cardinal_direction(t_cub *cub)
+{
+		if (cub->player.rot_angle > 337.5 || cub->player.rot_angle <= 22.5)
+	    return ("🡱"); // North
+	else if (cub->player.rot_angle > 22.5 && cub->player.rot_angle <= 67.5)
+	    return ("🡵"); // North-East
+	else if (cub->player.rot_angle > 67.5 && cub->player.rot_angle <= 112.5)
+	    return ("🡲"); // East
+	else if (cub->player.rot_angle > 112.5 && cub->player.rot_angle <= 157.5)
+	    return ("🡶"); // South-East
+	else if (cub->player.rot_angle > 157.5 && cub->player.rot_angle <= 202.5)
+	    return ("🡳"); // South
+	else if (cub->player.rot_angle > 202.5 && cub->player.rot_angle <= 247.5)
+	    return ("🡷"); // South-West
+	else if (cub->player.rot_angle > 247.5 && cub->player.rot_angle <= 292.5)
+	    return ("🡰"); // West
+	else if (cub->player.rot_angle > 292.5 && cub->player.rot_angle <= 337.5)
+	    return ("🡴"); // North-West
+	return (" "); // This case may not be needed, assuming the rotation angle is always within 0-360 degrees
+}
 void	dbg_put_player(t_cub *cub)
 {
-	ft_putstr_fd("Player:\n", STDOUT_FILENO);
-	ft_putstr_fd("pos_x: ", STDOUT_FILENO);
-	ft_putnbr_fd((int)cub->player.pos_x, STDOUT_FILENO);
-	ft_putstr_fd("\npos_y: ", STDOUT_FILENO);
-	ft_putnbr_fd((int)cub->player.pos_y, STDOUT_FILENO);
-	ft_putstr_fd("\nrot_angle: ", STDOUT_FILENO);
-	ft_putnbr_fd(cub->player.rot_angle, STDOUT_FILENO);
-	ft_putstr_fd("\n", STDOUT_FILENO);
+	printf("------\n");
+	printf("Player:\n");
+	printf("pos_x: %f\n", cub->player.pos_x);
+	printf("pos_y: %f\n", cub->player.pos_y);
+	printf("rot_angle: %f\n", cub->player.rot_angle);
+	printf("------\n");
 }
 
 void	dbg_put_minimap_big(t_cub *cub)
@@ -36,17 +54,8 @@ void	dbg_put_minimap_big(t_cub *cub)
 		x = 0;
 		while (cub->map[y][x])
 		{
-			if(x == (int)(cub->player.pos_x / TILE_SIZE) && y == (int)(cub->player.pos_y / TILE_SIZE))
-			{
-				if (cub->player.rot_angle == 0)
-					ft_putstr_fd("N", STDOUT_FILENO);
-				else if (cub->player.rot_angle == 90)
-					ft_putstr_fd("E", STDOUT_FILENO);
-				else if (cub->player.rot_angle == 180)
-					ft_putstr_fd("S", STDOUT_FILENO);
-				else if (cub->player.rot_angle == 270)
-					ft_putstr_fd("W", STDOUT_FILENO);
-			}
+			if(x == (int)(cub->player.pos_x) && y == (int)(cub->player.pos_y))
+				ft_putstr_fd(player_cardinal_direction(cub), STDOUT_FILENO);
 			else if(cub->map[y][x] == '1')
 				ft_putstr_fd("#", STDOUT_FILENO);
 			else if(cub->map[y][x] == '0')

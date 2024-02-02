@@ -33,14 +33,17 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	main.c												\
 	cub.c												\
 	mlx_main.c											\
+	ray.c												\
 	parser.c											\
 	controller.c										\
 	view.c												\
 	model.c												\
+	dda.c												\
 	img.c												\
 	dbg.c												\
 	minimap.c											\
 	utils.c												\
+	vision.c											\
 	player.c											\
 	)
 
