@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:09:14 by astein            #+#    #+#             */
-/*   Updated: 2024/02/02 18:43:50 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:53:55 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	assign_rgb(t_cub *cub, char **parts, char **rgb_colors, int flag)
 {
 	if (flag == 0)
 	{
-		cub->map_config.floor_clr.red = (uint8_t)ft_atoi(rgb_colors[0]); //TODO: cast
+		cub->map_config.floor_clr.red = (uint8_t)ft_atoi(rgb_colors[0]);
 		cub->map_config.floor_clr.green = (uint8_t)ft_atoi(rgb_colors[1]);
 		cub->map_config.floor_clr.blue = (uint8_t)ft_atoi(rgb_colors[2]);
 	}
