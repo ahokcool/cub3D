@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 16:53:59 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:20:51 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../mlx/mlx.h"
 # include "config.h"
 # include <stdbool.h>
+# include <stdint.h> 
 
 typedef struct s_clr
 {
@@ -52,14 +53,21 @@ typedef struct s_player
 	double			plane_y;
 }						t_player;
 
+typedef struct	s_color
+{
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
+}	t_color;
+
 typedef struct s_map_config
 {
 	char	*no_texture;
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
-	char	*floor_clr;
-	char	*ceiling_clr;
+	t_color	floor_clr;
+	t_color ceiling_clr;
 	char	**map;
 }				t_map_config;
 

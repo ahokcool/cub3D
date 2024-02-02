@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:09:14 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 22:35:21 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:43:50 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	check_format(char *path, char *expected_format)
 	return (false);
 }
 
-/* if it is one of the whitespaces */
+/* check if a character is one of the whitespaces */
 bool	ft_isspace(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\a'
@@ -43,36 +43,19 @@ static void	replace_whitespaces(char *line)
 	}
 }
 
-static void	free_matrix(char **matrix)
-{
-	int	arr_i;
-
-	arr_i = 0;
-	if (matrix)
-	{
-		while (matrix[arr_i])
-		{
-			if (matrix[arr_i])
-				free(matrix[arr_i]);
-			arr_i++;
-		}
-		free(matrix);
-	}
-}
-
 static bool	error_exit(char *error, char **components)
 {
-	free_matrix(components);
+	free_whatever("m", components);
 	ft_putendl_fd(error, 2);
 	return (false);
 }
 
-bool	check_rgb_parts(char **rgb_parts)
+bool	check_rgb_colors(char **rgb_parts)
 {
 	if (ft_size_matrix(rgb_parts) != 3 || !rgb_parts[0] || !rgb_parts[1] ||
 		!rgb_parts[2])
 	{	
-		free_matrix(rgb_parts);
+		free_whatever("m", rgb_parts);
 		return (false);
 	}
 	if (!ft_str_is_numeric(rgb_parts[0]) || !ft_str_is_numeric(rgb_parts[1]) || 
@@ -81,39 +64,54 @@ bool	check_rgb_parts(char **rgb_parts)
 		ft_atoi(rgb_parts[1]) > 255 || ft_atoi(rgb_parts[2]) < 0 || 
 		ft_atoi(rgb_parts[2]) > 255)
 	{	
-		free_matrix(rgb_parts);
+		free_whatever("m", rgb_parts);
 		return (false);
 	}
 	return (true);
 }
 
+void	assign_rgb(t_cub *cub, char **parts, char **rgb_colors, int flag)
+{
+	if (flag == 0)
+	{
+		cub->map_config.floor_clr.red = (uint8_t)ft_atoi(rgb_colors[0]); //TODO: cast
+		cub->map_config.floor_clr.green = (uint8_t)ft_atoi(rgb_colors[1]);
+		cub->map_config.floor_clr.blue = (uint8_t)ft_atoi(rgb_colors[2]);
+	}
+	else
+	{
+		cub->map_config.ceiling_clr.red = (uint8_t)ft_atoi(rgb_colors[0]);
+		cub->map_config.ceiling_clr.green = (uint8_t)ft_atoi(rgb_colors[1]);
+		cub->map_config.ceiling_clr.blue = (uint8_t)ft_atoi(rgb_colors[2]);
+	}
+	free_whatever("mm", rgb_colors, parts);
+}
+
 bool	validate_colors(t_cub *cub, char **parts, int *found)
 {
-	char	**rgb_parts;
+	char	**rgb_colors;
 
-	rgb_parts = ft_split(parts[1], ',');
-	if (!rgb_parts || !check_rgb_parts(rgb_parts))
+	rgb_colors = ft_split(parts[1], ',');
+	if (!rgb_colors || !check_rgb_colors(rgb_colors))
 		return (false);
 	if (!ft_strcmp(parts[0], "F"))
 	{
-		if (cub->map_config.floor_clr)
+		if (cub->map_config.floor_clr.red != (uint8_t)260)
 		{
-			free_matrix(rgb_parts);
+			free_whatever("m", rgb_colors);
 			return (false);
 		}
-		cub->map_config.floor_clr = parts[1];
+		assign_rgb(cub, parts, rgb_colors, 0);
 	}
 	else if (!ft_strcmp(parts[0], "C"))
 	{
-		if (cub->map_config.ceiling_clr)
+		if (cub->map_config.ceiling_clr.red != (uint8_t)260)
 		{
-			free_matrix(rgb_parts);
+			free_whatever("m", rgb_colors);
 			return (false);
 		}
-		cub->map_config.ceiling_clr = parts[1];
+		assign_rgb(cub, parts, rgb_colors, 1);
 	}
-	if (parts[0])
-		free(parts[0]);
 	(*found)--;
 	return (true);
 }
@@ -124,9 +122,9 @@ bool	file_exists(const char *path)
 
 	fd = open(path, O_RDONLY);
     if (fd == -1) 
-        return false;
+        return (false);
     close(fd);
-    return true;
+    return (true);
 }
 
 bool	validate_textures(t_cub *cub, char **parts, int *found)
@@ -157,8 +155,7 @@ bool	validate_textures(t_cub *cub, char **parts, int *found)
 			return (false);
 		cub->map_config.ea_texture = parts[1];
 	}
-	if (parts[0])
-		free(parts[0]);
+	free_whatever("p", parts[0]);
 	(*found)--;
 	return (true);
 }
@@ -184,18 +181,17 @@ static char	**prepare_parts(char *line)
 	parts = ft_split(line, ' ');
 	if (!parts)
 		return (NULL);
-	if (line)
-		free (line);
+	free_whatever("p", line);
 	part_count = ft_size_matrix(parts);
 	if (part_count != 2)
 	{
-		free_matrix(parts);
+		free_whatever("m", parts);
 		return (NULL);
 	}
 	return (parts);
 }
 
-static bool	validate_map_config_part1(t_cub *cub, int map_fd)
+static bool	check_textures_and_colors(t_cub *cub, int map_fd)
 {
 	char	*line;
 	char	**parts;
@@ -203,18 +199,18 @@ static bool	validate_map_config_part1(t_cub *cub, int map_fd)
 
 	found = 6;
 	parts = NULL;
-	while (found >= 0)
+	while (found > 0)
 	{
 		line = gnl(map_fd);
 		if (!line)
 			return (false);
 		if (empty_line(line))
 		{
-			if (line)
-				free (line);
+			free_whatever("p", line);
 			continue ;
-		}	
-		if (!prepare_parts(line))
+		}
+		parts = prepare_parts(line);
+		if (!parts)
 			return (error_exit("Wrong map file configuration!", parts));
 		if (parts[0] && (!ft_strcmp(parts[0], "NO") || !ft_strcmp(parts[0], "SO") || //TODO: move these 2 checks to a separated function
 			!ft_strcmp(parts[0], "WE") || !ft_strcmp(parts[0], "EA")))
@@ -250,8 +246,9 @@ bool parse(t_cub *cub, char *path)
 	map_fd = open(path, O_RDONLY);
 	if (map_fd < 0)
 		return (false);
-	if (!validate_map_config_part1(cub, map_fd))
+	if (!check_textures_and_colors(cub, map_fd))
 		return (false);
+	
 	
 
 
@@ -281,6 +278,6 @@ bool parse(t_cub *cub, char *path)
 
 	
 	// close file
-	
+	return (false);
 	// return (check_map(cub->map));
 }

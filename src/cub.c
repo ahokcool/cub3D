@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 16:54:51 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:25:40 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	init_map(t_cub *cub)
 	cub->map_config.so_texture = NULL;
 	cub->map_config.we_texture = NULL;
 	cub->map_config.ea_texture = NULL;
-	cub->map_config.floor_clr = NULL;
-	cub->map_config.ceiling_clr = NULL;
+	cub->map_config.floor_clr.red = (uint8_t)260;
+	cub->map_config.ceiling_clr.red = (uint8_t)260;
 	cub->map_config.map = NULL;
 }
 
