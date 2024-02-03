@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/02 16:20:51 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/03 13:45:43 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,21 @@ void	ini_win(t_cub *cub);
 void	ini_img(t_cub *cub, t_img *img);
 void	update_view(t_cub *cub);
 int		deal_key(int key, t_cub *cub);
-void eqip_imgs(t_cub *cub);
+void 	eqip_imgs(t_cub *cub);
 
+/*********************************** PARSING **********************************/
+
+// utils
+bool	check_format(char *path, char *expected_format);
+bool	ft_isspace(char c);
+bool	file_exists(const char *path);
+bool	is_line_empty(char *line);
+void	replace_whitespaces(char *line);
+
+// parse textures
+bool	check_and_assign_textures(t_cub *cub, char **parts, int *found);
+
+// parse colors
+bool	check_and_assign_colors(t_cub *cub, char **parts, int *found);
 
 #endif
