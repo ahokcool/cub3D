@@ -1,7 +1,7 @@
-NO ../textures/testwall.xpm
-SO ../textures/testwall.xpm
-WE ../textures/testwall.xpm
-EA ../textures/testwall.xpm
+NO ./textures/testwall.xpm
+SO ./textures/testwall.xpm
+WE ./textures/testwall.xpm
+EA ./textures/testwall.xpm
 
 F 220,100,0
 C 225,30,0

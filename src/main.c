@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 18:31:57 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/03 15:51:50 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(int ac, char **av)
 	if(!parse(&cub, av[1]))
 	{
 		ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
+		free_map(&cub);
 		exit (1);
 	}
 	

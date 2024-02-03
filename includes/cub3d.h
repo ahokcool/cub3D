@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/03 13:45:43 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:01:10 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_cub
 }						t_cub;
 
 void	init_cub(t_cub *cub);
+void	free_map(t_cub *cub);
 bool 	parse(t_cub *cub, char *path);
 void	mlx_main(t_cub *cub);
 void	ini_win(t_cub *cub);
@@ -99,10 +100,8 @@ bool	file_exists(const char *path);
 bool	is_line_empty(char *line);
 void	replace_whitespaces(char *line);
 
-// parse textures
-bool	check_and_assign_textures(t_cub *cub, char **parts, int *found);
-
-// parse colors
-bool	check_and_assign_colors(t_cub *cub, char **parts, int *found);
+bool	parse_textures_colors(t_cub *cub, int map_fd);
+bool	handle_texture_line(t_cub *cub, char **parts, int *found);
+bool	handle_color_line(t_cub *cub, char **parts, int *found);
 
 #endif

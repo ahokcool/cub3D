@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_colors.c                                     :+:      :+:    :+:   */
+/*   handle_colors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 13:37:11 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/03 13:59:21 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/03 15:50:37 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	check_rgb_colors(char **rgb_parts)
 	return (true);
 }
 
-static void	assign_rgb(t_cub *cub, char **parts, char **rgb_colors, int flag)
+static void	assign_rgb(t_cub *cub, char **rgb_colors, int flag)
 {
 	if (flag == 0)
 	{
@@ -46,10 +46,10 @@ static void	assign_rgb(t_cub *cub, char **parts, char **rgb_colors, int flag)
 		cub->map_config.ceiling_clr.green = (uint8_t)ft_atoi(rgb_colors[1]);
 		cub->map_config.ceiling_clr.blue = (uint8_t)ft_atoi(rgb_colors[2]);
 	}
-	free_whatever("mm", rgb_colors, parts);
+	free_whatever("m", rgb_colors);
 }
 
-bool	check_and_assign_colors(t_cub *cub, char **parts, int *found)
+bool	handle_color_line(t_cub *cub, char **parts, int *found)
 {
 	char	**rgb_colors;
 
@@ -63,7 +63,7 @@ bool	check_and_assign_colors(t_cub *cub, char **parts, int *found)
 			free_whatever("m", rgb_colors);
 			return (false);
 		}
-		assign_rgb(cub, parts, rgb_colors, 0);
+		assign_rgb(cub, rgb_colors, 0);
 	}
 	else if (!ft_strcmp(parts[0], "C"))
 	{
@@ -72,7 +72,7 @@ bool	check_and_assign_colors(t_cub *cub, char **parts, int *found)
 			free_whatever("m", rgb_colors);
 			return (false);
 		}
-		assign_rgb(cub, parts, rgb_colors, 1);
+		assign_rgb(cub, rgb_colors, 1);
 	}
 	(*found)--;
 	return (true);
