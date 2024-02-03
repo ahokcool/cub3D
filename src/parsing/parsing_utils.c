@@ -6,12 +6,13 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 13:29:38 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/03 14:08:35 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:44:02 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/* Checks is the file has an expected format */
 bool	check_format(char *path, char *expected_format)
 {
 	char	*file_format;
@@ -22,24 +23,29 @@ bool	check_format(char *path, char *expected_format)
 	return (false);
 }
 
-/* check if a character is one of the whitespaces */
+/* Checks if the character is one of the whitespaces */
 bool	ft_isspace(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\a'
 		|| c == '\b' || c == '\f' || c == '\r');
 }
 
+/* Checks if the file exists */
 bool	file_exists(const char *path)
 {
-    int	fd;
+	int	fd;
 
 	fd = open(path, O_RDONLY);
-    if (fd == -1) 
-        return (false);
-    close(fd);
-    return (true);
+	if (fd == -1) 
+		return (false);
+	close(fd);
+	return (true);
 }
 
+/* 
+	Traverses through the string and replaces all the whitespace characters by 
+	spaces
+ */
 void	replace_whitespaces(char *line)
 {
 	int	i;
@@ -54,14 +60,18 @@ void	replace_whitespaces(char *line)
 	}
 }
 
+/*
+	First replaces all the whitespaces in the line and then checks if the line 
+	is empty
+*/
 bool	is_line_empty(char *line)
 {
 	replace_whitespaces(line);
-    while (*line)
+	while (*line)
 	{
-        if (!ft_isspace((unsigned char)*line))
-            return (false);        
+		if (!ft_isspace((unsigned char)*line))
+			return (false);
 		line++;
-    }
-    return (true);
+	}
+	return (true);
 }

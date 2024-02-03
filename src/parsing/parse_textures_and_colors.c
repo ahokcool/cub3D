@@ -6,23 +6,25 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:31:58 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/03 16:02:08 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:49:17 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	is_texture_or_color(char *param, int flag)
+/* Checks if a key is one of the textures or color names */
+static bool	is_texture_or_color(char *key, int flag)
 {
 	if (flag == 0)
 	{
-		return (!ft_strcmp(param, "NO") || !ft_strcmp(param, "SO")
-			|| !ft_strcmp(param, "WE") || !ft_strcmp(param, "EA"));
+		return (!ft_strcmp(key, "NO") || !ft_strcmp(key, "SO")
+			|| !ft_strcmp(key, "WE") || !ft_strcmp(key, "EA"));
 	}
 	else
-		return (!ft_strcmp(param, "F") || !ft_strcmp(param, "C"));
+		return (!ft_strcmp(key, "F") || !ft_strcmp(key, "C"));
 }
 
+/* Prints an error message and frees memory */
 static bool	parsing_error(t_cub *cub, char *error, char **parts)
 {
 	free_whatever("m", parts);
@@ -30,6 +32,7 @@ static bool	parsing_error(t_cub *cub, char *error, char **parts)
 	return (false);
 }
 
+/* Splits the string and validates substrings */
 static char	**prepare_parts(char *line)
 {
 	char	**parts;
@@ -49,6 +52,7 @@ static char	**prepare_parts(char *line)
 	return (parts);
 }
 
+/* Checks for the correct configuration of the components */
 static bool	check_textures_colors(t_cub *cub, char *line, int *found)
 {
 	char	**parts;
@@ -72,7 +76,13 @@ static bool	check_textures_colors(t_cub *cub, char *line, int *found)
 	return (true);
 }
 
-bool	parse_textures_colors(t_cub *cub, int map_fd)
+/*
+	Receives the fd of the configuration file
+	
+	Uses 'get_next_line' to read it line by line to handle textures and colors
+	components
+*/
+bool	parse_textures_colors(t_cub *cub, int cf_fd)
 {
 	char	*line;
 	char	**parts;
@@ -81,7 +91,7 @@ bool	parse_textures_colors(t_cub *cub, int map_fd)
 	found = 6;
 	while (found > 0)
 	{
-		line = gnl(map_fd);
+		line = gnl(cf_fd);
 		if (!line)
 			return (false);
 		if (is_line_empty(line))
@@ -92,5 +102,14 @@ bool	parse_textures_colors(t_cub *cub, int map_fd)
 		if (!check_textures_colors(cub, line, &found))
 			return (false);
 	}
+	/* ---------------------- Textures and colors test ---------------------- */
+	// printf ("TEXTURES: \n NO - %s\n SO - %s\n WE - %s\n EA - %s\n", 
+	// 	cub->map_config.no_texture, cub->map_config.so_texture,
+	// 	cub->map_config.we_texture, cub->map_config.ea_texture);
+	// printf ("COLORS: \n Floor: \n Red - %d\n Green - %d\n Blue - %d\n \
+	// 				 \n Ceiling: \n Red - %d\n Green - %d\n Blue - %d\n",
+	// 		cub->map_config.floor_clr.red, cub->map_config.floor_clr.green, cub->map_config.floor_clr.blue,
+	// 		cub->map_config.ceiling_clr.red, cub->map_config.ceiling_clr.green, cub->map_config.ceiling_clr.blue);
+	// -------------------------------------------------------------------------
 	return (true);
 }

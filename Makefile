@@ -33,7 +33,7 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	main.c												\
 	cub.c												\
 	mlx_main.c											\
-	parsing/parser.c									\
+	parsing/parsing_main.c								\
 	parsing/parsing_utils.c								\
 	parsing/handle_textures.c							\
 	parsing/handle_colors.c								\

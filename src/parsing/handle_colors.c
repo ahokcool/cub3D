@@ -6,12 +6,13 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 13:37:11 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/03 15:50:37 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:44:13 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/* Accepts a matrix which contains rgb colors and validates them */
 static bool	check_rgb_colors(char **rgb_parts)
 {
 	if (ft_size_matrix(rgb_parts) != 3 || !rgb_parts[0] || !rgb_parts[1]
@@ -32,6 +33,7 @@ static bool	check_rgb_colors(char **rgb_parts)
 	return (true);
 }
 
+/* Assignes rgb colors to the structure */
 static void	assign_rgb(t_cub *cub, char **rgb_colors, int flag)
 {
 	if (flag == 0)
@@ -49,6 +51,9 @@ static void	assign_rgb(t_cub *cub, char **rgb_colors, int flag)
 	free_whatever("m", rgb_colors);
 }
 
+/*
+	Responsible for validation and assignment the color parts of a config file
+*/
 bool	handle_color_line(t_cub *cub, char **parts, int *found)
 {
 	char	**rgb_colors;
