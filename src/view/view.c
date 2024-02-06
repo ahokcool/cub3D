@@ -6,11 +6,36 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 15:57:05 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 22:45:50 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	view(t_cub *cub)
+{
+	// design the images for
+	// 1. the 3dmap
+	// and if booleans are true:
+	// 2. the minimap
+	// 3. the 2d map
+	// changing the mlx img buffers
+
+	// when all images are calculated flush them to the window
+	//mlx_put_image_to_window...
+}
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------
+//OLD SHIT BELOW!!
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
 
 void	ini_view(t_cub *cub)
 {

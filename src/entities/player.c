@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 21:52:28 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 22:51:08 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,9 @@ void player_move(t_cub *cub, char direction)
 	// TODO: check if the player is walking into a wall
 	cub->player.pos_x += (walk_x / TILE_SIZE);
 	cub->player.pos_y += (walk_y / TILE_SIZE);
+}
+
+void	free_player(t_player *player)
+{
+	(void)player;
 }

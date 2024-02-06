@@ -6,11 +6,54 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:36 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 01:19:29 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 22:43:05 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	model(t_cub *cub)
+{
+	// calculate everything realted to the model
+	// DONT CALCULATE THE WALL LINE HEIGT FOR EACH COLUMN, DO IT IN THE VIEW
+	
+	//all the math, the raycasting (including DDA)
+	// for minimap and 2d map there are not really calculations to do
+	// so they are not part of the model and the images/frames will be created
+	// in the view
+
+
+	// triggering the view to update the images based on the changes from
+	// the model
+	view(cub);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------
+//OLD SHIT BELOW!!
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
 
 void ini_model(t_cub *cub)
 {

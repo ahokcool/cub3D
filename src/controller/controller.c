@@ -6,11 +6,71 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 01:18:55 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 22:39:17 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/**
+ * @brief   THIS is the main controller of the game. it will be linked to the
+ * 			mlx_key_hook and will be called every time a key is pressed or released
+ * 
+ * @param   key         
+ * @param   cub         
+ * @return  int         
+ */
+int	controller_keys(int key, t_controller *controller)
+{
+	// only change the boolean values of the struct t_controller
+}
+
+int	controller_mouse(int mouse_key, t_controller *controller)
+{
+	//TODO: check if it needs to return int
+	// only change the boolean values of the struct t_controller
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------
+//OLD SHIT BELOW!!
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 static void	turn(int key, t_cub *cub)
 {
