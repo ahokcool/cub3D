@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 18:47:59 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/05 15:17:28 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int main(int ac, char **av)
 	cub = ini_main();	
 	config_main(&cub,av[1]);
 	mlx_key_hook(cub.win.win, deal_key, &cub);
+	mlx_hook(cub.win.win, 02, (1L << 0), cread_keys, &cub);
 	mlx_loop(cub.win.mlx);
 	
 	return (0);

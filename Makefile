@@ -41,6 +41,7 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	dda.c												\
 	img.c												\
 	dbg.c												\
+	2d.c												\
 	minimap.c											\
 	utils.c												\
 	vision.c											\
@@ -90,5 +91,6 @@ re: fclean all
 run: all
 	@./$(NAME) $(MAPS_FOLDER)test.cub
 
+rerun: re run
 val: all
 	@valgrind ./$(NAME) $(MAPS_FOLDER)test.cub

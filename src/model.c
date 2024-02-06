@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:36 by astein            #+#    #+#             */
-/*   Updated: 2024/02/02 15:29:23 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 01:19:29 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ static void   equip_mini_img(t_cub *cub)
 void update_model(t_cub *cub)
 {
 	angleToVector(cub->player.rot_angle, &cub->ray.v_direction);
-	printf("v_direction: %f, %f\n", cub->ray.v_direction.x, cub->ray.v_direction.y);
+	// printf("v_direction: %f, %f\n", cub->ray.v_direction.x, cub->ray.v_direction.y);
 	minimap_main(cub);
 	
-	dbg_put_player(cub);
-	dbg_put_minimap_big(cub);	
-	dbg_put_minimap_small(cub);
+	// dbg_put_player(cub);
+	// dbg_put_minimap_big(cub);	
+	// dbg_put_minimap_small(cub);
 	
 	create_frame(cub);
+	calculate_rays(cub);
 }

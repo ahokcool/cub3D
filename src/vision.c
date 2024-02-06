@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:50:44 by astein            #+#    #+#             */
-/*   Updated: 2024/02/02 16:26:52 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/05 14:18:06 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ini_vision(t_cub *cub)
 {
 	angleToVector(cub->player.rot_angle, &cub->ray.v_direction);
-	cub->ray.v_plane.x = sin(VISION_ANGLE / 2);
+	cub->ray.v_plane.x = sin(FOV / 2);
 	cub->ray.v_plane.y = 0;
 
 }

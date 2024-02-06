@@ -6,11 +6,25 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 17:02:59 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/05 14:41:22 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ini_img_2d(t_cub *cub, t_img *img)
+{
+	size_t	img_size;
+
+	img->height = cub->win.win_height;
+	img->width = cub->win.win_width;
+	img->mlx_img = mlx_new_image(cub->win.mlx, cub->win.win_width, cub->win.win_height);
+	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp),
+			&(img->line_len), &(img->endian));
+	img_size = img->height * img->width * sizeof(img->bpp);
+	ft_bzero(img->addr, img_size);
+	printf("2d map image dimensions (%d, %d)\n", img->width, img->height);
+}
 
 void	ini_img_screen(t_cub *cub, t_img *img)
 {
@@ -23,6 +37,7 @@ void	ini_img_screen(t_cub *cub, t_img *img)
 			&(img->line_len), &(img->endian));
 	img_size = img->height * img->width * sizeof(img->bpp);
 	ft_bzero(img->addr, img_size);
+	printf("ray image dimensions (%d, %d)\n", img->width, img->height);
 }
 void	ini_img_mini(t_cub *cub, t_img *img)
 {
@@ -39,6 +54,7 @@ void	ini_img_mini(t_cub *cub, t_img *img)
 	ft_bzero(img->addr, img_size);
 	printf("minimap image dimensions (%d, %d)\n", img->width, img->height);
 }
+
 
 // void	img_pix_put(t_model *mod, t_pnt_2d *point, int clr)
 // {

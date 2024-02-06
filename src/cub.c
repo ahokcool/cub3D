@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/01 17:50:41 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/05 16:16:37 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ini_cub(t_cub *cub)
 	cub->img_mini.line_len = 0;
 	cub->img_mini.endian = 0;
 	cub->map = NULL;
-	cub->show_mini = true;
+	cub->show_mini = false;
+	cub->show_map2d = false;
 	cub->player.pos_x = 0;
 	cub->player.pos_y = 0;
 	cub->player.rot_angle = 0;

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:40:40 by astein            #+#    #+#             */
-/*   Updated: 2024/02/02 15:16:20 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/05 19:11:50 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ void	config_main(t_cub *cub, char *path)
 	create_test_map_rectangle(cub);
 	ini_player(cub);
 	ini_view(cub);
+	ini_img_2d(cub, &cub->img_2d);
 	ini_img_screen(cub, &cub->img_ray);
 	ini_img_mini(cub, &cub->img_mini);
 	ini_minimap(cub);
+	ini_map2d(cub);
 	update_model(cub);
 	ini_vision(cub);
 
@@ -50,13 +52,24 @@ void	config_main(t_cub *cub, char *path)
 void angleToVector(double angleDegrees, t_pnt_2d_dbl *vector)
 {
 	// Adjust the angle since 0 degrees is north
-    double adjustedAngle = angleDegrees - 90.0;
-
+	add_angle(&angleDegrees, -90);
+	
     // Convert the adjusted angle to radians
-    double angleRadians = adjustedAngle * (M_PI / 180.0);
-	printf("roation in rad %f\n",angleRadians);
+    double angleRadians = angleDegrees * (M_PI / 180.0);
+	// printf("roation in rad %f\n",angleRadians);
 
     // Calculate the normalized vector components
     vector->x = (double)cos(angleRadians);
     vector->y = (double)sin(angleRadians);
+}
+
+void add_angle(double *angle, double offset)
+{
+	// printf("angle before: %f ", *angle);
+	*angle += offset;
+	while(*angle >= 360)
+		*angle -= 360;
+	while(*angle < 0)
+		*angle += 360;
+	// printf("angle after: %f\n", *angle);
 }

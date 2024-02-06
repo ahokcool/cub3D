@@ -6,13 +6,13 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/02/02 17:34:01 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 01:18:39 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_tile(t_cub *cub, int x, int y, t_img *img)
+void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width)
 {
 	int	i;
 	int	j;
@@ -20,20 +20,21 @@ void	put_tile(t_cub *cub, int x, int y, t_img *img)
 	char *dst_pxl;
 	
 	i = 0;
-	while (i < MINIMAP_PIXEL_WIDTH)
+	while (i < pixel_width)
 	{
 		j = 0;
-		while (j < MINIMAP_PIXEL_WIDTH)
+		while (j < pixel_width)
 		{
 			// dprintf (2, "(%d,%d)", i, j);
-			src_pxl = img->addr + (i * img->line_len + j * (img->bpp / 8));
-			if ((y + i) < cub->img_mini.height && (x + j) < cub->img_mini.width)
+			src_pxl = src->addr + (i * src->line_len + j * (src->bpp / 8));
+			if ((y + i) < dest->height && (x + j) < dest->width)
 			{
-				dst_pxl = cub->img_mini.addr + ((y + i) * cub->img_mini.line_len + (x + j) * (cub->img_mini.bpp / 8));
+				dst_pxl = dest->addr + ((y + i) * dest->line_len + (x + j) * (dest->bpp / 8));
 				*(unsigned int*)dst_pxl = *(unsigned int*)src_pxl;
 			}
 			else
-				printf("put_tile (%d, %d) out of bounds\n", x + j, y + i);
+				;
+				// printf("put_tile (%d, %d) out of bounds\n", x + j, y + i);
 			j++;
 		}
 		i++;
@@ -61,12 +62,20 @@ void	ini_minimap(t_cub *cub)
 	cub->minimap.player_E.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_E.xpm", &cub->minimap.player_E.width, &cub->minimap.player_E.height);
 	cub->minimap.player_S.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_S.xpm", &cub->minimap.player_S.width, &cub->minimap.player_S.height);
 	cub->minimap.player_W.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_W.xpm", &cub->minimap.player_W.width, &cub->minimap.player_W.height);
+	cub->minimap.player_NE.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_NE.xpm", &cub->minimap.player_NE.width, &cub->minimap.player_NE.height);
+	cub->minimap.player_SE.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_SE.xpm", &cub->minimap.player_SE.width, &cub->minimap.player_SE.height);
+	cub->minimap.player_SW.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_SW.xpm", &cub->minimap.player_SW.width, &cub->minimap.player_SW.height);
+	cub->minimap.player_NW.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_NW.xpm", &cub->minimap.player_NW.width, &cub->minimap.player_NW.height);
 	cub->minimap.wall.addr = mlx_get_data_addr(cub->minimap.wall.mlx_img, &cub->minimap.wall.bpp, &cub->minimap.wall.line_len, &cub->minimap.wall.endian);
 	cub->minimap.empty.addr = mlx_get_data_addr(cub->minimap.empty.mlx_img, &cub->minimap.empty.bpp, &cub->minimap.empty.line_len, &cub->minimap.empty.endian);
 	cub->minimap.player_N.addr = mlx_get_data_addr(cub->minimap.player_N.mlx_img, &cub->minimap.player_N.bpp, &cub->minimap.player_N.line_len, &cub->minimap.player_N.endian);
 	cub->minimap.player_E.addr = mlx_get_data_addr(cub->minimap.player_E.mlx_img, &cub->minimap.player_E.bpp, &cub->minimap.player_E.line_len, &cub->minimap.player_E.endian);
 	cub->minimap.player_S.addr = mlx_get_data_addr(cub->minimap.player_S.mlx_img, &cub->minimap.player_S.bpp, &cub->minimap.player_S.line_len, &cub->minimap.player_S.endian);
 	cub->minimap.player_W.addr = mlx_get_data_addr(cub->minimap.player_W.mlx_img, &cub->minimap.player_W.bpp, &cub->minimap.player_W.line_len, &cub->minimap.player_W.endian);
+	cub->minimap.player_NE.addr = mlx_get_data_addr(cub->minimap.player_NE.mlx_img, &cub->minimap.player_NE.bpp, &cub->minimap.player_NE.line_len, &cub->minimap.player_NE.endian);
+	cub->minimap.player_SE.addr = mlx_get_data_addr(cub->minimap.player_SE.mlx_img, &cub->minimap.player_SE.bpp, &cub->minimap.player_SE.line_len, &cub->minimap.player_SE.endian);
+	cub->minimap.player_SW.addr = mlx_get_data_addr(cub->minimap.player_SW.mlx_img, &cub->minimap.player_SW.bpp, &cub->minimap.player_SW.line_len, &cub->minimap.player_SW.endian);
+	cub->minimap.player_NW.addr = mlx_get_data_addr(cub->minimap.player_NW.mlx_img, &cub->minimap.player_NW.bpp, &cub->minimap.player_NW.line_len, &cub->minimap.player_NW.endian);
 }
 
 static	void set_minimap_area(t_cub *cub)
@@ -110,7 +119,7 @@ static void	update_minimap_string(t_cub *cub)
 	player[1] = get_player_pos(cub, 'y');
 	cord[0] = cub->minimap.x0;
 	cord[1] = cub->minimap.y0;
-	printf("update minimap string x:%d->%d, y:%d->%d\n", cub->minimap.x0, cub->minimap.x1, cub->minimap.y0, cub->minimap.y1);
+	// printf("update minimap string x:%d->%d, y:%d->%d\n", cub->minimap.x0, cub->minimap.x1, cub->minimap.y0, cub->minimap.y1);
 	while (cord[1] <= cub->minimap.y1)
 	{
 		while (cord[0] <= cub->minimap.x1)
@@ -125,9 +134,9 @@ static void	update_minimap_string(t_cub *cub)
 		cord[1]++;
 		cord[0] = cub->minimap.x0;
 	}
-	printf("string i: %d\n", i);
-	printf("string length = %d\n", (int)ft_strlen(cub->minimap.mini_map_str));
-	printf("minimap string: (%s)\n", cub->minimap.mini_map_str);
+	// printf("string i: %d\n", i);
+	// printf("string length = %d\n", (int)ft_strlen(cub->minimap.mini_map_str));
+	// printf("minimap string: (%s)\n", cub->minimap.mini_map_str);
 }
 
 void	minimap_main(t_cub *cub)
@@ -150,20 +159,28 @@ void	update_minimap_frame(t_cub *cub)
 	{
 	
 		if(cub->minimap.mini_map_str[i] == '1')
-			put_tile(cub, x, y, &cub->minimap.wall);
+			put_tile(cub, x, y, &cub->minimap.wall, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 		else if(cub->minimap.mini_map_str[i] == 'P')
 		{
 			if (cub->player.rot_angle == 0)
-				put_tile(cub, x, y, &cub->minimap.player_N);
+				put_tile(cub, x, y, &cub->minimap.player_N, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
+			else if (cub->player.rot_angle == 45)
+				put_tile(cub, x, y, &cub->minimap.player_NE, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 			else if (cub->player.rot_angle == 90)
-				put_tile(cub, x, y, &cub->minimap.player_E);
+				put_tile(cub, x, y, &cub->minimap.player_E, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
+			else if (cub->player.rot_angle == 135)
+				put_tile(cub, x, y, &cub->minimap.player_SE, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 			else if (cub->player.rot_angle == 180)
-				put_tile(cub, x, y, &cub->minimap.player_S);
+				put_tile(cub, x, y, &cub->minimap.player_S, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
+			else if (cub->player.rot_angle == 225)
+				put_tile(cub, x, y, &cub->minimap.player_SW, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 			else if (cub->player.rot_angle == 270)
-				put_tile(cub, x, y, &cub->minimap.player_W);
+				put_tile(cub, x, y, &cub->minimap.player_W, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
+			else if (cub->player.rot_angle == 315)
+				put_tile(cub, x, y, &cub->minimap.player_NW, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 		}
 		else
-			put_tile(cub, x, y, &cub->minimap.empty);
+			put_tile(cub, x, y, &cub->minimap.empty, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 		x += MINIMAP_PIXEL_WIDTH;
 		if(x >= cub->img_mini.width)
 		{
