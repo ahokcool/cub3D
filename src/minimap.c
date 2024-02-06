@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 01:18:39 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 15:52:36 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ static void	update_minimap_string(t_cub *cub)
 	}
 	// printf("string i: %d\n", i);
 	// printf("string length = %d\n", (int)ft_strlen(cub->minimap.mini_map_str));
-	// printf("minimap string: (%s)\n", cub->minimap.mini_map_str);
+	printf("minimap string: (%s)\n", cub->minimap.mini_map_str);
 }
 
 void	minimap_main(t_cub *cub)

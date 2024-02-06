@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/05 20:25:01 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 16:11:19 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_player
 typedef struct s_minimap
 {
 	t_img			wall;
+	t_img			empty;
+	
 	t_img			player_N;
 	t_img			player_NE;
 	t_img			player_E;
@@ -64,7 +66,6 @@ typedef struct s_minimap
 	t_img			player_W;
 	t_img			player_NW;
 
-	t_img			empty;
 	char			*mini_map_str;
 	int				map_border;
 	int				x0;
@@ -112,7 +113,7 @@ typedef struct s_raycast
 
 typedef struct t_column
 {
-	double					height;
+	double				height;
 	bool				x_hit;
 	double				x_hit_pos;	
 	double				y_hit_pos;	

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 01:19:09 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 15:57:05 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void	update_view(t_cub *cub)
 		mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_2d.mlx_img, 0, 0);
 	//put minimap to wind.
 	if (cub->show_mini)
-		mlx_put_image_to_window(cub->win.
-	mlx, cub->win.win, cub->img_mini.mlx_img, 10, 10);
+		mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_mini.mlx_img, 10, 10);
 
 	//maybe track the framerate here
 }

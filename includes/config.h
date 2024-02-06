@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
-/*   Updated: 2024/02/05 20:01:32 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 15:52:40 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define K_ARROW_DOWN 65364
 # define MINIMAP_PIXEL_WIDTH 10
 # define MAP2D_PIXEL_WIDTH 20
-# define MINIMAP_BORDER_SIZE 5 //if value is 3 it will be a 7x7 square
+# define MINIMAP_BORDER_SIZE 2 //if value is 3 it will be a 7x7 square
 # define TILE_SIZE 10
 # define FOV 90
 # define WALL_HEIGHT 250
