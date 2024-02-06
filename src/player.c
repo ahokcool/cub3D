@@ -6,11 +6,18 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 01:19:56 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 21:52:28 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ini_player(t_player *player)
+{
+	player->pos_x = 0;
+	player->pos_y = 0;
+	player->rot_angle = 0;
+}
 
 int	get_player_pos(t_cub *cub, char format)
 {
@@ -22,7 +29,7 @@ int	get_player_pos(t_cub *cub, char format)
 		return (0);
 }
 
-void ini_player(t_cub *cub)
+void config_player(t_cub *cub)
 {
 	// get the index from the array of the player and set the pos_x and pos_y
 	int	y;

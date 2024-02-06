@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:40:40 by astein            #+#    #+#             */
-/*   Updated: 2024/02/05 19:11:50 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 21:46:25 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	config_main(t_cub *cub, char *path)
 {
 	//Model
 	create_test_map_rectangle(cub);
-	ini_player(cub);
+	config_player(cub);
 	ini_view(cub);
 	ini_img_2d(cub, &cub->img_2d);
 	ini_img_screen(cub, &cub->img_ray);
@@ -49,7 +49,7 @@ void	config_main(t_cub *cub, char *path)
 	//View
 }
 
-void angleToVector(double angleDegrees, t_pnt_2d_dbl *vector)
+void angleToVector(double angleDegrees, t_vector_dbl *vector)
 {
 	// Adjust the angle since 0 degrees is north
 	add_angle(&angleDegrees, -90);

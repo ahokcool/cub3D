@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:28:29 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 01:51:32 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 21:18:47 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	calculate_rays(t_cub *cub)
 	double test_angle;
 	double grid_offset_x;
 	double grid_offset_y;
-	t_pnt_2d_dbl vector_ray;
+	t_vector_dbl vector_ray;
 
 	i = 0;
 	while (i < cub->win.win_width)

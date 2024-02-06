@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 15:52:36 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/06 21:29:13 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	ini_minimap(t_cub *cub)
 	cub->minimap.map_border = (cub->minimap.map_border -1) / 2;
 	printf ("mini map size: %d\n", cub->minimap.map_border);
 	cub->minimap.mini_map_str = ft_calloc(((2*MINIMAP_BORDER_SIZE+1)*(2*MINIMAP_BORDER_SIZE+1)+1), sizeof(char));
-	cub->minimap.wall.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/wall.xpm", &cub->minimap.wall.width, &cub->minimap.wall.height);
-	cub->minimap.empty.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/floor.xpm", &cub->minimap.empty.width, &cub->minimap.empty.height);
+	cub->minimap.wall_tile.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/wall.xpm", &cub->minimap.wall_tile.width, &cub->minimap.wall_tile.height);
+	cub->minimap.floor_tile.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/floor.xpm", &cub->minimap.floor_tile.width, &cub->minimap.floor_tile.height);
 	cub->minimap.player_N.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_N.xpm", &cub->minimap.player_N.width, &cub->minimap.player_N.height);
 	cub->minimap.player_E.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_E.xpm", &cub->minimap.player_E.width, &cub->minimap.player_E.height);
 	cub->minimap.player_S.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_S.xpm", &cub->minimap.player_S.width, &cub->minimap.player_S.height);
@@ -66,8 +66,8 @@ void	ini_minimap(t_cub *cub)
 	cub->minimap.player_SE.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_SE.xpm", &cub->minimap.player_SE.width, &cub->minimap.player_SE.height);
 	cub->minimap.player_SW.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_SW.xpm", &cub->minimap.player_SW.width, &cub->minimap.player_SW.height);
 	cub->minimap.player_NW.mlx_img = mlx_xpm_file_to_image(cub->win.mlx, "./textures/minimap/player_NW.xpm", &cub->minimap.player_NW.width, &cub->minimap.player_NW.height);
-	cub->minimap.wall.addr = mlx_get_data_addr(cub->minimap.wall.mlx_img, &cub->minimap.wall.bpp, &cub->minimap.wall.line_len, &cub->minimap.wall.endian);
-	cub->minimap.empty.addr = mlx_get_data_addr(cub->minimap.empty.mlx_img, &cub->minimap.empty.bpp, &cub->minimap.empty.line_len, &cub->minimap.empty.endian);
+	cub->minimap.wall_tile.addr = mlx_get_data_addr(cub->minimap.wall_tile.mlx_img, &cub->minimap.wall_tile.bpp, &cub->minimap.wall_tile.line_len, &cub->minimap.wall_tile.endian);
+	cub->minimap.floor_tile.addr = mlx_get_data_addr(cub->minimap.floor_tile.mlx_img, &cub->minimap.floor_tile.bpp, &cub->minimap.floor_tile.line_len, &cub->minimap.floor_tile.endian);
 	cub->minimap.player_N.addr = mlx_get_data_addr(cub->minimap.player_N.mlx_img, &cub->minimap.player_N.bpp, &cub->minimap.player_N.line_len, &cub->minimap.player_N.endian);
 	cub->minimap.player_E.addr = mlx_get_data_addr(cub->minimap.player_E.mlx_img, &cub->minimap.player_E.bpp, &cub->minimap.player_E.line_len, &cub->minimap.player_E.endian);
 	cub->minimap.player_S.addr = mlx_get_data_addr(cub->minimap.player_S.mlx_img, &cub->minimap.player_S.bpp, &cub->minimap.player_S.line_len, &cub->minimap.player_S.endian);
@@ -159,7 +159,7 @@ void	update_minimap_frame(t_cub *cub)
 	{
 	
 		if(cub->minimap.mini_map_str[i] == '1')
-			put_tile(cub, x, y, &cub->minimap.wall, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
+			put_tile(cub, x, y, &cub->minimap.wall_tile, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 		else if(cub->minimap.mini_map_str[i] == 'P')
 		{
 			if (cub->player.rot_angle == 0)
@@ -180,7 +180,7 @@ void	update_minimap_frame(t_cub *cub)
 				put_tile(cub, x, y, &cub->minimap.player_NW, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 		}
 		else
-			put_tile(cub, x, y, &cub->minimap.empty, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
+			put_tile(cub, x, y, &cub->minimap.floor_tile, &cub->img_mini, MINIMAP_PIXEL_WIDTH);
 		x += MINIMAP_PIXEL_WIDTH;
 		if(x >= cub->img_mini.width)
 		{
