@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 22:06:18 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 08:43:31 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int ac, char **av)
 {
-	t_cub cub;
+	t_cub *cub;
 
 	// check args
 	if (ac != 2)
@@ -25,7 +25,7 @@ int main(int ac, char **av)
 
 	// startup the game
 	cub = NULL;
-	ready_cub(&cub, &av[1]);
+	ready_cub(cub, &av[1]);
 	if(!cub)
 	{
 		ft_putstr_fd("Error\n", STDERR_FILENO);
@@ -34,7 +34,7 @@ int main(int ac, char **av)
 
 	// start the game loop (setting the hooks)
 	mlx_start_loop(cub);
-	free_cub(cub);
+	destroy_cub(cub);
 	cub = NULL;
 	return (0);
 }

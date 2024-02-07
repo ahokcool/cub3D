@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 22:51:08 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 11:04:41 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,108 @@
 
 void	ini_player(t_player *player)
 {
-	player->pos_x = 0;
-	player->pos_y = 0;
-	player->rot_angle = 0;
+	player->pos.x = 0;
+	player->pos.y = 0;
+	player->dir.x = 0;
+	player->dir.y = 0;
+	ini_img(&player->player_NE);
+	ini_img(&player->player_NW);
+	ini_img(&player->player_SE);
+	ini_img(&player->player_SW);
+	ini_img(&player->player_N);
+	ini_img(&player->player_S);
+	ini_img(&player->player_E);
+	ini_img(&player->player_W);
 }
 
-int	get_player_pos(t_cub *cub, char format)
+void config_player(void *mlx, const t_map_config *map_config, t_player *player)
 {
-	if (format == 'x')
-		return (cub->player.pos_x);
-	else if (format == 'y')
-		return (cub->player.pos_y);
-	else
-		return (0);
-}
+	config_img(mlx, &player->player_NE, "./textures/minimap/player_NE.xpm", NULL);
+	config_img(mlx, &player->player_NW, "./textures/minimap/player_NW.xpm", NULL);
+	config_img(mlx, &player->player_SE, "./textures/minimap/player_SE.xpm", NULL);
+	config_img(mlx, &player->player_SW, "./textures/minimap/player_SW.xpm", NULL);
+	config_img(mlx, &player->player_N, "./textures/minimap/player_N.xpm", NULL);
+	config_img(mlx, &player->player_S, "./textures/minimap/player_S.xpm", NULL);
+	config_img(mlx, &player->player_E, "./textures/minimap/player_E.xpm", NULL);
+	config_img(mlx, &player->player_W, "./textures/minimap/player_W.xpm", NULL);
 
-void config_player(t_cub *cub)
-{
 	// get the index from the array of the player and set the pos_x and pos_y
 	int	y;
 	int x;
 
 	y = 0;
-	while (cub->map[y])
+	while (map_config->map[y])
 	{
 		x = 0;
-		while (cub->map[y][x])
+		while (map_config->map[y][x])
 		{
-			if (cub->map[y][x] == 'N' || cub->map[y][x] == 'S' || cub->map[y][x] == 'E' || cub->map[y][x] == 'W')
+			if (map_config->map[y][x] == 'N' || map_config->map[y][x] == 'S' || map_config->map[y][x] == 'E' || map_config->map[y][x] == 'W')
 			{
-				cub->player.pos_x = x+0.5;
-				cub->player.pos_y = y+0.5;
-				if (cub->map[y][x] == 'N')
-					cub->player.rot_angle = 0;
-				else if (cub->map[y][x] == 'E')
-					cub->player.rot_angle = 90;
-				else if (cub->map[y][x] == 'S')
-					cub->player.rot_angle = 180;
-				else if (cub->map[y][x] == 'W')
-					cub->player.rot_angle = 270;
-				cub->map[y][x] = '0';
+				player->pos.x = x+0.5;
+				player->pos.y = y+0.5;
+				if (map_config->map[y][x] == 'N')
+					player->dir.y = -1;
+				else if (map_config->map[y][x] == 'E')
+					player->dir.x = 1;
+				else if (map_config->map[y][x] == 'S')
+					player->dir.y = 1;
+				else if (map_config->map[y][x] == 'W')
+					player->dir.x = -1;
+				map_config->map[y][x] = '0';
 				break ;
 			}
 			x++;
 		}
 		y++;
 	}
-	write(1, "LEEEEEEEEEEE\n", 13);
+}
+
+void	destroy_player(void *mlx, t_player *player)
+{
+	destroy_img(mlx, player->player_NE.mlx_img);
+	destroy_img(mlx, player->player_NW.mlx_img);
+	destroy_img(mlx, player->player_SE.mlx_img);
+	destroy_img(mlx, player->player_SW.mlx_img);
+	destroy_img(mlx, player->player_N.mlx_img);
+	destroy_img(mlx, player->player_S.mlx_img);
+	destroy_img(mlx, player->player_E.mlx_img);
+	destroy_img(mlx, player->player_W.mlx_img);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------
+//OLD SHIT BELOW!!
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+
+
+int	get_player_pos(t_cub *cub, char format)
+{
+	if (format == 'x')
+		return (cub->player.pos.x);
+	else if (format == 'y')
+		return (cub->player.pos.y);
+	else
+		return (0);
+}
+
+
 
 void player_move(t_cub *cub, char direction)
 {
@@ -80,20 +133,15 @@ void player_move(t_cub *cub, char direction)
     else if (direction == 'L') dir_index = 2;
     else if (direction == 'R') dir_index = 3;
 
-    // Convert rotation angle to radians
-    double rad = cub->player.rot_angle * (M_PI / 180.0);
 
-    // Calculate the rotated walking vector
-    double walk_x = walk_vectors[dir_index][0] * cos(rad) - walk_vectors[dir_index][1] * sin(rad);
-    double walk_y = walk_vectors[dir_index][0] * sin(rad) + walk_vectors[dir_index][1] * cos(rad);
-	// printf("walking vector: %f, %f\n", walk_x, walk_y);
-    // Update player's position if allowed
-	// TODO: check if the player is walking into a wall
-	cub->player.pos_x += (walk_x / TILE_SIZE);
-	cub->player.pos_y += (walk_y / TILE_SIZE);
-}
+	// TODO: DOESNT WORK SINCE WE NOW USE VECTORS
+    // // Convert rotation angle to radians
+    // double rad = cub->player.rot_angle * (M_PI / 180.0); 
 
-void	free_player(t_player *player)
-{
-	(void)player;
+    // // Calculate the rotated walking vector
+    // double walk_x = walk_vectors[dir_index][0] * cos(rad) - walk_vectors[dir_index][1] * sin(rad);
+    // double walk_y = walk_vectors[dir_index][0] * sin(rad) + walk_vectors[dir_index][1] * cos(rad);
+	// // TODO: check if the player is walking into a wall
+	// cub->player.pos_x += (walk_x / TILE_SIZE);
+	// cub->player.pos_y += (walk_y / TILE_SIZE);
 }

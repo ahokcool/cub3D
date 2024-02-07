@@ -6,11 +6,21 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 22:39:17 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:56:34 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ini_controller(t_controller *controller)
+{
+	controller->move_up = false;
+	controller->move_down = false;
+	controller->move_left = false;
+	controller->move_right = false;
+	controller->rotate_left = false;
+	controller->rotate_right = false;
+}
 
 /**
  * @brief   THIS is the main controller of the game. it will be linked to the

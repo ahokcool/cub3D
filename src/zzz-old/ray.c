@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:28:29 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 21:18:47 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 08:39:38 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	draw_sky_floor(t_cub *cub)
 	{
 		y = 0;
 		while(y < screen_middle_y)
-			put_pixel_to_image(cub, cub->win.mlx, cub->img_ray.mlx_img, i, y++, color_sky);
+			put_pixel_to_image(cub, cub->win.mlx, cub->img_3d.mlx_img, i, y++, color_sky);
 		while(y < cub->win.win_height)
-			put_pixel_to_image(cub, cub->win.mlx, cub->img_ray.mlx_img, i, y++, color_floor);
+			put_pixel_to_image(cub, cub->win.mlx, cub->img_3d.mlx_img, i, y++, color_floor);
 		
 		i++;
 	}
@@ -76,16 +76,16 @@ void	update_ray_frame(t_cub *cub)
 	
 	draw_sky_floor(cub);
 	color = encode_rgb(255,0,0);
-    i = cub->img_ray.bpp - 8;
-    pixel = cub->img_ray.addr + (y * cub->img_ray.line_len + x * (cub->img_ray.bpp / 8));
+    i = cub->img_3d.bpp - 8;
+    pixel = cub->img_3d.addr + (y * cub->img_3d.line_len + x * (cub->img_3d.bpp / 8));
     while (i >= 0)
     {
         /* big endian, MSB is the leftmost bit */
-        if (cub->img_ray.endian != 0)
+        if (cub->img_3d.endian != 0)
             *pixel++ = (color >> i) & 0xFF;
         /* little endian, LSB is the leftmost bit */
         else
-            *pixel++ = (color >> (cub->img_ray.bpp - 8 - i)) & 0xFF;
+            *pixel++ = (color >> (cub->img_3d.bpp - 8 - i)) & 0xFF;
         i -= 8;
     }
 	draw_rays(cub);
@@ -296,7 +296,7 @@ void	draw_rays(t_cub *cub)
 		y_start = screen_middle_y - (cub->colums[i].height / 2);
 		while (y_start < screen_middle_y + (cub->colums[i].height / 2))
 		{
-			put_pixel_to_image(cub, cub->win.mlx, cub->img_ray.mlx_img, i, y_start, 0xFF00FF);
+			put_pixel_to_image(cub, cub->win.mlx, cub->img_3d.mlx_img, i, y_start, 0xFF00FF);
 			// double opacity = y_start / 600;
 			// opacity = 0.4;
 			// printf("opacity %f", opacity);

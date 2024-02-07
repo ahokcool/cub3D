@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 22:45:50 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 11:05:46 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	view(t_cub *cub)
 {
+	(void)cub;
 	// design the images for
 	// 1. the 3dmap
 	// and if booleans are true:
@@ -37,21 +38,13 @@ void	view(t_cub *cub)
 //-----------------------------------------------------------------------------
 
 
-void	ini_view(t_cub *cub)
-{
-	cub->win.mlx = mlx_init();
-	//mlx_get_screen_size(mod->mlx, &screen_width, &screen_height);
-	cub->win.win_width = WIN_WIDTH;
-	cub->win.win_height = WIN_HEIGHT;
-	cub->win.win = mlx_new_window(cub->win.mlx, cub->win.win_width, cub->win.win_height,
-			"cub3D");
-}
+
 static void	update_view(t_cub *cub)
 {
 	// printf("update view\n");
 	mlx_clear_window(cub->win.mlx, cub->win.win);
 	//put raycast to window
-	mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_ray.mlx_img, 0, 0);
+	mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_3d.mlx_img, 0, 0);
 	if (cub->show_map2d)
 		mlx_put_image_to_window(cub->win.mlx, cub->win.win, cub->img_2d.mlx_img, 0, 0);
 	//put minimap to wind.

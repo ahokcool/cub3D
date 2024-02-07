@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 22:36:41 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 11:05:57 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_map_config
 typedef struct s_player
 {	
 	t_vector_dbl	pos;	//player position
-	t_vector_dbl	view;	//player view direction
+	t_vector_dbl	dir;	//player view direction
 	//Players Sprites for 2D map in different directions
 	t_img			player_N;
 	t_img			player_NE;
@@ -89,9 +89,10 @@ typedef struct s_player
 
 typedef struct s_minimap
 {
-	t_img			wall_tile;
-	t_img			floor_tile;
+	t_img			img_wall;
+	t_img			img_floor;
 	char			**map_mini;
+	int				size;	//4 = map size 4x4
 	// int				map_border;
 	// int				x0;
 	// int				x1;
@@ -101,8 +102,8 @@ typedef struct s_minimap
 
 typedef struct s_map2d
 {
-	t_img			wall_tile;
-	t_img			floor_tile;
+	t_img			img_wall;
+	t_img			img_floor;
 	char			**map_2d;	//map[y][x] //if the parsing changes the orriginal map, this will not be affected. e.g. spaces could be overritten to 1 which we dont want to display in the 2d Version
 	// int				map_border;
 	// int				x0;
@@ -141,9 +142,9 @@ typedef struct s_cub
 {
 	//MLX DETAILS
 	t_win				win;
-	t_img				img_ray;
-	t_img				img_mini;
-	t_img				img_2d;
+	t_img				img_2d;		// Full 2D Map
+	t_img				img_3d;		// 3D View / Raycast
+	t_img				img_mini;	// Minimap (a few Tiles around the player)
 	//MAP DETAILS
 	t_map_config		map_config;
 	//PLAYER DETAILS
@@ -157,18 +158,53 @@ typedef struct s_cub
 	t_controller		controller;	
 }						t_cub;
 
+// cub.c
+void	ready_cub(t_cub *cub, char *map_path);
+void	destroy_cub(t_cub *cub);
 
+//mlx_win.c
+void	ini_win(t_win *win);
+void	config_win(t_win *win);
+void	destroy_win(t_win *win);
 
+//img.c
+void	ini_img(t_img *img);
+void	config_img(void *mlx, t_img *img, char *path, t_vector_int *dimensions);
+void	destroy_img(void *mlx, t_img *img);
 
+//map.c
+void	ini_map(t_map_config *map);
+void	config_map(t_map_config *map, char *map_path);
+void	destroy_map(t_map_config *map);
 
+//player.c
+void	ini_player(t_player *player);
+void 	config_player(void *mlx, const t_map_config *map_config, t_player *player);
+void	destroy_player(void *mlx, t_player *player);
 
+//miminmap.c
+void	ini_minimap(t_minimap *minimap);
+void	config_minimap(t_minimap *minimap, void *mlx, const char **map);
+void	destroy_minimap(void *mlx, t_minimap *minimap);
 
+//map2d.c
+void	ini_map2d(t_map2d *map2d);
+void	config_map2d(void *mlx, t_map2d *map2d);
+void	destroy_map2d(void *mlx, t_map2d *map2d);
+
+//controller.c
+void	ini_controller(t_controller *controller);
+
+//view.c
+void	view(t_cub *cub);
+
+//dbg.c
+void 	create_test_map(char ***map);
 
 //----------------------------------------------------------------------------
 //OLD SHIT BELOW!!
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-void	ini_cub(t_cub *cub);
 void	ini_view(t_cub *cub);
 void	ini_img_screen(t_cub *cub, t_img *img);
 void	ini_img_mini(t_cub *cub, t_img *img);
@@ -187,9 +223,6 @@ void	dbg_put_minimap_big(t_cub *cub);
 void	ini_player(t_player *player);
 void	minimap_main(t_cub *cub);
 void	dbg_put_player(t_cub *cub);
-void	ini_minimap(t_cub *cub);
-void	config_player(t_cub *cub);
-void create_test_map(t_cub *cub);
 t_cub	ini_main(void);
 void	config_main(t_cub *cub, char *path);
 void ini_model(t_cub *cub);
@@ -203,7 +236,6 @@ void	update_ray_frame(t_cub *cub);
 char	*player_cardinal_direction(t_cub *cub);
 void	ini_img_2d(t_cub *cub, t_img *img);
 void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width);
-void	ini_map2d(t_cub *cub)	;
 void	update_map2d_frame(t_cub *cub);
 void put_pixel_to_image(t_cub *cub, void *mlx_ptr, void *img_ptr, int x, int y, int color);
 void add_angle(double *angle, double offset);

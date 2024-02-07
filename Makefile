@@ -30,22 +30,19 @@ MAPS_FOLDER 	= ./maps/
 LIBFT = $(LIB_FOLDER)libft.a
 MLX = $(MLX_FOLDER)libmlx.a
 SRCS = $(addprefix $(SRC_FOLDER), 						\
-	main.c												\
-	cub.c												\
-	mlx_main.c											\
-	ray.c												\
-	parser.c											\
-	controller.c										\
-	view.c												\
-	model.c												\
-	dda.c												\
-	img.c												\
-	dbg.c												\
-	2d.c												\
-	minimap.c											\
-	utils.c												\
-	vision.c											\
-	player.c											\
+	core/main.c											\
+	core/cub.c											\
+	core/dbg.c											\
+	entities/player.c									\
+	entities/img.c										\
+	entities/minimap.c									\
+	entities/map2d.c									\
+	model/model.c										\
+	model/collision_check.c								\
+	parser/parser.c										\
+	raycasting/dda.c									\
+	view/view.c											\
+	view/mlx_win.c										\
 	)
 
 # Object files

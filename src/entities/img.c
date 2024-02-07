@@ -6,11 +6,85 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/02/05 14:41:22 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 09:25:41 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ini_img(t_img *img)
+{
+	img->mlx_img = NULL;
+	img->addr = NULL;
+	img->bpp = -1;
+	img->line_len = -1;
+	img->endian = -1;
+	img->width = -1;
+	img->height = -1;
+}
+
+/**
+ * @brief   This function can create a new image from a .xpm file path
+ * 			If the file path is NULL, it will create an empty image with
+ * 			the given dimensions. If the dimensions are NULL, it will
+ * 			create an empty image with the default window dimensions.
+ * 
+ * @param   mlx         
+ * @param   img         
+ * @param   path        
+ * @param   dimensions  
+ */
+void	config_img(void *mlx, t_img *img, char *path, t_vector_int *dimensions)
+{
+	if (path)
+		img->mlx_img = mlx_xpm_file_to_image(mlx, path, &img->width,
+				&img->height);
+	else
+	{
+		if (dimensions)
+		{
+			img->mlx_img = mlx_new_image(mlx, dimensions->x, dimensions->y);
+			if(img->mlx_img)
+			{
+				img->width = dimensions->x;
+				img->height = dimensions->y;
+			}
+		}
+		else
+		{
+			img->mlx_img = mlx_new_image(mlx, WIN_HEIGHT, WIN_HEIGHT);
+			if(img->mlx_img)
+			{
+				img->width = WIN_WIDTH;
+				img->height = WIN_HEIGHT;
+			}
+		}
+	}
+	if (img->mlx_img)
+			img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp),
+					&(img->line_len), &(img->endian));
+		else
+			printf("failed to load image from path");
+}
+
+void	destroy_img(void *mlx, t_img *img)
+{
+	if (img->mlx_img)
+		mlx_destroy_image(mlx, img->mlx_img);
+	img->mlx_img = NULL;
+	img->addr = NULL;
+	img->bpp = -1;
+	img->line_len = -1;
+	img->endian = -1;
+	img->width = -1;
+	img->height = -1;
+}
+
+//----------------------------------------------------------------------------
+//OLD SHIT BELOW!!
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
 
 void	ini_img_2d(t_cub *cub, t_img *img)
 {
@@ -80,8 +154,3 @@ void	ini_img_mini(t_cub *cub, t_img *img)
 // 		}
 // 	}
 // }
-
-void	render_next_img(t_cub *cub)
-{
-	//TODO:
-}

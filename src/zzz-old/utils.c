@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:40:40 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 21:46:25 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 08:39:38 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	config_main(t_cub *cub, char *path)
 	config_player(cub);
 	ini_view(cub);
 	ini_img_2d(cub, &cub->img_2d);
-	ini_img_screen(cub, &cub->img_ray);
+	ini_img_screen(cub, &cub->img_3d);
 	ini_img_mini(cub, &cub->img_mini);
 	ini_minimap(cub);
 	ini_map2d(cub);
