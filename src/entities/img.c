@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 09:25:41 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 18:14:28 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,59 +16,98 @@ void	ini_img(t_img *img)
 {
 	img->mlx_img = NULL;
 	img->addr = NULL;
-	img->bpp = -1;
-	img->line_len = -1;
-	img->endian = -1;
-	img->width = -1;
-	img->height = -1;
+	img->bpp = 0;
+	img->line_len = 0;
+	img->endian = 0;
+	img->width = 0;
+	img->height = 0;
 }
 
-/**
- * @brief   This function can create a new image from a .xpm file path
- * 			If the file path is NULL, it will create an empty image with
- * 			the given dimensions. If the dimensions are NULL, it will
- * 			create an empty image with the default window dimensions.
- * 
- * @param   mlx         
- * @param   img         
- * @param   path        
- * @param   dimensions  
- */
-void	config_img(void *mlx, t_img *img, char *path, t_vector_int *dimensions)
+void	config_img_dim(t_cub *cub, t_img *img, t_vector_int *dimensions)
 {
-	if (path)
-		img->mlx_img = mlx_xpm_file_to_image(mlx, path, &img->width,
-				&img->height);
+	printf("config_img_dim\n");
+	size_t	img_size;
+
+	if(dimensions)
+	{
+		img->width = dimensions->x;
+		img->height = dimensions->y;
+	}
 	else
 	{
-		if (dimensions)
-		{
-			img->mlx_img = mlx_new_image(mlx, dimensions->x, dimensions->y);
-			if(img->mlx_img)
-			{
-				img->width = dimensions->x;
-				img->height = dimensions->y;
-			}
-		}
-		else
-		{
-			img->mlx_img = mlx_new_image(mlx, WIN_HEIGHT, WIN_HEIGHT);
-			if(img->mlx_img)
-			{
-				img->width = WIN_WIDTH;
-				img->height = WIN_HEIGHT;
-			}
-		}
+		img->width = cub->win.win_width;
+		img->height = cub->win.win_height;
 	}
-	if (img->mlx_img)
-			img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp),
-					&(img->line_len), &(img->endian));
-		else
-			printf("failed to load image from path");
+
+	img->mlx_img = mlx_new_image(cub->win.mlx, img->width, img->height);
+	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp),
+			&(img->line_len), &(img->endian));
+	img_size = img->width * img->height * sizeof(img->bpp);
+	ft_bzero(img->addr, img_size);
 }
+
+void	config_img_file(t_cub *cub, t_img *img, char* path)
+{
+	img->mlx_img = mlx_xpm_file_to_image(cub->win.mlx, path, &img->width, &img->height);
+	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp),
+			&(img->line_len), &(img->endian));
+
+	printf("config_img_file: loaded '%s' mlx img and addr are (%p, %p)\n", path, img->mlx_img, img->addr);
+	printf("DETAILS: width: %d, height: %d, bpp: %d, line_len: %d, endian: %d\n", img->width, img->height, img->bpp, img->line_len, img->endian);
+}
+
+// void	config_img(void *mlx, t_img *img, char *path, t_vector_int *dimensions)
+// {
+// 	size_t	img_size;
+	
+// 	if (path)
+// 	{
+// 		printf("Loading image from path: %s\n", path);
+// 		img->mlx_img = mlx_xpm_file_to_image(mlx, path, &img->width,
+// 				&img->height);
+// 		if (img->mlx_img)
+// 		{
+// 			img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp),
+// 					&(img->line_len), &(img->endian));
+			
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if (dimensions)
+// 		{
+// 			printf("Loading empty image dimensions: (%d, %d)\n", dimensions->x, dimensions->y);
+// 			img->mlx_img = mlx_new_image(mlx, dimensions->x, dimensions->y);
+// 			if(img->mlx_img)
+// 			{
+// 				img->width = dimensions->x;
+// 				img->height = dimensions->y;
+// 			}
+// 		}
+// 		else
+// 		{
+// 			printf("Loading empty image dimensions: (%d, %d)\n", WIN_WIDTH, WIN_HEIGHT);
+// 			img->mlx_img = mlx_new_image(mlx, WIN_WIDTH, WIN_HEIGHT);
+// 			if(img->mlx_img)
+// 			{
+// 				img->width = WIN_WIDTH;
+// 				img->height = WIN_HEIGHT;
+// 			}
+// 		}
+// 	}
+// 	if (!img->mlx_img)
+// 		printf("failed to load image!!\n");
+// 	else
+// 	{
+// 		img_size = img->height * img->width * sizeof(img->bpp);
+// 		// img_size = img->height * img->line_len;
+// 		ft_bzero(img->addr, img_size);		
+// 	}
+// }
 
 void	destroy_img(void *mlx, t_img *img)
 {
+	printf("destroying image at pointer %p\n", img);
 	if (img->mlx_img)
 		mlx_destroy_image(mlx, img->mlx_img);
 	img->mlx_img = NULL;
@@ -78,6 +117,36 @@ void	destroy_img(void *mlx, t_img *img)
 	img->endian = -1;
 	img->width = -1;
 	img->height = -1;
+}
+
+void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width)
+{
+	int	i;
+	int	j;
+	char *src_pxl;
+	char *dst_pxl;
+	
+	(void)cub;
+	i = 0;
+	while (i < pixel_width)
+	{
+		j = 0;
+		while (j < pixel_width)
+		{
+			src_pxl = src->addr + (i * src->line_len + j * (src->bpp / 8));
+			if ((y + i) < dest->height && (x + j) < dest->width)
+			{
+				dst_pxl = dest->addr + ((y + i) * dest->line_len + (x + j) * (dest->bpp / 8));
+				printf("current corordinates: (%d, %d) cur pxl: %p\n", x + j, y + i, dst_pxl);
+				*(unsigned int*)dst_pxl = *(unsigned int*)src_pxl;
+			}
+			else
+				printf("put_tile (%d, %d) out of bounds\n", x + j, y + i);
+			j++;
+		}
+		i++;
+	}	
+	printf("DONE WITH TILE\n");
 }
 
 //----------------------------------------------------------------------------

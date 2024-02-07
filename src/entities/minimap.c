@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 11:05:12 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 17:50:28 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ini_minimap(t_minimap *minimap)
 	minimap->size = -1;
 }
 
-void	config_minimap(t_minimap *minimap, void *mlx, const char **map)
+void	config_minimap(t_cub *cub, t_minimap *minimap, char **map)
 {
 	t_vector_int	dim;
 
@@ -31,8 +31,8 @@ void	config_minimap(t_minimap *minimap, void *mlx, const char **map)
 		minimap->size = dim.x;
 	if (minimap->size > dim.y)
 		minimap->size = dim.y;
-	config_img(mlx, &minimap->img_wall, "./textures/minimap/wall.xpm", NULL);
-	config_img(mlx, &minimap->img_floor, "./textures/minimap/floor.xpm", NULL);
+	config_img_file(cub, &minimap->img_wall, "./textures/minimap/wall.xpm");
+	config_img_file(cub, &minimap->img_floor, "./textures/minimap/floor.xpm");
 }	
 
 void	destroy_minimap(void *mlx, t_minimap *minimap)
@@ -51,34 +51,7 @@ void	destroy_minimap(void *mlx, t_minimap *minimap)
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 
-// void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width)
-// {
-// 	int	i;
-// 	int	j;
-// 	char *src_pxl;
-// 	char *dst_pxl;
-	
-// 	i = 0;
-// 	while (i < pixel_width)
-// 	{
-// 		j = 0;
-// 		while (j < pixel_width)
-// 		{
-// 			// dprintf (2, "(%d,%d)", i, j);
-// 			src_pxl = src->addr + (i * src->line_len + j * (src->bpp / 8));
-// 			if ((y + i) < dest->height && (x + j) < dest->width)
-// 			{
-// 				dst_pxl = dest->addr + ((y + i) * dest->line_len + (x + j) * (dest->bpp / 8));
-// 				*(unsigned int*)dst_pxl = *(unsigned int*)src_pxl;
-// 			}
-// 			else
-// 				;
-// 				// printf("put_tile (%d, %d) out of bounds\n", x + j, y + i);
-// 			j++;
-// 		}
-// 		i++;
-// 	}	
-// }
+
 
 
 

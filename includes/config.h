@@ -6,14 +6,14 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
-/*   Updated: 2024/02/06 21:15:16 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 16:42:07 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONFIG_H
 # define CONFIG_H
 
-# define WIN_WIDTH 680
+# define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 
 //KEYS

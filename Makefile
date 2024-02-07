@@ -5,7 +5,7 @@ NAME=cub3D
 
 # Compiler options
 CC = cc
-CFLAGS = -g #-Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 CLIBS = -L$(LIB_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -rf
@@ -30,19 +30,21 @@ MAPS_FOLDER 	= ./maps/
 LIBFT = $(LIB_FOLDER)libft.a
 MLX = $(MLX_FOLDER)libmlx.a
 SRCS = $(addprefix $(SRC_FOLDER), 						\
+	controller/controller.c								\
 	core/main.c											\
 	core/cub.c											\
 	core/dbg.c											\
-	entities/player.c									\
 	entities/img.c										\
-	entities/minimap.c									\
+	entities/map.c										\
 	entities/map2d.c									\
+	entities/minimap.c									\
+	entities/player.c									\
 	model/model.c										\
 	model/collision_check.c								\
 	parser/parser.c										\
 	raycasting/dda.c									\
-	view/view.c											\
 	view/mlx_win.c										\
+	view/view.c											\
 	)
 
 # Object files
@@ -90,4 +92,4 @@ run: all
 
 rerun: re run
 val: all
-	@valgrind ./$(NAME) $(MAPS_FOLDER)test.cub
+	@valgrind --track-origins=yes ./$(NAME) $(MAPS_FOLDER)test.cub

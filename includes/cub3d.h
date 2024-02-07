@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 11:05:57 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 17:53:19 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_img
 typedef struct s_win
 {
 	void			*mlx;
-	void			*win;
+	void			*mlx_win;
 	int				win_height;
 	int				win_width;
 }					t_win;
@@ -155,21 +155,27 @@ typedef struct s_cub
 	t_map2d				map2d;
 	t_minimap			minimap;
 	t_raycast			ray;
-	t_controller		controller;	
+	t_controller		controller;
+	bool				running;
 }						t_cub;
 
 // cub.c
-void	ready_cub(t_cub *cub, char *map_path);
+bool	ready_cub(t_cub *cub, char *map_path);
 void	destroy_cub(t_cub *cub);
 
 //mlx_win.c
 void	ini_win(t_win *win);
 void	config_win(t_win *win);
 void	destroy_win(t_win *win);
+void 	start_loop(t_cub *cub);
 
 //img.c
 void	ini_img(t_img *img);
-void	config_img(void *mlx, t_img *img, char *path, t_vector_int *dimensions);
+// void	config_img(void *mlx, t_img *img, char *path, t_vector_int *dimensions);
+// void	config_img_dim(void *mlx, t_img *img, t_vector_int *dimensions);
+void	config_img_dim(t_cub *cub, t_img *img, t_vector_int *dimensions);
+void	config_img_file(t_cub *cub, t_img *img, char* path);
+void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width);
 void	destroy_img(void *mlx, t_img *img);
 
 //map.c
@@ -179,66 +185,73 @@ void	destroy_map(t_map_config *map);
 
 //player.c
 void	ini_player(t_player *player);
-void 	config_player(void *mlx, const t_map_config *map_config, t_player *player);
+void	config_player(t_cub *cub, t_map_config *map_config, t_player *player);
 void	destroy_player(void *mlx, t_player *player);
 
 //miminmap.c
 void	ini_minimap(t_minimap *minimap);
-void	config_minimap(t_minimap *minimap, void *mlx, const char **map);
+void	config_minimap(t_cub *cub, t_minimap *minimap, char **map);
 void	destroy_minimap(void *mlx, t_minimap *minimap);
 
 //map2d.c
 void	ini_map2d(t_map2d *map2d);
-void	config_map2d(void *mlx, t_map2d *map2d);
+void	config_map2d(t_cub *cub, t_map2d *map2d);
 void	destroy_map2d(void *mlx, t_map2d *map2d);
 
 //controller.c
-void	ini_controller(t_controller *controller);
+void	ini_controller(void *mlx, t_controller *controller);
+int		key_pressed(int keycode, t_cub *cub);
+int		key_released(int keycode, t_cub *cub);
+void	destroy_controller(void *mlx, t_controller *controller);
+
+//model
+int		model(void *void_cub);
 
 //view.c
 void	view(t_cub *cub);
 
 //dbg.c
-void 	create_test_map(char ***map);
+void create_test_map(t_map_config *map);
+void	dbg_put_minimap_big(char **map);
 
 //----------------------------------------------------------------------------
 //OLD SHIT BELOW!!
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-void	ini_view(t_cub *cub);
-void	ini_img_screen(t_cub *cub, t_img *img);
-void	ini_img_mini(t_cub *cub, t_img *img);
+// void	ini_view(t_cub *cub);
+// void	ini_img_screen(t_cub *cub, t_img *img);
+// void	ini_img_mini(t_cub *cub, t_img *img);
 
-bool 	parse(t_cub *cub, char *path);
-void	mlx_main(t_cub *cub);
-void 	angleToVector(double angleDegrees, t_vector_dbl *vector);
-void	draw_rays(t_cub *cub);
-void	update_minimap_frame(t_cub *cub);
-void	calculate_rays(t_cub *cub);
-void	create_frame(t_cub *cub);
-int		deal_key(int key, t_cub *cub);
-int cread_keys(int key, t_cub *cub);
-void 	update_model(t_cub *cub);
-void	dbg_put_minimap_big(t_cub *cub);
-void	ini_player(t_player *player);
-void	minimap_main(t_cub *cub);
-void	dbg_put_player(t_cub *cub);
-t_cub	ini_main(void);
-void	config_main(t_cub *cub, char *path);
-void ini_model(t_cub *cub);
-int	get_player_pos(t_cub *cub, char format);
-void player_move(t_cub *cub, char direction);
-void	dbg_put_minimap_small(t_cub *cub);
-void	dbg_put_minimap_small(t_cub *cub);
-void create_test_map_rectangle(t_cub *cub);
-void	ini_vision(t_cub *cub);
-void	update_ray_frame(t_cub *cub);
-char	*player_cardinal_direction(t_cub *cub);
-void	ini_img_2d(t_cub *cub, t_img *img);
-void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width);
-void	update_map2d_frame(t_cub *cub);
-void put_pixel_to_image(t_cub *cub, void *mlx_ptr, void *img_ptr, int x, int y, int color);
-void add_angle(double *angle, double offset);
+// bool 	parse(t_cub *cub, char *path);
+// void	mlx_main(t_cub *cub);
+// void 	angleToVector(double angleDegrees, t_vector_dbl *vector);
+// void	draw_rays(t_cub *cub);
+// void	update_minimap_frame(t_cub *cub);
+// void	calculate_rays(t_cub *cub);
+// void	create_frame(t_cub *cub);
+// int		deal_key(int key, t_cub *cub);
+// int cread_keys(int key, t_cub *cub);
+// void 	update_model(t_cub *cub);
+// void	dbg_put_minimap_big(t_cub *cub);
+// void	ini_player(t_player *player);
+// void	minimap_main(t_cub *cub);
+// void	dbg_put_player(t_cub *cub);
+// t_cub	ini_main(void);
+// void	config_main(t_cub *cub, char *path);
+// void ini_model(t_cub *cub);
+// int	get_player_pos(t_cub *cub, char format);
+// void player_move(t_cub *cub, char direction);
+// void	dbg_put_minimap_small(t_cub *cub);
+// void	dbg_put_minimap_small(t_cub *cub);
+// void create_test_map_rectangle(t_cub *cub);
+// void	ini_vision(t_cub *cub);
+// void	update_ray_frame(t_cub *cub);
+// char	*player_cardinal_direction(t_cub *cub);
+// void	ini_img_2d(t_cub *cub, t_img *img);
+// void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width);
+// void	update_map2d_frame(t_cub *cub);
+// void put_pixel_to_image(t_cub *cub, void *mlx_ptr, void *img_ptr, int x, int y, int color);
+// void add_angle(double *angle, double offset);
 
 #endif
 

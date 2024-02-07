@@ -6,62 +6,73 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:43:08 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 10:59:41 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 16:25:00 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void create_test_map(char ***map)
+void create_test_map(t_map_config *map)
 {
-	int rows = 19;
-    int columns = 50; // Not including the null terminator
+    int rows = 15; // Adjusted to match the actual data size
+    int columns = 36; // Assuming this is the max length required including the null terminator
     char *data[] = {
-        "        1111111111111111111111111",
-        "        1111111111111111111111111",
-        "        1111111111111111111111111",
-        "        1000000000110111111100001",
-        "        10110N000111011   1100001",
-        "        1001000000000111111100001",
-        "111111111011000001110000000000001",
-        "100000000011000001110111111111111",
-        "11110111111111011100000010001",
-        "11110111111111011101010010001",
-        "11000000110101011100000000001",
-        "10000000000000001100000010001",
-        "10000000000000000001010010001",
-        "1100000111100000111111011110011",
-        "11110111  1000001  101111010001",
-        "11111111  1111111  111111111111",
-        "11111111  1111111  111111111111",
-        "11111111  1111111  111111111111"
+        "11111111111111111111111111111111111",
+        "11111111111111111111111111111111111",
+        "10000000001101111111000011111111111",
+        "10110N000111011   11000011111111111",
+        "10010000000001111111000011111111111",
+        "11111111101100000111000000000000111",
+        "10000000001100000111011111111111111",
+        "    1111011111111101110000001000111",
+        "    1111011111111101110101001000111",
+        "    1100000011010101110000000000111",
+        "    1000000000000000110000001000111",
+        "    1000000000000000000101001000111",
+        "11110000011110000011111101111001111",
+        "1111110111  1000001  10111101000111",
+        "1111111111  1111111  11111111111111",
+        "1111111111  1111111  11111111111111"
     };
-    // Allocate memory for rows
-    char **mat = (char **)malloc((rows+1) * sizeof(char *));
+    
+    char **mat = (char **)malloc((rows + 1) * sizeof(char *));
     if (mat == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
+        return; // Important to return or exit here
     }
 
-    // Allocate memory for columns and copy data
     for (int i = 0; i < rows; i++) {
-        mat[i] = (char *)malloc((columns + 1) * sizeof(char)); // +1 for null terminator
-        if (mat[i] == NULL) {
-            fprintf(stderr, "Memory allocation failed for row %d\n", i);
-            // Free already allocated memory
-            for (int j = 0; j < i; j++) {
-                free(mat[j]);
-            }
-            free(mat);
-        }
+        mat[i] = (char *)malloc((columns + 1) * sizeof(char));
         strcpy(mat[i], data[i]);
     }
-	mat[19] = NULL;
-	*map = mat;
-	
+    mat[rows] = NULL; // Correctly use the variable instead of hardcoded value
+    map->map = mat;
+}
+void	dbg_put_minimap_big(char **map)
+{
+	int	y;
 	int x;
-	int y;
-	// ft_matrix_dim(cub->map, &x, &y);
-	// printf("x: %d\ny: %d\n", x, y);
+	
+	y = 0;
+	ft_putstr_fd("Map:\n", STDOUT_FILENO);
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			// if(x == (int)(cub->player.pos_x) && y == (int)(cub->player.pos_y))
+			// 	ft_putstr_fd(player_cardinal_direction(cub), STDOUT_FILENO);
+			if(map[y][x] == '1')
+				ft_putstr_fd("#", STDOUT_FILENO);
+			else if(map[y][x] == '0')
+				ft_putstr_fd(" ", STDOUT_FILENO);
+			else
+				ft_putchar_fd(map[y][x], STDOUT_FILENO);
+			x++;
+		}
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		y++;
+	}
 }
 
 
@@ -100,83 +111,12 @@ void create_test_map(char ***map)
 // 	printf("------\n");
 // }
 
-// void	dbg_put_minimap_big(t_cub *cub)
-// {
-// 	int	y;
-// 	int x;
-	
-// 	y = 0;
-// 	ft_putstr_fd("Map:\n", STDOUT_FILENO);
-// 	while (cub->map[y])
-// 	{
-// 		x = 0;
-// 		while (cub->map[y][x])
-// 		{
-// 			if(x == (int)(cub->player.pos_x) && y == (int)(cub->player.pos_y))
-// 				ft_putstr_fd(player_cardinal_direction(cub), STDOUT_FILENO);
-// 			else if(cub->map[y][x] == '1')
-// 				ft_putstr_fd("#", STDOUT_FILENO);
-// 			else if(cub->map[y][x] == '0')
-// 				ft_putstr_fd(" ", STDOUT_FILENO);
-// 			else
-// 				ft_putchar_fd(cub->map[y][x], STDOUT_FILENO);
-// 			x++;
-// 		}
-// 		ft_putchar_fd('\n', STDOUT_FILENO);
-// 		y++;
-// 	}
-// }
 
 
 
 // void create_test_map_rectangle(t_cub *cub)
 // {
-// 	int rows = 16;
-//     int columns = 50; // Not including the null terminator
-//     char *data[] = {
-//         "11111111111111111111111111111111111",
-//         "11111111111111111111111111111111111",
-//         "10000000001101111111000011111111111",
-//         "10110N000111011   11000011111111111",
-//         "10010000000001111111000011111111111",
-//         "11111111101100000111000000000000111",
-//         "10000000001100000111011111111111111",
-//         "    1111011111111101110000001000111",
-//         "    1111011111111101110101001000111",
-//         "    1100000011010101110000000000111",
-//         "    1000000000000000110000001000111",
-//         "    1000000000000000000101001000111",
-//         "11110000011110000011111101111001111",
-//         "1111110111  1000001  10111101000111",
-//         "1111111111  1111111  11111111111111",
-//         "1111111111  1111111  11111111111111"
-//     };
-//     // Allocate memory for rows
-//     char **mat = (char **)malloc((rows+1) * sizeof(char *));
-//     if (mat == NULL) {
-//         fprintf(stderr, "Memory allocation failed\n");
-//     }
-
-//     // Allocate memory for columns and copy data
-//     for (int i = 0; i < rows; i++) {
-//         mat[i] = (char *)malloc((columns + 1) * sizeof(char)); // +1 for null terminator
-//         if (mat[i] == NULL) {
-//             fprintf(stderr, "Memory allocation failed for row %d\n", i);
-//             // Free already allocated memory
-//             for (int j = 0; j < i; j++) {
-//                 free(mat[j]);
-//             }
-//             free(mat);
-//         }
-//         strcpy(mat[i], data[i]);
-//     }
-// 	mat[16] = NULL;
-// 	cub->map = mat;
-	
-// 	int x;
-// 	int y;
-// 	ft_matrix_dim(cub->map, &x, &y);
-// 	printf("x: %d\ny: %d\n", x, y);
+// 	
 // }
 
 

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 11:04:41 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 17:39:36 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ void	ini_player(t_player *player)
 	ini_img(&player->player_W);
 }
 
-void config_player(void *mlx, const t_map_config *map_config, t_player *player)
+void config_player(t_cub *cub, t_map_config *map_config, t_player *player)
 {
-	config_img(mlx, &player->player_NE, "./textures/minimap/player_NE.xpm", NULL);
-	config_img(mlx, &player->player_NW, "./textures/minimap/player_NW.xpm", NULL);
-	config_img(mlx, &player->player_SE, "./textures/minimap/player_SE.xpm", NULL);
-	config_img(mlx, &player->player_SW, "./textures/minimap/player_SW.xpm", NULL);
-	config_img(mlx, &player->player_N, "./textures/minimap/player_N.xpm", NULL);
-	config_img(mlx, &player->player_S, "./textures/minimap/player_S.xpm", NULL);
-	config_img(mlx, &player->player_E, "./textures/minimap/player_E.xpm", NULL);
-	config_img(mlx, &player->player_W, "./textures/minimap/player_W.xpm", NULL);
-
+	config_img_file(cub, &player->player_NE, "./textures/minimap/player_NE.xpm");
+	config_img_file(cub, &player->player_NW, "./textures/minimap/player_NW.xpm");
+	config_img_file(cub, &player->player_SE, "./textures/minimap/player_SE.xpm");
+	config_img_file(cub, &player->player_SW, "./textures/minimap/player_SW.xpm");
+	config_img_file(cub, &player->player_N, "./textures/minimap/player_N.xpm");
+	config_img_file(cub, &player->player_S, "./textures/minimap/player_S.xpm");
+	config_img_file(cub, &player->player_E, "./textures/minimap/player_E.xpm");
+	config_img_file(cub, &player->player_W, "./textures/minimap/player_W.xpm");
 	// get the index from the array of the player and set the pos_x and pos_y
 	int	y;
 	int x;
@@ -119,19 +118,21 @@ int	get_player_pos(t_cub *cub, char format)
 
 void player_move(t_cub *cub, char direction)
 {
+	(void)cub;
+	(void)direction;
 	// Walking vectors for U, D, L, R
-    double walk_vectors[4][2] = {
-        {0, -1},  // U - forward
-        {0, 1}, // D - backward
-        {-1, 0}, // L - left
-        {1, 0}   // R - right
-    };
+    // double walk_vectors[4][2] = {
+    //     {0, -1},  // U - forward
+    //     {0, 1}, // D - backward
+    //     {-1, 0}, // L - left
+    //     {1, 0}   // R - right
+    // };
 
-    int dir_index;
-    if (direction == 'U') dir_index = 0;
-    else if (direction == 'D') dir_index = 1;
-    else if (direction == 'L') dir_index = 2;
-    else if (direction == 'R') dir_index = 3;
+    // int dir_index;
+    // if (direction == 'U') dir_index = 0;
+    // else if (direction == 'D') dir_index = 1;
+    // else if (direction == 'L') dir_index = 2;
+    // else if (direction == 'R') dir_index = 3;
 
 
 	// TODO: DOESNT WORK SINCE WE NOW USE VECTORS

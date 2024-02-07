@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:18:39 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 11:06:37 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 17:33:35 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,54 @@
 void	ini_win(t_win *win)
 {
 	win->mlx = NULL;
-	win->win = NULL;
+	win->mlx_win = NULL;
 	win->win_height = -1;
 	win->win_width = -1;
 }
 
 void	config_win(t_win *win)
 {
+	// int	screen_width;
+	// int	screen_height;
+
+	// screen_width = 0;
+	// screen_height = 0;
 	win->mlx = mlx_init();
+	if (win->mlx == NULL)
+	{
+		perror("Error initializing mlx");
+		exit(EXIT_FAILURE); // or any other error handling strategy
+	}
+	// mlx_get_screen_size(win->mlx, &screen_width, &screen_height);
 	win->win_width = WIN_WIDTH;
 	win->win_height = WIN_HEIGHT;
-	win->win = mlx_new_window(win->mlx, win->win_width, win->win_height,
-	"cub3D");
+	win->mlx_win = mlx_new_window(win->mlx, win->win_width, win->win_height, "cub3D");
+	if (win->mlx_win == NULL)
+	{
+		perror("Error creating window");
+		exit(EXIT_FAILURE); // or any other error handling strategy
+	}
+	mlx_do_key_autorepeatoff(win->mlx);
 }
 
 void	destroy_win(t_win *win)
 {
-	if (win->win)
-		mlx_destroy_window(win->mlx, win->win);
-	win->win = NULL;
+	mlx_do_key_autorepeaton(win->mlx);
+	if (win->mlx_win)
+		mlx_destroy_window(win->mlx, win->mlx_win);
+	win->mlx_win = NULL;
 	win->mlx = NULL;
 	win->win_height = -1;
-	win->win_width = -1;	
+	win->win_width = -1;
 }
 
-
+void start_loop(t_cub *cub)
+{
+	mlx_hook(cub->win.mlx_win, 2, (1L << 0), key_pressed, cub);
+	mlx_hook(cub->win.mlx_win, 3, (1L << 0), key_released, cub);
+	mlx_loop_hook(cub->win.mlx, model, cub);
+	mlx_loop(cub->win.mlx);
+}
 
 
 //----------------------------------------------------------------------------

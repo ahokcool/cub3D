@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 08:58:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 09:06:22 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/07 16:24:40 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ void	ini_map(t_map_config *map)
 }
 void	config_map(t_map_config *map, char *map_path)
 {
+	printf("config_map\n");
 	// parsing ()
-	create_test_map(&map->map);
+	(void)map_path;
+	create_test_map(map);
+	dbg_put_minimap_big(map->map);
 }
 
 void	destroy_map(t_map_config *map)
 {
+	(void)map;
 	//TODO:	
 }
