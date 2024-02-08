@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 13:06:23 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 16:39:57 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,82 @@ void	ini_controller(void *mlx, t_controller *controller)
 	(void)mlx;
 }
 
-int key_pressed(int keycode, t_cub *cub)
+int key_pressed(int keycode, t_controller *controller)
 {
-	(void)cub;
 	printf("Key pressed: %c\n", keycode);
 	// only change the boolean values of the struct t_controller
 
-	if (keycode == K_ESC)
-		destroy_cub(cub);
-	else if (keycode == 'w')
-		cub->controller.move_up = true;
+	if (keycode == 'w')
+		controller->move_up = true;
 	else if (keycode == 's')
-		cub->controller.move_down = true;
+		controller->move_down = true;
 	else if (keycode == 'a')
-		cub->controller.move_left = true;
+		controller->move_left = true;
 	else if (keycode == 'd')
-		cub->controller.move_right = true;
-	else if (keycode == K_ARROW_LEFT)
-		cub->controller.rotate_left = true;
-	else if (keycode == K_ARROW_RIGHT)
-		cub->controller.rotate_right = true;
+		controller->move_right = true;
+	// else if (keycode == K_ARROW_LEFT)
+	// 	controller->rotate_left = true;
+	// else if (keycode == K_ARROW_RIGHT)
+	// 	controller->rotate_right = true;
 	return (0);
 }
 
-int key_released(int keycode, t_cub *cub)
+int key_released(int keycode, t_controller *controller)
 {
-	(void)cub;
-	printf("Key released: %d\n", keycode);
+	printf("Key released: %c\n", keycode);
+	if (keycode == 'w')
+		controller->move_up = false;
+	else if (keycode == 's')
+		controller->move_down = false;
+	else if (keycode == 'a')
+		controller->move_left = false;
+	else if (keycode == 'd')
+		controller->move_right = false;
+	// else if (keycode == K_ARROW_LEFT)
+		// controller->rotate_left = false;
+	// else if (keycode == K_ARROW_RIGHT)
+		// controller->rotate_right = false;
 	// only change the boolean values of the struct t_controller
+	return (0);
+}
+int key_clicked(int keycode, t_cub *cub)
+{
+	t_vector_dbl	plane;
+
+	printf("Key clicked: %c\n", keycode);
+	if (keycode == K_ESC)
+		exit_game(cub);
+	else if (keycode == '1')
+		cub->show_mini = !cub->show_mini;
+	else if (keycode == '2')
+		cub->show_map2d = !cub->show_map2d;
+	else if (keycode == K_ARROW_LEFT)
+	{
+		rotate_vector_dbl(&cub->player.dir, -10);
+		normalize_vector_dbl(&cub->player.dir);
+
+		plane.x = cub->player.dir.x;
+		plane.y = cub->player.dir.y;
+		rotate_vector_dbl(&plane, 90);
+		cub->player.v_plane.x = plane.x;
+		cub->player.v_plane.y = plane.y;
+		normalize_vector_dbl(&cub->player.v_plane);
+		dbg_put_player(&cub->player);
+	}
+	else if (keycode == K_ARROW_RIGHT)
+	{
+		rotate_vector_dbl(&cub->player.dir, 10);
+		normalize_vector_dbl(&cub->player.dir);
+		
+		plane.x = cub->player.dir.x;
+		plane.y = cub->player.dir.y;
+		rotate_vector_dbl(&plane, 90);
+		cub->player.v_plane.x = plane.x;
+		cub->player.v_plane.y = plane.y;
+		normalize_vector_dbl(&cub->player.v_plane);
+
+		dbg_put_player(&cub->player);
+	}
 	return (0);
 }
 
@@ -63,14 +111,13 @@ int key_released(int keycode, t_cub *cub)
  * @return  int         
  */
 
-int	controller_mouse(int mouse_key, t_controller *controller)
+int	mouse_reader(int x, int y, t_player *player)
 {
-	(void)mouse_key;
-	(void)controller;
-	//TODO: check if it needs to return int
-	// only change the boolean values of the struct t_controller
+	(void)player;
+	printf("Mouse moved to: %d, %d\n", x, y);	
 	return (0);
 }
+
 
 void	destroy_controller(void *mlx, t_controller *controller)
 {

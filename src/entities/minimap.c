@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 17:50:28 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 13:51:14 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	destroy_minimap(void *mlx, t_minimap *minimap)
 	mlx_destroy_image(mlx, minimap->img_wall.mlx_img);
 	mlx_destroy_image(mlx, minimap->img_floor.mlx_img);
 	free_whatever("m", minimap->map_mini);
+}
+
+void	update_mapmini_frame(t_cub *cub)
+{
+	(void)cub;
 }
 
 

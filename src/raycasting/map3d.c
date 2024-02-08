@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vision.c                                           :+:      :+:    :+:   */
+/*   map3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:50:44 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 15:54:43 by astein           ###   ########.fr       */
+/*   Created: 2024/02/08 13:52:12 by astein            #+#    #+#             */
+/*   Updated: 2024/02/08 16:29:27 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ini_vision(t_cub *cub)
+void	ini_map3d(t_map3d *map3d)
 {
-	angleToVector(cub->player.rot_angle, &cub->map3d.v_direction);
-	cub->map3d.v_plane.x = sin(FOV / 2);
-	cub->map3d.v_plane.y = 0;
+	int	i;
+	
+	i = -1;
+	while (++i < WIN_WIDTH)
+		ini_column(&map3d->columns[i]);
+}
 
+void	config_map3d(t_map3d *map3d, t_player *player)
+{
+	(void)map3d;
+	(void)player;
 }

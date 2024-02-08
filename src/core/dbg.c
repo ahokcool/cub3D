@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:43:08 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 16:25:00 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 16:12:08 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void create_test_map(t_map_config *map)
 {
-    int rows = 15; // Adjusted to match the actual data size
+    int rows = 16; // Adjusted to match the actual data size
     int columns = 36; // Assuming this is the max length required including the null terminator
     char *data[] = {
-        "11111111111111111111111111111111111",
-        "11111111111111111111111111111111111",
-        "10000000001101111111000011111111111",
-        "10110N000111011   11000011111111111",
+        "11111111111111111111111111         ",
+        "11111111111111111111111111         ",
+        "10000000001101111111000011         ",
+        "10110N000111011   11000011         ",
         "10010000000001111111000011111111111",
         "11111111101100000111000000000000111",
-        "10000000001100000111011111111111111",
+        "11111000001100000111011111111110111",
         "    1111011111111101110000001000111",
         "    1111011111111101110101001000111",
         "    1100000011010101110000000000111",
         "    1000000000000000110000001000111",
         "    1000000000000000000101001000111",
-        "11110000011110000011111101111001111",
+        "11110000011110000011110101101001111",
         "1111110111  1000001  10111101000111",
         "1111111111  1111111  11111111111111",
         "1111111111  1111111  11111111111111"
@@ -75,6 +75,14 @@ void	dbg_put_minimap_big(char **map)
 	}
 }
 
+void	dbg_put_player(t_player	*player)
+{
+	printf("------\n");
+	printf("Player:\n");
+	printf("position: (%f, %f)\n", player->pos.x, player->pos.y);
+	printf("direction: (%f, %f)\n", player->dir.x, player->dir.y);
+	printf("------\n");
+}
 
 //----------------------------------------------------------------------------
 //OLD SHIT BELOW!!
@@ -101,23 +109,9 @@ void	dbg_put_minimap_big(char **map)
 // 	    return ("🡴"); // North-West
 // 	return (" "); // This case may not be needed, assuming the rotation angle is always within 0-360 degrees
 // }
-// void	dbg_put_player(t_cub *cub)
-// {
-// 	printf("------\n");
-// 	printf("Player:\n");
-// 	printf("pos_x: %f\n", cub->player.pos_x);
-// 	printf("pos_y: %f\n", cub->player.pos_y);
-// 	printf("rot_angle: %f\n", cub->player.rot_angle);
-// 	printf("------\n");
-// }
 
 
 
-
-// void create_test_map_rectangle(t_cub *cub)
-// {
-// 	
-// }
 
 
 // void	dbg_put_minimap_small(t_cub *cub)

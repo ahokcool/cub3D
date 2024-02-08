@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 18:12:16 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 14:12:38 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,25 @@ void	view(t_cub *cub)
 {
 	// design the images for
 	// 1. the 3dmap
+	// update_map3d_frame(cub);
 	// and if booleans are true:
-	// 2. the minimap
-	// 3. the 2d map
-	// changing the mlx img buffers
+	// if(cub->show_map2d)
+		// 2. the minimap
+	update_map2d_frame(cub);
+	// if(cub->show_mini)
+		// 3. the 2d map
+		// update_minimap_frame(cub);
+	
+	
+	//test:
+	// put_tile(cub, 0, 0, &cub->minimap.img_floor, &cub->img_3d, 10);
 
 	// when all images are calculated flush them to the window
-	//mlx_put_image_to_window...
-	(void)cub;
-	//test:
-		// if(cub->running)
-		// {
-		// 	printf("view\n");
-		// 	mlx_put_image_to_window(cub->win.mlx, cub->win.mlx_win, cub->img_3d.mlx_img, 10, 10);	
-		// }
+	mlx_put_image_to_window(cub->win.mlx, cub->win.mlx_win, cub->img_3d.mlx_img, 0, 0);
+	if(cub->show_map2d)
+		mlx_put_image_to_window(cub->win.mlx, cub->win.mlx_win, cub->img_2d.mlx_img, 0, 0);
+	if(cub->show_mini)
+		mlx_put_image_to_window(cub->win.mlx, cub->win.mlx_win, cub->img_mini.mlx_img, 0, 0);
 }
 
 

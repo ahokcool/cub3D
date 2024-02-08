@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vision.c                                           :+:      :+:    :+:   */
+/*   column.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:50:44 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 15:54:43 by astein           ###   ########.fr       */
+/*   Created: 2024/02/08 16:17:03 by astein            #+#    #+#             */
+/*   Updated: 2024/02/08 16:23:42 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ini_vision(t_cub *cub)
+void	ini_column(t_pixel_column *column)
 {
-	angleToVector(cub->player.rot_angle, &cub->map3d.v_direction);
-	cub->map3d.v_plane.x = sin(FOV / 2);
-	cub->map3d.v_plane.y = 0;
-
+	column->perp_distance_to_wall = 0;
+	column->height = 0;
+	column->hit_direction = 0;
+	column->hit_pos.x = -1;
+	column->hit_pos.y = -1;
 }
+
+void	config_column(t_pixel_column *column)
+{
+	(void)column;
+		// TODO:
+}
+
+void	destroy_column(t_pixel_column *column)
+{
+	(void)column;
+		// TODO:
+}
+

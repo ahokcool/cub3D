@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:18:39 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 17:33:35 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 14:10:26 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	config_win(t_win *win)
 		perror("Error creating window");
 		exit(EXIT_FAILURE); // or any other error handling strategy
 	}
-	mlx_do_key_autorepeatoff(win->mlx);
+	// mlx_do_key_autorepeatoff(win->mlx);
 }
 
 void	destroy_win(t_win *win)
@@ -58,8 +58,11 @@ void	destroy_win(t_win *win)
 
 void start_loop(t_cub *cub)
 {
-	mlx_hook(cub->win.mlx_win, 2, (1L << 0), key_pressed, cub);
-	mlx_hook(cub->win.mlx_win, 3, (1L << 0), key_released, cub);
+	mlx_hook(cub->win.mlx_win, 17, 0, exit_game, &cub);
+	mlx_hook(cub->win.mlx_win, 2, (1L << 0), key_pressed, &cub->controller);
+	mlx_hook(cub->win.mlx_win, 3, (1L << 1), key_released, &cub->controller);
+	mlx_hook(cub->win.mlx_win, 6, (1L << 6), mouse_reader, &cub->controller);
+	mlx_key_hook(cub->win.mlx_win, key_clicked, cub);
 	mlx_loop_hook(cub->win.mlx, model, cub);
 	mlx_loop(cub->win.mlx);
 }

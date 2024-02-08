@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 18:14:28 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 16:01:14 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width
 	
 	(void)cub;
 	i = 0;
+	if (pixel_width == 0)
+		pixel_width = src->width;
 	while (i < pixel_width)
 	{
 		j = 0;
@@ -137,7 +139,7 @@ void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width
 			if ((y + i) < dest->height && (x + j) < dest->width)
 			{
 				dst_pxl = dest->addr + ((y + i) * dest->line_len + (x + j) * (dest->bpp / 8));
-				printf("current corordinates: (%d, %d) cur pxl: %p\n", x + j, y + i, dst_pxl);
+				// printf("current corordinates: (%d, %d) cur pxl: %p\n", x + j, y + i, dst_pxl);
 				*(unsigned int*)dst_pxl = *(unsigned int*)src_pxl;
 			}
 			else
@@ -146,7 +148,35 @@ void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width
 		}
 		i++;
 	}	
-	printf("DONE WITH TILE\n");
+}
+
+void set_pixel_to_image(t_img *img, int x, int y, int color)
+{
+	char *dst_pxl;
+
+	if (x < img->width && y < img->height)
+	{
+		dst_pxl = img->addr + (y * img->line_len + x * (img->bpp / 8));
+		*(unsigned int*)dst_pxl = color;
+	}
+	else
+		printf("set_pixel_to_image (%d, %d) out of bounds\n", x, y);
+}
+
+void draw_line(t_img *img, t_vector_dbl *start_coordinates, t_vector_dbl *vector_of_line, int color)
+{
+    double distance = sqrt(pow(vector_of_line->x, 2) + pow(vector_of_line->y, 2));
+    double deltaX = vector_of_line->x / distance;
+    double deltaY = vector_of_line->y / distance;
+    double currentX = start_coordinates->x;
+    double currentY = start_coordinates->y;
+
+    for(double i = 0; i <= distance; i++)
+    {
+        set_pixel_to_image(img, (int)floor(currentX), (int)floor(currentY), color);
+        currentX += deltaX;
+        currentY += deltaY;
+    }
 }
 
 //----------------------------------------------------------------------------

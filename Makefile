@@ -34,15 +34,18 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	core/main.c											\
 	core/cub.c											\
 	core/dbg.c											\
+	core/math.c											\
 	entities/img.c										\
 	entities/map.c										\
 	entities/map2d.c									\
 	entities/minimap.c									\
 	entities/player.c									\
+	entities/column.c									\
 	model/model.c										\
 	model/collision_check.c								\
 	parser/parser.c										\
 	raycasting/dda.c									\
+	raycasting/map3d.c									\
 	view/mlx_win.c										\
 	view/view.c											\
 	)

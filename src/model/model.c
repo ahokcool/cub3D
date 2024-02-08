@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:36 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 17:41:59 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 16:09:27 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	model(void *void_cub)
 	
 	cub = (t_cub *)void_cub;
 	
+
 	// calculate everything realted to the model
 	// DONT CALCULATE THE WALL LINE HEIGT FOR EACH COLUMN, DO IT IN THE VIEW
 	
@@ -31,10 +32,7 @@ int	model(void *void_cub)
 
 	// // triggering the view to update the images based on the changes from
 	// // the model
-	if(cub->controller.move_up == true)
-	{
-		view(cub);
-	}
+	view(cub);
 	
 	return(0);
 }
