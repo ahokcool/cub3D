@@ -95,4 +95,4 @@ run: all
 
 rerun: re run
 val: all
-	@valgrind --track-origins=yes ./$(NAME) $(MAPS_FOLDER)test.cub
+	@valgrind ./$(NAME) $(MAPS_FOLDER)test.cub

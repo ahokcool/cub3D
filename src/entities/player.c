@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 16:36:23 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:15:53 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static	void config_player_start_pos(t_map_config *map_config, t_player *player)
 		}
 		cur_tile.y++;
 	}
-	dbg_put_player(player);
+	// dbg_put_player(player);
 }
 
 void config_player(t_cub *cub, t_map_config *map_config, t_player *player)
@@ -97,7 +97,52 @@ void	destroy_player(void *mlx, t_player *player)
 
 }
 
+void 	player_rotate(t_player *player, bool turn_right)
+{
+	t_vector_dbl	plane;
 
+	if (turn_right)
+		rotate_vector_dbl(&player->dir, ROT_SPEED);
+	else
+		rotate_vector_dbl(&player->dir, -ROT_SPEED);
+	normalize_vector_dbl(&player->dir);
+
+	plane.x = player->dir.x;
+	plane.y = player->dir.y;
+	rotate_vector_dbl(&plane, 90);
+	player->v_plane.x = plane.x;
+	player->v_plane.y = plane.y;
+	normalize_vector_dbl(&player->v_plane);
+	// dbg_put_player(player);
+}
+
+void 	player_move(t_player *player, t_controller *controller, t_map_config *map_config)
+{
+	t_vector_dbl	dir;
+	
+	dir.x = 0;
+	dir.y = 0;
+	if (controller->move_forward)
+		dir.y -= 1;
+	if (controller->move_backwards)
+		dir.y += 1;
+	if (controller->move_left)
+		dir.x -= 1;
+	if (controller->move_right)
+		dir.x += 1;
+	rotate_vector_by_vector(&dir, &player->dir);
+	normalize_vector_dbl(&dir);
+	dir.x *= MOVE_SPEED;
+	dir.y *= MOVE_SPEED;
+	
+	// Coalision detection
+	if (map_config->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x))] == '0')
+		player->pos.x += dir.x;
+	if (map_config->map[(int)(player->pos.y + (dir.y))][(int)(player->pos.x)] == '0')
+		player->pos.y += dir.y;
+	
+	// dbg_put_player(player);
+}
 
 
 
@@ -131,33 +176,33 @@ int	get_player_pos(t_cub *cub, char format)
 
 
 
-void player_move(t_cub *cub, char direction)
-{
-	(void)cub;
-	(void)direction;
-	// Walking vectors for U, D, L, R
-    // double walk_vectors[4][2] = {
-    //     {0, -1},  // U - forward
-    //     {0, 1}, // D - backward
-    //     {-1, 0}, // L - left
-    //     {1, 0}   // R - right
-    // };
+// void player_move(t_cub *cub, char direction)
+// {
+// 	(void)cub;
+// 	(void)direction;
+// 	// Walking vectors for U, D, L, R
+//     // double walk_vectors[4][2] = {
+//     //     {0, -1},  // U - forward
+//     //     {0, 1}, // D - backward
+//     //     {-1, 0}, // L - left
+//     //     {1, 0}   // R - right
+//     // };
 
-    // int dir_index;
-    // if (direction == 'U') dir_index = 0;
-    // else if (direction == 'D') dir_index = 1;
-    // else if (direction == 'L') dir_index = 2;
-    // else if (direction == 'R') dir_index = 3;
+//     // int dir_index;
+//     // if (direction == 'U') dir_index = 0;
+//     // else if (direction == 'D') dir_index = 1;
+//     // else if (direction == 'L') dir_index = 2;
+//     // else if (direction == 'R') dir_index = 3;
 
 
-	// TODO: DOESNT WORK SINCE WE NOW USE VECTORS
-    // // Convert rotation angle to radians
-    // double rad = cub->player.rot_angle * (M_PI / 180.0); 
+// 	// TODO: DOESNT WORK SINCE WE NOW USE VECTORS
+//     // // Convert rotation angle to radians
+//     // double rad = cub->player.rot_angle * (M_PI / 180.0); 
 
-    // // Calculate the rotated walking vector
-    // double walk_x = walk_vectors[dir_index][0] * cos(rad) - walk_vectors[dir_index][1] * sin(rad);
-    // double walk_y = walk_vectors[dir_index][0] * sin(rad) + walk_vectors[dir_index][1] * cos(rad);
-	// // TODO: check if the player is walking into a wall
-	// cub->player.pos_x += (walk_x / TILE_SIZE);
-	// cub->player.pos_y += (walk_y / TILE_SIZE);
-}
+//     // // Calculate the rotated walking vector
+//     // double walk_x = walk_vectors[dir_index][0] * cos(rad) - walk_vectors[dir_index][1] * sin(rad);
+//     // double walk_y = walk_vectors[dir_index][0] * sin(rad) + walk_vectors[dir_index][1] * cos(rad);
+// 	// // TODO: check if the player is walking into a wall
+// 	// cub->player.pos_x += (walk_x / TILE_SIZE);
+// 	// cub->player.pos_y += (walk_y / TILE_SIZE);
+// }

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 16:01:14 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:20:29 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,15 @@ void set_pixel_to_image(t_img *img, int x, int y, int color)
 
 	if (x < img->width && y < img->height)
 	{
-		dst_pxl = img->addr + (y * img->line_len + x * (img->bpp / 8));
-		*(unsigned int*)dst_pxl = color;
+		if(x >= 0 && y >= 0 && x < img->width && y < img->height)
+		{
+			dst_pxl = img->addr + (y * img->line_len + x * (img->bpp / 8));
+			// printf("current corordinates: (%d, %d) cur pxl: %p\n", x, y, dst_pxl);
+			*(unsigned int*)dst_pxl = color;	
+		}
 	}
-	else
-		printf("set_pixel_to_image (%d, %d) out of bounds\n", x, y);
+	// else
+		// printf("set_pixel_to_image (%d, %d) out of bounds\n", x, y);
 }
 
 void draw_line(t_img *img, t_vector_dbl *start_coordinates, t_vector_dbl *vector_of_line, int color)

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:26:36 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 16:09:27 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 19:16:57 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int	model(void *void_cub)
 	
 	cub = (t_cub *)void_cub;
 	
-
+	if (cub->controller.game_over)
+	{
+		exit_game(cub);
+		return(0);
+	}
 	// calculate everything realted to the model
 	// DONT CALCULATE THE WALL LINE HEIGT FOR EACH COLUMN, DO IT IN THE VIEW
 	
@@ -32,6 +36,16 @@ int	model(void *void_cub)
 
 	// // triggering the view to update the images based on the changes from
 	// // the model
+	if (cub->controller.move_forward || cub->controller.move_backwards || cub->controller.move_left || cub->controller.move_right)
+		player_move(&cub->player, &cub->controller, &cub->map_config);
+
+	if (cub->controller.rotate_right)
+		player_rotate(&cub->player, true);
+	else if (cub->controller.rotate_left)
+		player_rotate(&cub->player, false);
+
+	update_map3d(&cub->map3d, &cub->player, &cub->map_config);
+
 	view(cub);
 	
 	return(0);

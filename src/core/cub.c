@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 16:31:03 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:05:20 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static void	ini_cub(t_cub *cub)
 {
 	printf("ini_cub\n");
 	cub->running = false;
-	cub->show_mini = false;
-	cub->show_map2d = true;
+	
 	ini_win(&cub->win);
 	ini_img(&cub->img_2d);
 	ini_img(&cub->img_3d);

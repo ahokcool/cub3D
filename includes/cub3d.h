@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 16:27:54 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:10:41 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ typedef struct s_pixel_column
 {
 	//For each Pixel (0->SCREEN WIDTH) we need to store the following information
 	double				perp_distance_to_wall;
-	double				height;
+	int					height;
 	char				hit_direction;	//N, S, E, W
+	t_vector_dbl		ray;
 	t_vector_dbl		hit_pos;
 } 		t_pixel_column;
 	
@@ -129,12 +130,14 @@ typedef struct s_map3d
 
 typedef struct s_controller
 {
-	bool				move_up;
-	bool				move_down;
+	bool				move_forward;
+	bool				move_backwards;
 	bool				move_left;
 	bool				move_right;
 	bool				rotate_left;
 	bool				rotate_right;
+	bool				game_over;
+	bool				show_3d;		//true=3d, false=2d
 }						t_controller;
 
 typedef struct s_cub
@@ -149,8 +152,6 @@ typedef struct s_cub
 	//PLAYER DETAILS
 	t_player			player;
 	//RENDER DETAILS
-	bool				show_mini;	//show / hide minimap
-	bool				show_map2d;	//show / hide 2d map
 	t_map2d				map2d;
 	t_map3d				map3d;
 	t_minimap			minimap;
@@ -169,6 +170,8 @@ void	destroy_cub(t_cub *cub);
 //math.c
 void	normalize_vector_dbl(t_vector_dbl *vector);
 void	rotate_vector_dbl(t_vector_dbl *vector, double degrees);
+void	rotate_vector_by_vector(t_vector_dbl *vector, t_vector_dbl *rotate);
+
 
 //mlx_win.c
 void	ini_win(t_win *win);
@@ -196,11 +199,14 @@ void	destroy_map(t_map_config *map);
 void	ini_player(t_player *player);
 void	config_player(t_cub *cub, t_map_config *map_config, t_player *player);
 void	destroy_player(void *mlx, t_player *player);
+void 	player_move(t_player *player, t_controller *controller, t_map_config *map_config);
+void 	player_rotate(t_player *player, bool turn_right);
 
 //column.c
 void	ini_column(t_pixel_column *column);
 void	config_column(t_pixel_column *column);
 void	destroy_column(t_pixel_column *column);
+void	update_column(t_pixel_column *column, t_player *player, t_map_config *map_config, int column_index);
 
 //miminmap.c
 void	ini_minimap(t_minimap *minimap);
@@ -217,6 +223,8 @@ void	update_map2d_frame(t_cub *cub);
 //map3d.c
 void	ini_map3d(t_map3d *map3d);
 void	config_map3d(t_map3d *map3d, t_player *player);
+void	update_map3d(t_map3d *map3d, t_player *player, t_map_config *map_config);
+void	update_map3d_frame(t_cub *cub);
 
 //controller.c
 void	ini_controller(void *mlx, t_controller *controller);
