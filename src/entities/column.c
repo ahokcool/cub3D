@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:17:03 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 20:02:20 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/10 02:22:41 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	destroy_column(t_pixel_column *column)
 void	update_column(t_pixel_column *column, t_player *player, t_map_config *map_config, int column_index)
 {
 	double cameraX;
+	// double fovAdjustment = player->fov / 50.0;
 
-	cameraX = (2 * column_index / (double)WIN_WIDTH) - 1;
+	cameraX = ((2 * column_index / (double)WIN_WIDTH) - 1);
+	cameraX = ((2 * column_index / (double)WIN_WIDTH) - 1);
 
-	column->ray.x = player->dir.x + player->v_plane.x * cameraX;
-	column->ray.y = player->dir.y + player->v_plane.y * cameraX;	
+	column->ray.x = player->dir.x + player->v_plane.x * cameraX; //* player->fov;	//TODO: SCROLING OUT OF VIEW IS NOT WORKING
+	column->ray.y = player->dir.y + player->v_plane.y * cameraX; //* player->fov;	//TODO: SCROLING OUT OF VIEW IS NOT WORKING
 	
 	// for test draw
 	column->ray.x *= 20;
@@ -135,5 +137,10 @@ void	update_column(t_pixel_column *column, t_player *player, t_map_config *map_c
 	column->hit_pos.x = player->pos.x + column->perp_distance_to_wall * column->ray.x;
 	column->hit_pos.y = player->pos.y + column->perp_distance_to_wall * column->ray.y;
 	// printf("height: %d\n", column->height);
+
+	// Calculate where the Wall was hit
+	column->wall_x = column->hit_pos.x;
+	column->wall_x -= floor(column->wall_x);
+	
 }
 

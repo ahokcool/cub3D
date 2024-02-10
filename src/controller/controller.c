@@ -6,13 +6,13 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 20:36:10 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/10 02:46:20 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ini_controller(void *mlx, t_controller *controller)
+void	ini_controller(t_controller *controller)
 {
 	controller->move_forward = false;
 	controller->move_backwards = false;
@@ -22,7 +22,7 @@ void	ini_controller(void *mlx, t_controller *controller)
 	controller->rotate_right = false;
 	controller->game_over = false;
 	controller->show_3d = false;
-	(void)mlx;
+	controller->show_texture = false;
 }
 
 int key_pressed(int keycode, t_controller *controller)
@@ -66,7 +66,8 @@ int key_released(int keycode, t_controller *controller)
 		controller->show_3d = false;
 	else if(keycode == '3')
 		controller->show_3d = true;
-	// only change the boolean values of the struct t_controller
+	else if(keycode == 't')
+		controller->show_texture = !controller->show_texture;
 	return (0);
 }
 int key_clicked(int keycode, t_cub *cub)
@@ -91,10 +92,35 @@ int key_clicked(int keycode, t_cub *cub)
  * @return  int         
  */
 
-int	mouse_reader(int x, int y, t_player *player)
+int	mouse_click(int button, int x, int y, t_cub *cub)
 {
-	(void)player;
-	printf("Mouse moved to: %d, %d\n", x, y);	
+	printf("button %d, Mouse clicked: %d, %d\n", button, x, y);
+	if (button == 4)
+		cub->player.fov += 5;
+	else if (button == 5)
+		cub->player.fov -= 5;
+	if (cub->player.fov < 50)
+		cub->player.fov = 50;
+	else if (cub->player.fov > 200)
+		cub->player.fov = 200;
+	
+	
+	printf("fov: %f\n", cub->player.fov);
+	return (0);
+}
+
+int	mouse_move(int x, int y, t_cub *cub)
+{
+	if(x > 2 * (WIN_WIDTH / 3))
+		cub->controller.rotate_right = true;
+	else if((x < WIN_WIDTH / 3))
+		cub->controller.rotate_left = true;
+	else
+	{
+		cub->controller.rotate_right = false;
+		cub->controller.rotate_left = false;
+	}
+	printf("Mouse moved to: %d, %d\n", x, y);
 	return (0);
 }
 

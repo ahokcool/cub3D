@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 20:35:23 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/10 02:14:52 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define K_ARROW_DOWN 65364
 
 //RAY CASTING
-# define FOV 90
 # define WALL_HEIGHT 10
 
 //RENDER DETAILS

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 20:05:20 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/09 13:56:31 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ini_cub(t_cub *cub)
 	ini_map3d(&cub->map3d);
 	ini_minimap(&cub->minimap);
 	// ini_ray(cub->ray);
-	ini_controller(&cub->win.mlx, &cub->controller);	
+	ini_controller(&cub->controller);	
 }
 
 static	void	config_cub(t_cub *cub, char *map_path)
@@ -40,7 +40,7 @@ static	void	config_cub(t_cub *cub, char *map_path)
 	config_map(&cub->map_config, map_path);
 	config_player(cub, &cub->map_config, &cub->player);
 	config_map2d(cub, &cub->map2d);
-	config_map3d(&cub->map3d, &cub->player);
+	config_map3d(cub, &cub->map3d, &cub->player);
 	config_minimap(cub, &cub->minimap, cub->map_config.map);
 	// config_ray(cub->ray);
 }

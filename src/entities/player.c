@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 20:15:53 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/10 02:33:05 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ini_player(t_player *player)
 	player->dir.y = 0;
 	player->v_plane.x = 0;
 	player->v_plane.y = 0;
+	player->fov = -1;
 	ini_img(&player->player_NE);
 	ini_img(&player->player_NW);
 	ini_img(&player->player_SE);
@@ -62,9 +63,21 @@ static	void config_player_start_pos(t_map_config *map_config, t_player *player)
 	// dbg_put_player(player);
 }
 
+void	update_v_plane(t_player *player)
+{
+	t_vector_dbl	plane;
+	
+	plane.x = player->dir.x;
+	plane.y = player->dir.y;
+	rotate_vector_dbl(&plane, 90);
+	player->v_plane.x = plane.x * (player->fov/100);
+	player->v_plane.y = plane.y * (player->fov/100);
+}
+
 void config_player(t_cub *cub, t_map_config *map_config, t_player *player)
 {
-
+	player->fov = 100.00;
+	printf("FOV: %f\n", cub->player.fov);
 	config_img_file(cub, &player->player_NE, "./textures/minimap/player_NE.xpm");
 	config_img_file(cub, &player->player_NW, "./textures/minimap/player_NW.xpm");
 	config_img_file(cub, &player->player_SE, "./textures/minimap/player_SE.xpm");
@@ -74,14 +87,7 @@ void config_player(t_cub *cub, t_map_config *map_config, t_player *player)
 	config_img_file(cub, &player->player_E, "./textures/minimap/player_E.xpm");
 	config_img_file(cub, &player->player_W, "./textures/minimap/player_W.xpm");
 	config_player_start_pos(map_config, player);
-	t_vector_dbl	plane;
-
-	plane.x = player->dir.x;
-	plane.y = player->dir.y;
-	rotate_vector_dbl(&plane, 90);
-	player->v_plane.x = plane.x;
-	player->v_plane.y = plane.y;
-	normalize_vector_dbl(&player->v_plane);
+	update_v_plane(player);
 }
 
 void	destroy_player(void *mlx, t_player *player)
@@ -97,9 +103,10 @@ void	destroy_player(void *mlx, t_player *player)
 
 }
 
+
+
 void 	player_rotate(t_player *player, bool turn_right)
 {
-	t_vector_dbl	plane;
 
 	if (turn_right)
 		rotate_vector_dbl(&player->dir, ROT_SPEED);
@@ -107,12 +114,8 @@ void 	player_rotate(t_player *player, bool turn_right)
 		rotate_vector_dbl(&player->dir, -ROT_SPEED);
 	normalize_vector_dbl(&player->dir);
 
-	plane.x = player->dir.x;
-	plane.y = player->dir.y;
-	rotate_vector_dbl(&plane, 90);
-	player->v_plane.x = plane.x;
-	player->v_plane.y = plane.y;
-	normalize_vector_dbl(&player->v_plane);
+	// update_v_plane(player);
+	
 	// dbg_put_player(player);
 }
 
@@ -141,6 +144,7 @@ void 	player_move(t_player *player, t_controller *controller, t_map_config *map_
 	if (map_config->map[(int)(player->pos.y + (dir.y))][(int)(player->pos.x)] == '0')
 		player->pos.y += dir.y;
 	
+	// update_v_plane(player);
 	// dbg_put_player(player);
 }
 

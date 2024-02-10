@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 20:10:41 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/10 02:42:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_player
 	t_vector_dbl	pos;	//player position
 	t_vector_dbl	dir;	//player view direction
 	t_vector_dbl	v_plane;
+	double			fov;	//field of view 1 for no changes
 	//Players Sprites for 2D map in different directions
 	t_img			player_N;
 	t_img			player_NE;
@@ -121,11 +122,13 @@ typedef struct s_pixel_column
 	char				hit_direction;	//N, S, E, W
 	t_vector_dbl		ray;
 	t_vector_dbl		hit_pos;
+	double				wall_x;
 } 		t_pixel_column;
 	
 typedef struct s_map3d
 {
 	t_pixel_column		columns[WIN_WIDTH]; //ONE OBJECT FOR EACH PIXEL COLUMN (aka STRIPE)
+	t_img				img_wall;
 } 						t_map3d;
 
 typedef struct s_controller
@@ -138,6 +141,7 @@ typedef struct s_controller
 	bool				rotate_right;
 	bool				game_over;
 	bool				show_3d;		//true=3d, false=2d
+	bool				show_texture;	//true=texture, false=color
 }						t_controller;
 
 typedef struct s_cub
@@ -200,6 +204,7 @@ void	ini_player(t_player *player);
 void	config_player(t_cub *cub, t_map_config *map_config, t_player *player);
 void	destroy_player(void *mlx, t_player *player);
 void 	player_move(t_player *player, t_controller *controller, t_map_config *map_config);
+void	update_v_plane(t_player *player);
 void 	player_rotate(t_player *player, bool turn_right);
 
 //column.c
@@ -222,16 +227,17 @@ void	update_map2d_frame(t_cub *cub);
 
 //map3d.c
 void	ini_map3d(t_map3d *map3d);
-void	config_map3d(t_map3d *map3d, t_player *player);
+void	config_map3d(t_cub *cub, t_map3d *map3d, t_player *player);
 void	update_map3d(t_map3d *map3d, t_player *player, t_map_config *map_config);
 void	update_map3d_frame(t_cub *cub);
 
 //controller.c
-void	ini_controller(void *mlx, t_controller *controller);
+void	ini_controller(t_controller *controller);
 int		key_pressed(int keycode, t_controller *controller);
 int		key_released(int keycode, t_controller *controller);
 int		key_clicked(int keycode, t_cub *cub);
-int		mouse_reader(int x, int y, t_player *player);
+int		mouse_click(int button, int x, int y, t_cub *cub);
+int		mouse_move(int x, int y, t_cub *cub);
 void	destroy_controller(void *mlx, t_controller *controller);
 
 //model
