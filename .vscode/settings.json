@@ -5,6 +5,7 @@
 		"cub3d.h": "c",
 		"mlx.h": "c",
 		"stdbool.h": "c",
-		"config.h": "c"
+		"config.h": "c",
+		"limits": "c"
 	}
 }
