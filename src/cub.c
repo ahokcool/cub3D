@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/03 15:18:19 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:27:26 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	free_map(t_cub *cub)
 		free (cub->map_config.we_texture);
 	if (cub->map_config.ea_texture)
 		free (cub->map_config.ea_texture);
+	if (cub->map_config.map)
+		free_whatever("m", cub->map_config.map);
 }
 
 void	init_cub(t_cub *cub)

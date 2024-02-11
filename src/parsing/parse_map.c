@@ -6,70 +6,17 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:17:51 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/11 00:24:49 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:44:59 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool    is_valid_map_char(char c, bool *found)
+bool    is_valid_map_char(char c)
 {
-    if (*found == true)
-    {
-       if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
-         *found = true;
-    }
-    else
-        return (false);
-    return (c == '0' || c == '1' || c == 'N' || c == 'W' || c == 'E'
-        || c == 'S' || c == ' ');
+    return (c == '0' || c == '1' || c == 'N' || c == 'W' || c == 'E' || c == 'S'
+		|| c == ' ' || c == '\n');
 }
-
-
-// bool    parse_map(t_cub *cub, int cf_fd)
-// {
-//     char    line;
-//     bool    valid;
-//     bool    map_started;
-//     bool    found_player;
-
-//     valid = false;
-//     map_started = false;
-//     found_player = false;
-//     while (valid != true)
-//     {
-//         line = gnl(cf_fd);
-//         if (!line)
-//             return (false);
-//         if (is_line_empty(line) && !map_started)
-// 		{
-// 			free_whatever("p", line);
-// 			continue ;
-// 		}
-//         else if (is_line_empty(line) && map_started)
-//         {
-//             free_whatever("p", line);
-//             return (false);
-//         }
-//         if (!check_map_line(cub, line, &map_started, &found_player))
-//             return (false);
-//         free_whatever("p", line);
-//     }
-// }
-
-// void    replace_space_tab(char *line)
-// {
-//     int i;
-//     int count;
-
-//     if (!line || !ft_strchr(line, ' '))
-//         return ;
-//     i = -1;
-//     count = 0;
-//     while (line[++i] == '\t')
-//         count++;
-//     printf ("COUNT %d\n", count);
-// }
 
 void    replace_spaces(char *line)
 {
@@ -82,6 +29,19 @@ void    replace_spaces(char *line)
     size--;
     while (is_space(line[size]))
         line[size--] = '$';
+}
+
+bool	is_line_valid(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (!is_valid_map_char(line[i]))
+			return (false);
+	}
+	return (true);
 }
 
 char    *skip_empty_lines(int cf_fd)
@@ -98,6 +58,12 @@ char    *skip_empty_lines(int cf_fd)
         else
             break;
     }
+	if (!is_line_valid(line))
+	{
+		free (line);
+		return (NULL);
+	}
+	printf ("HOPE NOT HERE\n");
     replace_spaces(line);
     return (line);
 }
@@ -109,23 +75,25 @@ bool    read_map(t_cub *cub, int cf_fd)
 
     cur_line = NULL;
     long_line = skip_empty_lines(cf_fd);
-    while (1)
+	if (!long_line)
+		return (false);
+    while (long_line)
     {
         cur_line = gnl(cf_fd);
         if (!cur_line)
             break ;
-        if (is_line_empty(cur_line))
+        if (!is_line_valid(cur_line) || is_line_empty(cur_line))
         {
             free_whatever("pp", long_line, cur_line);
             return (false);
         }
         replace_spaces(cur_line);
-        // replace_space_tab(cur_line);
         long_line = append_str(long_line, cur_line, true);
     }
     cub->map_config.map = ft_split(long_line, '$');
     if (!cub->map_config.map)
-        return (true);
+        return (false);
+	free_whatever("p", long_line);
     return (true);
 }
 

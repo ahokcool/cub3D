@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 13:29:38 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/10 22:56:45 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:56:46 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,10 @@ void	replace_whitespaces(char *line)
 }
 
 /*
-	First replaces all the whitespaces in the line and then checks if the line 
-	is empty
+	Checks if the line is empty
 */
 bool	is_line_empty(char *line)
 {
-	replace_whitespaces(line);
 	while (*line)
 	{
 		if (!is_space((unsigned char)*line))
