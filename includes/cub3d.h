@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/03 16:01:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:56:45 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,13 @@ void 	eqip_imgs(t_cub *cub);
 
 // utils
 bool	check_format(char *path, char *expected_format);
-bool	ft_isspace(char c);
+bool	is_space(char c);
 bool	file_exists(const char *path);
 bool	is_line_empty(char *line);
 void	replace_whitespaces(char *line);
 
 bool	parse_textures_colors(t_cub *cub, int map_fd);
+bool    parse_map(t_cub *cub, int cf_fd);
 bool	handle_texture_line(t_cub *cub, char **parts, int *found);
 bool	handle_color_line(t_cub *cub, char **parts, int *found);
 

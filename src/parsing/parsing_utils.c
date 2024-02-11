@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 13:29:38 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/03 16:44:02 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/10 22:56:45 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	check_format(char *path, char *expected_format)
 }
 
 /* Checks if the character is one of the whitespaces */
-bool	ft_isspace(char c)
+bool	is_space(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\a'
 		|| c == '\b' || c == '\f' || c == '\r');
@@ -55,7 +55,7 @@ void	replace_whitespaces(char *line)
 		return ;
 	while (line[++i])
 	{
-		if (ft_isspace(line[i]))
+		if (is_space(line[i]))
 			line[i] = ' ';
 	}
 }
@@ -69,7 +69,7 @@ bool	is_line_empty(char *line)
 	replace_whitespaces(line);
 	while (*line)
 	{
-		if (!ft_isspace((unsigned char)*line))
+		if (!is_space((unsigned char)*line))
 			return (false);
 		line++;
 	}
