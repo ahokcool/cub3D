@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:17:51 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/11 17:44:59 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:40:03 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char    *skip_empty_lines(int cf_fd)
 		free (line);
 		return (NULL);
 	}
-	printf ("HOPE NOT HERE\n");
     replace_spaces(line);
     return (line);
 }
