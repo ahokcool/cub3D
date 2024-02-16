@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:09:14 by astein            #+#    #+#             */
-/*   Updated: 2024/02/16 14:46:28 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/16 20:05:26 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 	cf - configuration file
 */
-bool parse(t_cub *cub, char *path)
+bool	parse(t_cub *cub, char *path)
 {
 	char	*map_content;
 	int		cf_fd;
@@ -33,5 +33,5 @@ bool parse(t_cub *cub, char *path)
 	if (!parse_map(cub, cf_fd))
 		return (false);
 	close (cf_fd);
-	return (false); // by default this function always returns false so the fucking window is not open
+	return (false);
 }
