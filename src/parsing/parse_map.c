@@ -6,44 +6,13 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:17:51 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/16 14:18:14 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:22:23 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool    is_valid_map_char(char c)
-{
-    return (c == '0' || c == '1' || c == 'N' || c == 'W' || c == 'E' || c == 'S'
-		|| c == ' ' || c == '\n');
-}
-
-void    replace_spaces(char *line)
-{
-    int     i;
-    int     size;
-
-    if (!line)
-        return ;
-    size = ft_strlen(line);
-    size--;
-    while (is_space(line[size]))
-        line[size--] = '$';
-}
-
-bool	is_line_valid(char *line)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (!is_valid_map_char(line[i]))
-			return (false);
-	}
-	return (true);
-}
-
+/*  */
 char    *skip_empty_lines(int cf_fd)
 {
     char    *line;
@@ -65,25 +34,6 @@ char    *skip_empty_lines(int cf_fd)
 	}
     replace_spaces(line);
     return (line);
-}
-
-bool    validate_player(char *str)
-{
-    bool    found;
-    int     i;
-
-    found = false;
-    i = -1;
-    while (str[++i])
-    {
-        if (str[i] == 'N' || str[i] == 'W' || str[i] == 'E' || str[i] == 'S')
-        {
-            if (found)
-                return (false);
-            found = true;
-        }
-    }
-    return (true);
 }
 
 char    *read_map(t_cub *cub, int cf_fd)
@@ -130,61 +80,7 @@ bool    parse_map(t_cub *cub, int cf_fd)
     free_whatever("p", map_line);
     if (!cub->map_config.map)
         return (false);
-    printf ("CORRECT\n");
+    if (!handle_map(cub))
+        return (false);
     return (true);
 }
-
-// int i = -1;
-// int i = -1;
-// while (map[++i])
-//    j = -1;
-//    while (map[i][++j]
-// nt i = -1;
-// while (map[++i])
-//    j = -1;
-//    while (map[i][++j]
-//   {
-
-
-//    }
-// int i = -1;
-// while (map[++i])
-//    j = -1;
-//    while (map[i][++j]
-//   {
-//        if (map[i][++j] != ' ' || map[i][++j] != '1'
-//               check all neighbor cells (top, bottom, left, right)
-//    }
-// nt i = -1;
-// while (map[++i])
-//    j = -1;
-//    while (map[i][++j]
-//   {
-//        if (map[i][++j] != ' ' || map[i][++j] != '1' 
-//              if (i == 0 || !map[i][j] || i == map hight - 1 || j == 0
-//                       its not valid
-//               check all neighbor cells (top, bottom, left, right)
-//    }
-// int i = -1;
-// while (map[++i])
-//    j = -1;
-//    while (map[i][++j]
-//   {
-//        if (map[i][++j] != ' ' || map[i][++j] != '1' 
-//            continue ;
-//        if (i == 0 || !map[i][j] || i == map hight - 1 || j == 0
-//                  its not valid
-//             check all neighbor cells (top, bottom, left, right)
-//    }
-// the last one id the right one
-// int i = -1;
-// while (map[++i])
-//    j = -1;
-//    while (map[i][++j]
-//   {
-//        if (map[i][++j] != ' ' || map[i][++j] != '1' 
-//            continue ;
-//        if (i == 0 || !map[i][j + 1] || i == map hight - 1 || j == 0
-//                  its not valid
-//             check all neighbor cells (top, bottom, left, right)
-//    }

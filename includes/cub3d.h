@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/10 22:56:45 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:03:20 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,15 @@ bool	is_space(char c);
 bool	file_exists(const char *path);
 bool	is_line_empty(char *line);
 void	replace_whitespaces(char *line);
+bool    is_valid_map_char(char c);
+bool	is_line_valid(char *line);
+void    replace_spaces(char *line);
+bool    validate_player(char *str);
 
 bool	parse_textures_colors(t_cub *cub, int map_fd);
 bool    parse_map(t_cub *cub, int cf_fd);
 bool	handle_texture_line(t_cub *cub, char **parts, int *found);
 bool	handle_color_line(t_cub *cub, char **parts, int *found);
+bool    handle_map(t_cub *cub);
 
 #endif

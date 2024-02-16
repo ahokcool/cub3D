@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:31:58 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/03 16:49:17 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:04:32 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,5 @@ bool	parse_textures_colors(t_cub *cub, int cf_fd)
 		if (!check_textures_colors(cub, line, &found))
 			return (false);
 	}
-	/* ---------------------- Textures and colors test ---------------------- */
-	// printf ("TEXTURES: \n NO - %s\n SO - %s\n WE - %s\n EA - %s\n", 
-	// 	cub->map_config.no_texture, cub->map_config.so_texture,
-	// 	cub->map_config.we_texture, cub->map_config.ea_texture);
-	// printf ("COLORS: \n Floor: \n Red - %d\n Green - %d\n Blue - %d\n \
-	// 				 \n Ceiling: \n Red - %d\n Green - %d\n Blue - %d\n",
-	// 		cub->map_config.floor_clr.red, cub->map_config.floor_clr.green, cub->map_config.floor_clr.blue,
-	// 		cub->map_config.ceiling_clr.red, cub->map_config.ceiling_clr.green, cub->map_config.ceiling_clr.blue);
-	// -------------------------------------------------------------------------
 	return (true);
 }
