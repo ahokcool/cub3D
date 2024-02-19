@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_main.c                                         :+:      :+:    :+:   */
+/*   vision.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 18:18:39 by astein            #+#    #+#             */
-/*   Updated: 2024/01/29 19:05:48 by astein           ###   ########.fr       */
+/*   Created: 2024/02/02 14:50:44 by astein            #+#    #+#             */
+/*   Updated: 2024/02/10 02:23:32 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	mlx_main(t_cub *cub)
-{
-	// load window
-	ini_win(cub);
-	ini_img(cub, &cub->img_ray);
-	ini_img(cub, &cub->img_mini);
+// void	ini_vision(t_cub *cub)
+// {
+// 	angleToVector(cub->player.rot_angle, &cub->map3d.v_direction);
+// 	cub->map3d.v_plane.x = sin(FOV / 2);
+// 	cub->map3d.v_plane.y = 0;
 
-	// mlx hooks
-	mlx_key_hook(cub->win.win, deal_key, cub);
-
-	
-	//mlx_hook(cub->win, B_CLS_WIN, 0, close_cubel, cub);
-	//mlx_hook(window.win_ptr, DestroyNotify, KeyPressMask, ft_exit, all);
-
-	
-	// mlx loop
-	//update_view(cub);
-	mlx_loop(cub->win.mlx);
-}
+// }

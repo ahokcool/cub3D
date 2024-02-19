@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.c                                              :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 16:13:07 by anshovah         ###   ########.fr       */
+/*   Created: 2024/02/07 08:58:53 by astein            #+#    #+#             */
+/*   Updated: 2024/02/19 19:16:45 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,18 @@ void	init_cub(t_cub *cub)
 	cub->img_mini.endian = 0;
 	init_map(cub);
 }
-
-void	free_cub(t_cub *cub)
+void	config_map(t_map_file *map, char *map_path)
 {
-	(void)cub;
-	// TODO:
+	printf("config_map\n");
+	// parsing ()
+	(void)map_path;
+	create_test_map(map);
+	dbg_put_minimap_big(map->map);
 }
+
+void	destroy_map(t_map_file *map)
+{
+	(void)map;
+	//TODO:	
+}
+
