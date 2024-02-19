@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:09:14 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 16:26:58 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:14:56 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 */
 bool	parse(t_cub *cub, char *path)
 {
-	char	*map_content;
 	int		map_fd;
 
 	if (!check_format(path, ".cub"))

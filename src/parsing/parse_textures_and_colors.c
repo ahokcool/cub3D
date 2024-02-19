@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:31:58 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/19 16:39:50 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:17:07 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	is_texture_or_color(char *key, int flag)
 }
 
 /* Prints an error message and frees memory */
-static bool	parsing_error(t_cub *cub, char *error, char **parts)
+static bool	parsing_error(char *error, char **parts)
 {
 	free_whatever("m", parts);
 	ft_putendl_fd(error, 2);
@@ -59,19 +59,19 @@ static bool	check_textures_colors(t_cub *cub, char *line, int *found)
 
 	parts = prepare_parts(line);
 	if (!parts)
-		return (parsing_error(cub, "Wrong map file configuration!", parts));
+		return (parsing_error("Wrong map file configuration!", parts));
 	if (is_texture_or_color(parts[0], 0))
 	{
 		if (!handle_texture_line(cub, parts, found))
-			return (parsing_error(cub, "Wrong texture format!", parts));
+			return (parsing_error("Wrong texture format!", parts));
 	}
 	else if (is_texture_or_color(parts[0], 1))
 	{
 		if (!handle_color_line(cub, parts, found))
-			return (parsing_error(cub, "Wrong color format!", parts));
+			return (parsing_error("Wrong color format!", parts));
 	}
 	else
-		return (parsing_error(cub, "Unknown map components!", parts));
+		return (parsing_error("Unknown map components!", parts));
 	free_whatever("m", parts);
 	return (true);
 }
@@ -85,7 +85,6 @@ static bool	check_textures_colors(t_cub *cub, char *line, int *found)
 bool	parse_textures_colors(t_cub *cub, int map_fd)
 {
 	char	*line;
-	char	**parts;
 	int		found;
 
 	found = 6;

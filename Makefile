@@ -30,9 +30,6 @@ MAPS_FOLDER 	= ./maps/
 LIBFT = $(LIB_FOLDER)libft.a
 MLX = $(MLX_FOLDER)libmlx.a
 SRCS = $(addprefix $(SRC_FOLDER), 						\
-	main.c												\
-	cub.c												\
-	mlx_main.c											\
 	parsing/parsing_main.c								\
 	parsing/parsing_utils.c								\
 	parsing/parsing_utils2.c							\
@@ -40,10 +37,6 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	parsing/handle_colors.c								\
 	parsing/parse_textures_and_colors.c					\
 	parsing/parse_map.c									\
-	controller.c										\
-	view.c												\
-	model.c												\
-	img.c												\
 	controller/controller.c								\
 	core/main.c											\
 	core/cub.c											\
@@ -57,7 +50,6 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	entities/column.c									\
 	model/model.c										\
 	model/collision_check.c								\
-	parser/parser.c										\
 	raycasting/dda.c									\
 	raycasting/map3d.c									\
 	view/mlx_win.c										\

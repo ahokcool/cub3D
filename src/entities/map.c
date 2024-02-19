@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 08:58:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 19:16:45 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:36:50 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,22 @@ void	free_map(t_cub *cub)
 		free_whatever("m", cub->map_file.map);
 }
 
-void	init_cub(t_cub *cub)
+void	ini_cub(t_cub *cub)
 {
-	cub->win.mlx = NULL;
-	cub->win.win = NULL;
-	cub->win.win_height = 0;
-	cub->win.win_width = 0;
-	cub->img_ray.mlx_img = NULL;
-	cub->img_ray.addr = NULL;
-	cub->img_ray.bpp = 0;
-	cub->img_ray.line_len = 0;
-	cub->img_ray.endian = 0;
-	cub->img_mini.mlx_img = NULL;
-	cub->img_mini.addr = NULL;
-	cub->img_mini.bpp = 0;
-	cub->img_mini.line_len = 0;
-	cub->img_mini.endian = 0;
+	printf("ini_cub\n");
+	cub->running = false;
+	
+	ini_win(&cub->win);
+	ini_img(&cub->img_2d);
+	ini_img(&cub->img_3d);
+	ini_img(&cub->img_mini);
 	init_map(cub);
+	ini_player(&cub->player);
+	ini_map2d(&cub->map2d);
+	ini_map3d(&cub->map3d);
+	ini_minimap(&cub->minimap);
+	// ini_ray(cub->ray);
+	ini_controller(&cub->controller);	
 }
 void	config_map(t_map_file *map, char *map_path)
 {

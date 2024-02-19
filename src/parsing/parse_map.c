@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:17:51 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/19 16:43:25 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:18:07 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	Skips the empty lines between the colors/textures lines and returns
 	the first line of the map
 */
-char	*skip_empty_lines(int map_fd)
+static  char	*skip_empty_lines(int map_fd)
 {
 	char	*line;
 
@@ -43,7 +43,7 @@ char	*skip_empty_lines(int map_fd)
 	Reads the map line by line and concatenates them into one big line, 
 	which will then be split into a matrix
  */
-char	*read_map(t_cub *cub, int map_fd)
+static char	*read_map( int map_fd)
 {
 	char	*long_line;
 	char	*cur_line;
@@ -72,7 +72,7 @@ char	*read_map(t_cub *cub, int map_fd)
 }
 
 /* Check if the player is not on the border or if the map is not closed  */
-bool	check_borders(t_cub *cub, int i, int j)
+static bool	check_borders(t_cub *cub, int i, int j)
 {
 	if (j == 0 || i == 0 || !cub->map_file.map[i + 1]
 		|| !cub->map_file.map[i][j + 1]
@@ -90,7 +90,7 @@ bool	check_borders(t_cub *cub, int i, int j)
 }
 
 /* Goes through the map matrix and checks if the player's position is valid */
-bool	handle_map(t_cub *cub)
+static bool	handle_map(t_cub *cub)
 {
 	int	i;
 	int	j;
@@ -118,7 +118,7 @@ bool	parse_map(t_cub *cub, int map_fd)
 {
 	char	*map_line;
 
-	map_line = read_map(cub, map_fd);
+	map_line = read_map(map_fd);
 	if (!map_line)
 		return (false);
 	if (!validate_player(map_line))

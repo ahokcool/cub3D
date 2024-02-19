@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 15:49:13 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/16 20:04:29 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:15:12 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ bool	is_line_valid(char *line)
 */
 void	replace_spaces(char *line)
 {
-	int	i;
 	int	size;
 
 	if (!line)

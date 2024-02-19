@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map2d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:42:25 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 19:26:05 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ini_map2d(t_map2d *map2d)
 }
 void	config_map2d(t_cub *cub, t_map2d *map2d)
 {
-	map2d->map_2d = cub->map_config.map; //TODO: copy the map if the parser changes it
+	map2d->map_2d = cub->map_file.map; //TODO: copy the map if the parser changes it
 	config_img_file(cub, &map2d->img_wall, "./textures/map2d/wall.xpm");
 	config_img_file(cub, &map2d->img_floor, "./textures/map2d/floor.xpm");
 }

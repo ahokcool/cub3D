@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/10 02:33:05 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,27 @@ void	ini_player(t_player *player)
 	ini_img(&player->player_W);
 }
 
-static	void config_player_start_pos(t_map_config *map_config, t_player *player)
+static	void config_player_start_pos(t_map_file *map_file, t_player *player)
 {
 	t_vector_int	cur_tile;
 	
 	cur_tile.y = 0;
-	while (map_config->map[cur_tile.y])
+	while (map_file->map[cur_tile.y])
 	{
 		cur_tile.x = 0;
-		while (map_config->map[cur_tile.y][cur_tile.x])
+		while (map_file->map[cur_tile.y][cur_tile.x])
 		{
-			if (map_config->map[cur_tile.y][cur_tile.x] == 'N' || map_config->map[cur_tile.y][cur_tile.x] == 'S' || map_config->map[cur_tile.y][cur_tile.x] == 'E' || map_config->map[cur_tile.y][cur_tile.x] == 'W')
+			if (map_file->map[cur_tile.y][cur_tile.x] == 'N' || map_file->map[cur_tile.y][cur_tile.x] == 'S' || map_file->map[cur_tile.y][cur_tile.x] == 'E' || map_file->map[cur_tile.y][cur_tile.x] == 'W')
 			{
-				if (map_config->map[cur_tile.y][cur_tile.x] == 'N')
+				if (map_file->map[cur_tile.y][cur_tile.x] == 'N')
 					player->dir.y = -1;
-				else if (map_config->map[cur_tile.y][cur_tile.x] == 'E')
+				else if (map_file->map[cur_tile.y][cur_tile.x] == 'E')
 					player->dir.x = 1;
-				else if (map_config->map[cur_tile.y][cur_tile.x] == 'S')
+				else if (map_file->map[cur_tile.y][cur_tile.x] == 'S')
 					player->dir.y = 1;
-				else if (map_config->map[cur_tile.y][cur_tile.x] == 'W')
+				else if (map_file->map[cur_tile.y][cur_tile.x] == 'W')
 					player->dir.x = -1;
-				map_config->map[cur_tile.y][cur_tile.x] = '0';
+				map_file->map[cur_tile.y][cur_tile.x] = '0';
 				player->pos.x = cur_tile.x + 0.5;	//To put player in middle of the tile
 				player->pos.y = cur_tile.y + 0.5;	//To put player in middle of the tile
 				break ;
@@ -74,7 +74,7 @@ void	update_v_plane(t_player *player)
 	player->v_plane.y = plane.y * (player->fov/100);
 }
 
-void config_player(t_cub *cub, t_map_config *map_config, t_player *player)
+void config_player(t_cub *cub, t_map_file *map_file, t_player *player)
 {
 	player->fov = 100.00;
 	printf("FOV: %f\n", cub->player.fov);
@@ -86,7 +86,7 @@ void config_player(t_cub *cub, t_map_config *map_config, t_player *player)
 	config_img_file(cub, &player->player_S, "./textures/minimap/player_S.xpm");
 	config_img_file(cub, &player->player_E, "./textures/minimap/player_E.xpm");
 	config_img_file(cub, &player->player_W, "./textures/minimap/player_W.xpm");
-	config_player_start_pos(map_config, player);
+	config_player_start_pos(map_file, player);
 	update_v_plane(player);
 }
 
@@ -119,7 +119,7 @@ void 	player_rotate(t_player *player, bool turn_right)
 	// dbg_put_player(player);
 }
 
-void 	player_move(t_player *player, t_controller *controller, t_map_config *map_config)
+void 	player_move(t_player *player, t_controller *controller, t_map_file *map_file)
 {
 	t_vector_dbl	dir;
 	
@@ -139,9 +139,9 @@ void 	player_move(t_player *player, t_controller *controller, t_map_config *map_
 	dir.y *= MOVE_SPEED;
 	
 	// Coalision detection
-	if (map_config->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x))] == '0')
+	if (map_file->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x))] == '0')
 		player->pos.x += dir.x;
-	if (map_config->map[(int)(player->pos.y + (dir.y))][(int)(player->pos.x)] == '0')
+	if (map_file->map[(int)(player->pos.y + (dir.y))][(int)(player->pos.x)] == '0')
 		player->pos.y += dir.y;
 	
 	// update_v_plane(player);
