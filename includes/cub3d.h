@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 16:13:07 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:40:03 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void    replace_spaces(char *line);
 bool    validate_player(char *str);
 
 bool	parse_textures_colors(t_cub *cub, int map_fd);
-bool    parse_map(t_cub *cub, int cf_fd);
+bool    parse_map(t_cub *cub, int map_fd);
 bool	handle_texture_line(t_cub *cub, char **parts, int *found);
 bool	handle_color_line(t_cub *cub, char **parts, int *found);
 bool    handle_map(t_cub *cub);

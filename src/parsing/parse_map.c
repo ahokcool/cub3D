@@ -6,20 +6,23 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:17:51 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/19 16:17:23 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:43:25 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*  */
-char	*skip_empty_lines(int cf_fd)
+/* 
+	Skips the empty lines between the colors/textures lines and returns
+	the first line of the map
+*/
+char	*skip_empty_lines(int map_fd)
 {
 	char	*line;
 
 	while (1)
 	{
-		line = gnl(cf_fd);
+		line = gnl(map_fd);
 		if (!line)
 			return (NULL);
 		if (is_line_empty(line))
@@ -36,18 +39,22 @@ char	*skip_empty_lines(int cf_fd)
 	return (line);
 }
 
-char	*read_map(t_cub *cub, int cf_fd)
+/* 
+	Reads the map line by line and concatenates them into one big line, 
+	which will then be split into a matrix
+ */
+char	*read_map(t_cub *cub, int map_fd)
 {
 	char	*long_line;
 	char	*cur_line;
 
 	cur_line = NULL;
-	long_line = skip_empty_lines(cf_fd);
+	long_line = skip_empty_lines(map_fd);
 	if (!long_line)
 		return (NULL);
 	while (long_line)
 	{
-		cur_line = gnl(cf_fd);
+		cur_line = gnl(map_fd);
 		if (!cur_line || is_line_empty(cur_line))
 		{
 			free_whatever("p", cur_line);
@@ -64,6 +71,7 @@ char	*read_map(t_cub *cub, int cf_fd)
 	return (long_line);
 }
 
+/* Check if the player is not on the border or if the map is not closed  */
 bool	check_borders(t_cub *cub, int i, int j)
 {
 	if (j == 0 || i == 0 || !cub->map_file.map[i + 1]
@@ -81,6 +89,7 @@ bool	check_borders(t_cub *cub, int i, int j)
 	return (true);
 }
 
+/* Goes through the map matrix and checks if the player's position is valid */
 bool	handle_map(t_cub *cub)
 {
 	int	i;
@@ -104,11 +113,12 @@ bool	handle_map(t_cub *cub)
 	return (true);
 }
 
-bool	parse_map(t_cub *cub, int cf_fd)
+/* Reads and validates the "map" part of a map file */
+bool	parse_map(t_cub *cub, int map_fd)
 {
 	char	*map_line;
 
-	map_line = read_map(cub, cf_fd);
+	map_line = read_map(cub, map_fd);
 	if (!map_line)
 		return (false);
 	if (!validate_player(map_line))
@@ -122,6 +132,5 @@ bool	parse_map(t_cub *cub, int cf_fd)
 		return (false);
 	if (!handle_map(cub))
 		return (false);
-	printf ("CORRCT\n");
 	return (true);
 }

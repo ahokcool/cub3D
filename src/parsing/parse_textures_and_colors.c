@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:31:58 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/16 16:04:32 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:39:50 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static bool	check_textures_colors(t_cub *cub, char *line, int *found)
 	Uses 'get_next_line' to read it line by line to handle textures and colors
 	components
 */
-bool	parse_textures_colors(t_cub *cub, int cf_fd)
+bool	parse_textures_colors(t_cub *cub, int map_fd)
 {
 	char	*line;
 	char	**parts;
@@ -91,7 +91,7 @@ bool	parse_textures_colors(t_cub *cub, int cf_fd)
 	found = 6;
 	while (found > 0)
 	{
-		line = gnl(cf_fd);
+		line = gnl(map_fd);
 		if (!line)
 			return (false);
 		if (is_line_empty(line))
