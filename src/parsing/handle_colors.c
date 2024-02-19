@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 13:37:11 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/03 16:44:13 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:13:07 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ static void	assign_rgb(t_cub *cub, char **rgb_colors, int flag)
 {
 	if (flag == 0)
 	{
-		cub->map_config.floor_clr.red = (uint8_t)ft_atoi(rgb_colors[0]);
-		cub->map_config.floor_clr.green = (uint8_t)ft_atoi(rgb_colors[1]);
-		cub->map_config.floor_clr.blue = (uint8_t)ft_atoi(rgb_colors[2]);
+		cub->map_file.floor_clr.red = (uint8_t)ft_atoi(rgb_colors[0]);
+		cub->map_file.floor_clr.green = (uint8_t)ft_atoi(rgb_colors[1]);
+		cub->map_file.floor_clr.blue = (uint8_t)ft_atoi(rgb_colors[2]);
 	}
 	else
 	{
-		cub->map_config.ceiling_clr.red = (uint8_t)ft_atoi(rgb_colors[0]);
-		cub->map_config.ceiling_clr.green = (uint8_t)ft_atoi(rgb_colors[1]);
-		cub->map_config.ceiling_clr.blue = (uint8_t)ft_atoi(rgb_colors[2]);
+		cub->map_file.ceiling_clr.red = (uint8_t)ft_atoi(rgb_colors[0]);
+		cub->map_file.ceiling_clr.green = (uint8_t)ft_atoi(rgb_colors[1]);
+		cub->map_file.ceiling_clr.blue = (uint8_t)ft_atoi(rgb_colors[2]);
 	}
 	free_whatever("m", rgb_colors);
 }
@@ -63,7 +63,7 @@ bool	handle_color_line(t_cub *cub, char **parts, int *found)
 		return (false);
 	if (!ft_strcmp(parts[0], "F"))
 	{
-		if (cub->map_config.floor_clr.red != (uint8_t)260)
+		if (cub->map_file.floor_clr.red != (uint8_t)260)
 		{
 			free_whatever("m", rgb_colors);
 			return (false);
@@ -72,7 +72,7 @@ bool	handle_color_line(t_cub *cub, char **parts, int *found)
 	}
 	else if (!ft_strcmp(parts[0], "C"))
 	{
-		if (cub->map_config.ceiling_clr.red != (uint8_t)260)
+		if (cub->map_file.ceiling_clr.red != (uint8_t)260)
 		{
 			free_whatever("m", rgb_colors);
 			return (false);

@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/16 16:03:20 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:13:07 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct	s_color
 	uint8_t	blue;
 }	t_color;
 
-typedef struct s_map_config
+typedef struct s_map_file
 {
 	char	*no_texture;
 	char	*so_texture;
@@ -69,14 +69,14 @@ typedef struct s_map_config
 	t_color	floor_clr;
 	t_color ceiling_clr;
 	char	**map;
-}				t_map_config;
+}				t_map_file;
 
 typedef struct s_cub
 {
 	t_win				win;
 	t_img				img_ray;
 	t_img				img_mini;
-	t_map_config		map_config;
+	t_map_file			map_file;
 	t_player			player;
 	bool				show_mini;
 }						t_cub;

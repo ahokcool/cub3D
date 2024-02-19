@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/11 16:27:26 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:13:07 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	init_map(t_cub *cub)
 {
-	cub->map_config.no_texture = NULL;
-	cub->map_config.so_texture = NULL;
-	cub->map_config.we_texture = NULL;
-	cub->map_config.ea_texture = NULL;
-	cub->map_config.floor_clr.red = (uint8_t)260;
-	cub->map_config.ceiling_clr.red = (uint8_t)260;
-	cub->map_config.map = NULL;
+	cub->map_file.no_texture = NULL;
+	cub->map_file.so_texture = NULL;
+	cub->map_file.we_texture = NULL;
+	cub->map_file.ea_texture = NULL;
+	cub->map_file.floor_clr.red = (uint8_t)260;
+	cub->map_file.ceiling_clr.red = (uint8_t)260;
+	cub->map_file.map = NULL;
 }
 
 void	free_map(t_cub *cub)
 {
-	if (cub->map_config.no_texture)
-		free (cub->map_config.no_texture);
-	if (cub->map_config.so_texture)
-		free (cub->map_config.so_texture);
-	if (cub->map_config.we_texture)
-		free (cub->map_config.we_texture);
-	if (cub->map_config.ea_texture)
-		free (cub->map_config.ea_texture);
-	if (cub->map_config.map)
-		free_whatever("m", cub->map_config.map);
+	if (cub->map_file.no_texture)
+		free (cub->map_file.no_texture);
+	if (cub->map_file.so_texture)
+		free (cub->map_file.so_texture);
+	if (cub->map_file.we_texture)
+		free (cub->map_file.we_texture);
+	if (cub->map_file.ea_texture)
+		free (cub->map_file.ea_texture);
+	if (cub->map_file.map)
+		free_whatever("m", cub->map_file.map);
 }
 
 void	init_cub(t_cub *cub)

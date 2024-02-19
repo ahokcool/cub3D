@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:17:51 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/16 20:10:46 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:17:23 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,46 @@ char	*read_map(t_cub *cub, int cf_fd)
 	return (long_line);
 }
 
+bool	check_borders(t_cub *cub, int i, int j)
+{
+	if (j == 0 || i == 0 || !cub->map_file.map[i + 1]
+		|| !cub->map_file.map[i][j + 1]
+		|| !cub->map_file.map[i][j - 1]
+		|| !cub->map_file.map[i - 1][j]
+		|| !cub->map_file.map[i + 1][j]
+		|| (cub->map_file.map[i][j - 1] && cub->map_file.map[i][j - 1] == ' ')
+		|| (cub->map_file.map[i][j + 1] && cub->map_file.map[i][j + 1] == ' ')
+		|| (cub->map_file.map[i - 1][j] && cub->map_file.map[i - 1][j] == ' ')
+		|| (cub->map_file.map[i + 1][j] && cub->map_file.map[i + 1][j] == ' '))
+	{
+		return (false);
+	}
+	return (true);
+}
+
+bool	handle_map(t_cub *cub)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (cub->map_file.map[++i])
+	{
+		j = 0;
+		while (cub->map_file.map[i][j])
+		{
+			if (cub->map_file.map[i][j] != '1' 
+				&& cub->map_file.map[i][j] != ' ')
+			{
+				if (!check_borders(cub, i, j))
+					return (false);
+			}
+			j++;
+		}
+	}
+	return (true);
+}
+
 bool	parse_map(t_cub *cub, int cf_fd)
 {
 	char	*map_line;
@@ -76,11 +116,12 @@ bool	parse_map(t_cub *cub, int cf_fd)
 		free_whatever("p", map_line);
 		return (false);
 	}
-	cub->map_config.map = ft_split(map_line, '$');
+	cub->map_file.map = ft_split(map_line, '$');
 	free_whatever("p", map_line);
-	if (!cub->map_config.map)
+	if (!cub->map_file.map)
 		return (false);
 	if (!handle_map(cub))
 		return (false);
+	printf ("CORRCT\n");
 	return (true);
 }

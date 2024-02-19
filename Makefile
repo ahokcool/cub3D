@@ -40,7 +40,6 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	parsing/handle_colors.c								\
 	parsing/parse_textures_and_colors.c					\
 	parsing/parse_map.c									\
-	parsing/handle_map.c								\
 	controller.c										\
 	view.c												\
 	model.c												\
