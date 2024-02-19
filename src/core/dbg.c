@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dbg.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:43:08 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 19:51:59 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void create_test_map(t_map_config *map)
+void create_test_map(t_map_file *map)
 {
     int rows = 16; // Adjusted to match the actual data size
     int columns = 36; // Assuming this is the max length required including the null terminator

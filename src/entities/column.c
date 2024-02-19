@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   column.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:17:03 by astein            #+#    #+#             */
-/*   Updated: 2024/02/10 02:22:41 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	destroy_column(t_pixel_column *column)
 		// TODO:
 }
 
-void	update_column(t_pixel_column *column, t_player *player, t_map_config *map_config, int column_index)
+void	update_column(t_pixel_column *column, t_player *player, t_map_file *map_file, int column_index)
 {
 	double cameraX;
 	// double fovAdjustment = player->fov / 50.0;
@@ -99,7 +99,7 @@ void	update_column(t_pixel_column *column, t_player *player, t_map_config *map_c
 			tile_index.y += step.y;
 			side = 1;
 		}
-		if (map_config->map[tile_index.y][tile_index.x] == '1')
+		if (map_file->map[tile_index.y][tile_index.x] == '1')
 			hit = 1;
 	}
 

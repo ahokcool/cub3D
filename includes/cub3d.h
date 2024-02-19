@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/10 02:42:43 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/19 20:36:29 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@
 # include "../mlx/mlx.h"
 # include "config.h"
 # include <stdbool.h>
-# include <stdint.h>
+# include <stdint.h> 
 
-//MLX STUFF
-typedef struct	s_color
+typedef struct s_clr
 {
 	uint8_t	red;
 	uint8_t	green;
@@ -60,7 +59,7 @@ typedef struct s_vector_dbl
 }						t_vector_dbl;
 
 //MAP STRUCT
-typedef struct s_map_config
+typedef struct s_map_file
 {
 	char	*no_texture;
 	char	*so_texture;
@@ -69,7 +68,7 @@ typedef struct s_map_config
 	t_color	floor_clr;
 	t_color ceiling_clr;
 	char	**map;				//map[y][x]
-}				t_map_config;
+}				t_map_file;
 
 //PLAYER STRUCT
 typedef struct s_player
@@ -152,7 +151,7 @@ typedef struct s_cub
 	t_img				img_3d;		// 3D View / Raycast
 	t_img				img_mini;	// Minimap (a few Tiles around the player)
 	//MAP DETAILS
-	t_map_config		map_config;
+	t_map_file		map_file;
 	//PLAYER DETAILS
 	t_player			player;
 	//RENDER DETAILS
@@ -166,6 +165,10 @@ typedef struct s_cub
 //main.c
 int main(int ac, char **av);
 int exit_game(t_cub *cub);
+
+//TODO: put in the right place
+void	ini_cub(t_cub *cub);
+void	free_map(t_cub *cub);
 
 // cub.c
 bool	ready_cub(t_cub *cub, char *map_path);
@@ -195,15 +198,15 @@ void	set_pixel_to_image(t_img *img, int x, int y, int color);
 void	destroy_img(void *mlx, t_img *img);
 
 //map.c
-void	ini_map(t_map_config *map);
-void	config_map(t_map_config *map, char *map_path);
-void	destroy_map(t_map_config *map);
+void	ini_map(t_map_file *map);
+void	config_map(t_map_file *map, char *map_path);
+void	destroy_map(t_map_file *map);
 
 //player.c
 void	ini_player(t_player *player);
-void	config_player(t_cub *cub, t_map_config *map_config, t_player *player);
+void	config_player(t_cub *cub, t_map_file *map_file, t_player *player);
 void	destroy_player(void *mlx, t_player *player);
-void 	player_move(t_player *player, t_controller *controller, t_map_config *map_config);
+void 	player_move(t_player *player, t_controller *controller, t_map_file *map_file);
 void	update_v_plane(t_player *player);
 void 	player_rotate(t_player *player, bool turn_right);
 
@@ -211,7 +214,7 @@ void 	player_rotate(t_player *player, bool turn_right);
 void	ini_column(t_pixel_column *column);
 void	config_column(t_pixel_column *column);
 void	destroy_column(t_pixel_column *column);
-void	update_column(t_pixel_column *column, t_player *player, t_map_config *map_config, int column_index);
+void	update_column(t_pixel_column *column, t_player *player, t_map_file *map_file, int column_index);
 
 //miminmap.c
 void	ini_minimap(t_minimap *minimap);
@@ -228,7 +231,7 @@ void	update_map2d_frame(t_cub *cub);
 //map3d.c
 void	ini_map3d(t_map3d *map3d);
 void	config_map3d(t_cub *cub, t_map3d *map3d, t_player *player);
-void	update_map3d(t_map3d *map3d, t_player *player, t_map_config *map_config);
+void	update_map3d(t_map3d *map3d, t_player *player, t_map_file *map_file);
 void	update_map3d_frame(t_cub *cub);
 
 //controller.c
@@ -247,48 +250,26 @@ int		model(void *void_cub);
 void	view(t_cub *cub);
 
 //dbg.c
-void create_test_map(t_map_config *map);
+void 	create_test_map(t_map_file *map);
 void	dbg_put_minimap_big(char **map);
 void	dbg_put_player(t_player	*player);
 
-//----------------------------------------------------------------------------
-//OLD SHIT BELOW!!
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// void	ini_view(t_cub *cub);
-// void	ini_img_screen(t_cub *cub, t_img *img);
-// void	ini_img_mini(t_cub *cub, t_img *img);
+// parsing
+bool	parse(t_cub *cub, char *path);
+bool	check_format(char *path, char *expected_format);
+bool	is_space(char c);
+bool	file_exists(const char *path);
+bool	is_line_empty(char *line);
+void	replace_whitespaces(char *line);
+bool    is_valid_map_char(char c);
+bool	is_line_valid(char *line);
+void    replace_spaces(char *line);
+bool    validate_player(char *str);
 
-// bool 	parse(t_cub *cub, char *path);
-// void	mlx_main(t_cub *cub);
-// void 	angleToVector(double angleDegrees, t_vector_dbl *vector);
-// void	draw_rays(t_cub *cub);
-// void	update_minimap_frame(t_cub *cub);
-// void	calculate_rays(t_cub *cub);
-// void	create_frame(t_cub *cub);
-// int		deal_key(int key, t_cub *cub);
-// int cread_keys(int key, t_cub *cub);
-// void 	update_model(t_cub *cub);
-// void	dbg_put_minimap_big(t_cub *cub);
-// void	ini_player(t_player *player);
-// void	minimap_main(t_cub *cub);
-// void	dbg_put_player(t_cub *cub);
-// t_cub	ini_main(void);
-// void	config_main(t_cub *cub, char *path);
-// void ini_model(t_cub *cub);
-// int	get_player_pos(t_cub *cub, char format);
-// void player_move(t_cub *cub, char direction);
-// void	dbg_put_minimap_small(t_cub *cub);
-// void	dbg_put_minimap_small(t_cub *cub);
-// void create_test_map_rectangle(t_cub *cub);
-// void	ini_vision(t_cub *cub);
-// void	update_ray_frame(t_cub *cub);
-// char	*player_cardinal_direction(t_cub *cub);
-// void	ini_img_2d(t_cub *cub, t_img *img);
-// void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width);
-// void	update_map2d_frame(t_cub *cub);
-// void put_pixel_to_image(t_cub *cub, void *mlx_ptr, void *img_ptr, int x, int y, int color);
-// void add_angle(double *angle, double offset);
+bool	parse_textures_colors(t_cub *cub, int map_fd);
+bool    parse_map(t_cub *cub, int map_fd);
+bool	handle_texture_line(t_cub *cub, char **parts, int *found);
+bool	handle_color_line(t_cub *cub, char **parts, int *found);
 
 #endif
 

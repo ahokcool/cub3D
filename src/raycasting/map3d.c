@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:52:12 by astein            #+#    #+#             */
-/*   Updated: 2024/02/09 19:58:10 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	config_map3d(t_cub *cub, t_map3d *map3d, t_player *player)
 	config_img_file(cub, &map3d->img_wall, "textures/testwall.xpm");
 }
 
-void	update_map3d(t_map3d *map3d, t_player *player, t_map_config *map_config)
+void	update_map3d(t_map3d *map3d, t_player *player, t_map_file *map_file)
 {
 	int	i;
 	
 	i = -1;
 	while (++i < WIN_WIDTH)
 	{
-		update_column(&map3d->columns[i], player, map_config, i);
+		update_column(&map3d->columns[i], player, map_file, i);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 12:58:11 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/19 20:36:06 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,15 @@ int main(int ac, char **av)
 		ft_putstr_fd("Error\nWrong number of arguments\n", STDERR_FILENO);
 		exit (1);
 	}
-
-	// startup the game
+	ini_cub(&cub);
+	// parse map
+	if(!parse(&cub, av[1]))
+	{
+		ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
+		free_map(&cub);
+		exit (1);
+	}
+	// start the game
 	if(!ready_cub(&cub, av[1]))
 	{
 		ft_putstr_fd("Error\n", STDERR_FILENO);
