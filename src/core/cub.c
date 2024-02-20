@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 16:18:45 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:36:25 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	destroy_cub(t_cub *cub)
 	destroy_map(&cub->map_file);
 	destroy_player(cub->win.mlx, &cub->player);
 	destroy_map2d(cub->win.mlx, &cub->map2d);
+	destroy_map3d(cub->win.mlx, &cub->map3d);
 	destroy_minimap(cub->win.mlx, &cub->minimap);
 	// free_ray(cub->ray);
 	destroy_win(&cub->win);

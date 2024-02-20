@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:17:03 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:21:27 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ void	update_column(t_pixel_column *column, t_player *player, t_map_file *map_fil
 	column->hit_pos.y = player->pos.y + column->perp_distance_to_wall * column->ray.y;
 	// printf("height: %d\n", column->height);
 
-	// Calculate where the Wall was hit
+	// Calculate where the Wall was hit\
+	// TODO: chechk sides!
 	column->wall_x = column->hit_pos.x;
 	column->wall_x -= floor(column->wall_x);
 	

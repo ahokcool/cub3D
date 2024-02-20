@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:42:25 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 16:20:11 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:15:35 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	 draw_rays_2d(t_cub *cub)
 	{
 		hit_pos.x = cub->map3d.columns[i].hit_pos.x * MAP2D_PIXEL_WIDTH - player_cord.x;
 		hit_pos.y = cub->map3d.columns[i].hit_pos.y * MAP2D_PIXEL_WIDTH - player_cord.y;
-		draw_line(&cub->img_2d, &player_cord, &hit_pos, 0xFFFFFF);
+		draw_line(&cub->img_2d, &player_cord, &hit_pos, 0xD2D2D2);
 	}
 }
 

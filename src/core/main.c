@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:00 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 16:54:58 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:04:53 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int main(int ac, char **av)
 	// start the game
 	if(!ready_cub(&cub, av[1]))
 	{
-		ft_putstr_fd("Error\n", STDERR_FILENO);
 		destroy_cub(&cub);
 		exit (1);
 	}

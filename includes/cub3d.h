@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 17:01:01 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:40:16 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ typedef struct s_pixel_column
 typedef struct s_map3d
 {
 	t_pixel_column		columns[WIN_WIDTH]; //ONE OBJECT FOR EACH PIXEL COLUMN (aka STRIPE)
-	t_img				img_wall;
+	t_img				img_wall_no;
+	t_img				img_wall_we;
+	t_img				img_wall_so;
+	t_img				img_wall_ea;
 } 						t_map3d;
 
 typedef struct s_controller
@@ -235,6 +238,7 @@ void	ini_map3d(t_map3d *map3d);
 void	config_map3d(t_cub *cub, t_map3d *map3d, t_player *player);
 void	update_map3d(t_map3d *map3d, t_player *player, t_map_file *map_file);
 void	update_map3d_frame(t_cub *cub);
+void	destroy_map3d(void *mlx, t_map3d *map3d);
 
 //controller.c
 void	ini_controller(t_controller *controller);
