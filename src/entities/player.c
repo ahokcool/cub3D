@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 16:01:21 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:18:24 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,16 @@ void config_player(t_cub *cub, t_map_file *map_file, t_player *player)
 	update_v_plane(player);
 }
 
-void	destroy_player(void *mlx, t_player *player)
+void	destroy_player(void *mlx_ptr, t_player *player)
 {
-	destroy_img(mlx, player->player_NE.mlx_img);
-	destroy_img(mlx, player->player_NW.mlx_img);
-	destroy_img(mlx, player->player_SE.mlx_img);
-	destroy_img(mlx, player->player_SW.mlx_img);
-	destroy_img(mlx, player->player_N.mlx_img);
-	destroy_img(mlx, player->player_S.mlx_img);
-	destroy_img(mlx, player->player_E.mlx_img);
-	destroy_img(mlx, player->player_W.mlx_img);
+	destroy_img(mlx_ptr, player->player_NE.mlx_img);
+	destroy_img(mlx_ptr, player->player_NW.mlx_img);
+	destroy_img(mlx_ptr, player->player_SE.mlx_img);
+	destroy_img(mlx_ptr, player->player_SW.mlx_img);
+	destroy_img(mlx_ptr, player->player_N.mlx_img);
+	destroy_img(mlx_ptr, player->player_S.mlx_img);
+	destroy_img(mlx_ptr, player->player_E.mlx_img);
+	destroy_img(mlx_ptr, player->player_W.mlx_img);
 
 }
 

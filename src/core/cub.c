@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 16:03:50 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:18:45 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ bool	ready_cub(t_cub *cub, char *map_path)
 void	destroy_cub(t_cub *cub)
 {
 	// TODO: copy the function names from ini and adjust them to free all the shit
-	destroy_img(&cub->win.mlx, &cub->img_2d);
-	destroy_img(&cub->win.mlx, &cub->img_mini);
-	destroy_img(&cub->win.mlx, &cub->img_3d);
+	destroy_img(cub->win.mlx, &cub->img_2d);
+	destroy_img(cub->win.mlx, &cub->img_mini);
+	destroy_img(cub->win.mlx, &cub->img_3d);
 	destroy_map(&cub->map_file);
-	destroy_player(&cub->win.mlx, &cub->player);
-	destroy_map2d(&cub->win.mlx, &cub->map2d);
-	destroy_minimap(&cub->win.mlx, &cub->minimap);
+	destroy_player(cub->win.mlx, &cub->player);
+	destroy_map2d(cub->win.mlx, &cub->map2d);
+	destroy_minimap(cub->win.mlx, &cub->minimap);
 	// free_ray(cub->ray);
 	destroy_win(&cub->win);
 	exit(0);

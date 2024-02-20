@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:42:25 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:20:11 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	config_map2d(t_cub *cub, t_map2d *map2d)
 	config_img_file(cub, &map2d->img_floor, "./textures/map2d/floor.xpm");
 }
 
-void	destroy_map2d(void *mlx, t_map2d *map2d)
+void	destroy_map2d(void *mlx_ptr, t_map2d *map2d)
 {
-	mlx_destroy_image(mlx, map2d->img_wall.mlx_img);
-	mlx_destroy_image(mlx, map2d->img_floor.mlx_img);
+	destroy_img(mlx_ptr, map2d->img_wall.mlx_img);
+	destroy_img(mlx_ptr, map2d->img_floor.mlx_img);
 	free_whatever("m", map2d->map_2d);
 }
 

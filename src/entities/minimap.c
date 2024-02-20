@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 13:51:14 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/20 16:21:19 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	config_minimap(t_cub *cub, t_minimap *minimap, char **map)
 	config_img_file(cub, &minimap->img_floor, "./textures/minimap/floor.xpm");
 }	
 
-void	destroy_minimap(void *mlx, t_minimap *minimap)
+void	destroy_minimap(void *mlx_ptr, t_minimap *minimap)
 {
-	mlx_destroy_image(mlx, minimap->img_wall.mlx_img);
-	mlx_destroy_image(mlx, minimap->img_floor.mlx_img);
+	destroy_img(mlx_ptr, minimap->img_wall.mlx_img);
+	destroy_img(mlx_ptr, minimap->img_floor.mlx_img);
 	free_whatever("m", minimap->map_mini);
 }
 

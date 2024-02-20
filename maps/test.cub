@@ -1,3 +1,10 @@
+NO ./textures/testwall.xpm                 
+WE ./textures/testwall.xpm
+EA ./textures/testwall.xpm
+SO ./textures/testwall.xpm
+   
+F 77,91,155
+
 1111111111111111
 1000000000000001
 10N0000111000001
