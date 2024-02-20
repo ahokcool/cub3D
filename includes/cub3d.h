@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 20:36:29 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:04:08 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,7 @@ int main(int ac, char **av);
 int exit_game(t_cub *cub);
 
 //TODO: put in the right place
-void	ini_cub(t_cub *cub);
-void	free_map(t_cub *cub);
+// void	ini_cub(t_cub *cub);
 
 // cub.c
 bool	ready_cub(t_cub *cub, char *map_path);
@@ -198,8 +197,8 @@ void	set_pixel_to_image(t_img *img, int x, int y, int color);
 void	destroy_img(void *mlx, t_img *img);
 
 //map.c
-void	ini_map(t_map_file *map);
-void	config_map(t_map_file *map, char *map_path);
+void	ini_map(t_cub *cub);
+bool	config_map(t_cub *cub, char *map_path);
 void	destroy_map(t_map_file *map);
 
 //player.c

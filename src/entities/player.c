@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:01:21 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ void	destroy_player(void *mlx, t_player *player)
 	destroy_img(mlx, player->player_W.mlx_img);
 
 }
-
-
 
 void 	player_rotate(t_player *player, bool turn_right)
 {
