@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:52:12 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:50:26 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,21 @@ void	update_map3d_frame(t_cub *cub)
 	screen_middle_y = WIN_HEIGHT / 2 - 1;
 	while (i < WIN_WIDTH)
 	{
-		
-		
 		y_start = fmax(0, screen_middle_y - (cub->map3d.columns[i].height / 2));
 		y_end = fmin(WIN_HEIGHT - 1, screen_middle_y + (cub->map3d.columns[i].height / 2));
 		y = -1;
 		// Draw sky
 		while (++y < y_start)
     		if (y >= 0 && y < WIN_HEIGHT)
-        		set_pixel_to_image(&cub->img_3d, i, y, CLR_SKY);
+        		set_pixel_to_image(&cub->img_3d, i, y, cub->map_file.rgb_ceiling);
 		
 		// Draw wall
 		draw_wall(cub, i, y_end, &y);
 		
-
 		// Draw floor
 		y--;
 		while (++y < WIN_HEIGHT)
-    		set_pixel_to_image(&cub->img_3d, i, y, CLR_FLOOR);
-
+    		set_pixel_to_image(&cub->img_3d, i, y, cub->map_file.rgb_floor);
 		i++;
 	}
 }

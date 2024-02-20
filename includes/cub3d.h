@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 16:04:08 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:01:01 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_map_file
 	char	*ea_texture;
 	t_color	floor_clr;
 	t_color ceiling_clr;
+	int	rgb_floor;
+	int	rgb_ceiling;
 	char	**map;				//map[y][x]
 }				t_map_file;
 
@@ -177,6 +179,7 @@ void	destroy_cub(t_cub *cub);
 void	normalize_vector_dbl(t_vector_dbl *vector);
 void	rotate_vector_dbl(t_vector_dbl *vector, double degrees);
 void	rotate_vector_by_vector(t_vector_dbl *vector, t_vector_dbl *rotate);
+int	create_rgb(int r, int g, int b);
 
 
 //mlx_win.c

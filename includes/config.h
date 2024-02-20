@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
-/*   Updated: 2024/02/10 02:14:52 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/20 16:47:26 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,5 @@
 # define CLR_SOUTH 	0x20B2AA // LightSeaGreen: A calming, medium teal
 # define CLR_EAST 	0xFF6347 // Tomato: A vibrant, warm red
 # define CLR_WEST 	0xFFD700 // Gold: Bright and cheerful yellow
-# define CLR_SKY 	0x000000
-# define CLR_FLOOR 	0xFFFFFF
 
 #endif
