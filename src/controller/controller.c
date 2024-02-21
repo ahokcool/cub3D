@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 17:29:38 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:29:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ini_controller(t_controller *controller)
 	controller->rotate_left = false;
 	controller->rotate_right = false;
 	controller->game_over = false;
-	controller->show_3d = false;
-	controller->show_texture = false;
+	controller->show_3d = true;
+	controller->show_texture = true;
 }
 
 	// printf("Key pressed: %c\n", keycode);
@@ -104,6 +104,7 @@ int	mouse_click(int button, int x, int y, t_cub *cub)
 	// printf("Mouse moved to: %d, %d\n", x, y);
 int	mouse_move(int x, int y, t_cub *cub)
 {
+	(void)y;
 	if (x > 2 * (WIN_WIDTH / 3))
 		cub->controller.rotate_right = true;
 	else if ((x < WIN_WIDTH / 3))

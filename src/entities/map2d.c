@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map2d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:42:25 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 19:15:35 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:28:27 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,23 +106,21 @@ static void	draw_player(t_cub *cub)
 void	update_map2d_frame(t_cub *cub)
 {
 	t_vector_int	cur_tile;
+	t_vector_int 	pos;
 
 	cur_tile.x = 0;
 	cur_tile.y = 0;
-	//DRAW MAP2D
 	while (cub->map2d.map_2d[cur_tile.y])
 	{
 		cur_tile.x = 0;
 		while (cub->map2d.map_2d[cur_tile.y][cur_tile.x])
 		{
+			pos.x = cur_tile.x * MAP2D_PIXEL_WIDTH;
+			pos.x = cur_tile.y * MAP2D_PIXEL_WIDTH;
 			if (cub->map2d.map_2d[cur_tile.y][cur_tile.x] == '1')
-				put_tile(cub, cur_tile.x * MAP2D_PIXEL_WIDTH, cur_tile.y
-						* MAP2D_PIXEL_WIDTH, &cub->map2d.img_wall, &cub->img_2d,
-						0);
+				put_tile(pos, &cub->map2d.img_wall, &cub->img_2d);
 			else if (cub->map2d.map_2d[cur_tile.y][cur_tile.x] == '0')
-				put_tile(cub, cur_tile.x * MAP2D_PIXEL_WIDTH, cur_tile.y
-						* MAP2D_PIXEL_WIDTH, &cub->map2d.img_floor,
-						&cub->img_2d, 0);
+				put_tile(pos, &cub->map2d.img_floor, &cub->img_2d);
 			cur_tile.x++;
 		}
 		cur_tile.y++;

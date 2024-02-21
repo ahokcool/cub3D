@@ -5,7 +5,7 @@ NAME=cub3D
 
 # Compiler options
 CC = cc
-CFLAGS =  -g #-O3 -Wall -Werror -Wextra
+CFLAGS =  -g -Wall -Werror -Wextra #-O3 
 CLIBS = -L$(LIB_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -rf
@@ -43,6 +43,7 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	core/dbg.c											\
 	core/math.c											\
 	entities/img.c										\
+	entities/img_utils.c								\
 	entities/map.c										\
 	entities/map2d.c									\
 	entities/minimap.c									\

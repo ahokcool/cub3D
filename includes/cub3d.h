@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 18:06:14 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 18:28:10 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,14 +195,14 @@ void 	start_loop(t_cub *cub);
 
 //img.c
 void	ini_img(t_img *img);
-// void	config_img(void *mlx, t_img *img, char *path, t_vector_int *dimensions);
-// void	config_img_dim(void *mlx, t_img *img, t_vector_int *dimensions);
 void	config_img_dim(t_cub *cub, t_img *img, t_vector_int *dimensions);
 void	config_img_file(t_cub *cub, t_img *img, char* path);
-void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width);
-void 	draw_line(t_img *img, t_vector_dbl *start_coordinates, t_vector_dbl *vector_of_line, int color);
-void	set_pixel_to_image(t_img *img, int x, int y, int color);
 void	destroy_img(void *mlx, t_img *img);
+
+//img_utils.c
+void	put_tile(t_vector_int pos, t_img *src, t_img *dest);
+void	set_pixel_to_image(t_img *img, int x, int y, int color);
+void 	draw_line(t_img *img, t_vector_dbl *start_coordinates, t_vector_dbl *vector_of_line, int color);
 
 //map.c
 void	ini_map(t_cub *cub);

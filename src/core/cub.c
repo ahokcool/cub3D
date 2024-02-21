@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 17:33:23 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:15:03 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ bool	ready_cub(t_cub *cub, char *map_path)
 
 void	destroy_cub(t_cub *cub)
 {
-	// TODO: copy the function names from ini and adjust them to free all the shit
 	destroy_img(cub->win.mlx, &cub->img_2d);
 	destroy_img(cub->win.mlx, &cub->img_mini);
 	destroy_img(cub->win.mlx, &cub->img_3d);
