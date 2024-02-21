@@ -50,7 +50,6 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	entities/map3d.c									\
 	entities/map3d_utils.c								\
 	entities/draw_wall.c								\
-	entities/minimap.c									\
 	entities/player.c									\
 	entities/player_utils.c								\
 	entities/column.c									\

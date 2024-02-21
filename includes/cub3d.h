@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 20:56:45 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 21:28:50 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,6 @@ typedef struct s_player
 	t_img			player_NW;
 }					t_player;
 
-typedef struct s_minimap
-{
-	t_img			img_wall;
-	t_img			img_floor;
-	char			**map_mini;
-	int				size;	//4 = map size 4x4
-	// int				map_border;
-	// int				x0;
-	// int				x1;
-	// int				y0;
-	// int				y1;
-}						t_minimap;
-
 typedef struct s_map2d
 {
 	t_img			img_wall;
@@ -181,7 +168,6 @@ typedef struct s_cub
 	t_win				win;
 	t_img				img_2d;		// Full 2D Map
 	t_img				img_3d;		// 3D View / Raycast
-	t_img				img_mini;	// Minimap (a few Tiles around the player)
 	//MAP DETAILS
 	t_map_file		map_file;
 	//PLAYER DETAILS
@@ -189,7 +175,6 @@ typedef struct s_cub
 	//RENDER DETAILS
 	t_map2d				map2d;
 	t_map3d				map3d;
-	t_minimap			minimap;
 	t_controller		controller;
 	bool				running;
 }						t_cub;
@@ -247,12 +232,6 @@ void 	player_rotate(t_player *player, bool turn_right);
 //column.c
 void	ini_col(t_pxl_col *column);
 void	config_col(t_pxl_col *col, t_player *player, t_map_file *map_file, int col_i);
-
-//miminmap.c
-void	ini_minimap(t_minimap *minimap);
-void	config_minimap(t_cub *cub, t_minimap *minimap, char **map);
-void	destroy_minimap(void *mlx, t_minimap *minimap);
-void	update_mapmini_frame(t_cub *cub);
 
 //map2d.c
 void	ini_map2d(t_map2d *map2d);
