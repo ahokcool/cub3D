@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 19:20:02 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 20:56:45 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_img
 	void				*mlx_img;
 	char				*addr;
 	int					bpp;
-	int					line_len;
+	int					line_l;
 	int					endian;
 	int					width;
 	int					height;
@@ -115,10 +115,10 @@ typedef struct s_map2d
 	// int				y1;
 }						t_map2d;
 
-typedef struct s_pixel_column
+typedef struct s_pxl_col
 {
 	//For each Pixel (0->SCREEN WIDTH) we need to store the following information
-	double				perp_distance_to_wall;
+	double				perp_dist;
 	int					height;
 	char				hit_direction;	//N, S, E, W
 	t_vector_dbl		ray;
@@ -126,11 +126,11 @@ typedef struct s_pixel_column
 	int					wall_start_y;
 	int					wall_end_y;
 	double				wall_x;
-} 		t_pixel_column;
+} 		t_pxl_col;
 	
 typedef struct s_map3d
 {
-	t_pixel_column		columns[WIN_WIDTH]; //ONE OBJECT FOR EACH PIXEL COLUMN (aka STRIPE)
+	t_pxl_col		cols[WIN_WIDTH]; //ONE OBJECT FOR EACH PIXEL COLUMN (aka STRIPE)
 	t_img				img_wall_no;
 	t_img				img_wall_we;
 	t_img				img_wall_so;
@@ -148,8 +148,32 @@ typedef struct s_controller
 	bool				game_over;
 	bool				show_3d;		
 	bool				show_texture;	
-	bool				acitvate_mouse_rotate;	
+	bool				mouse_rot;
 }						t_controller;
+
+typedef struct s_dda
+{
+	double			camera_x;
+	t_vector_int	tile;
+	t_vector_int	step;
+	t_vector_dbl	side_dist;
+	t_vector_dbl	d_dist;
+	int				hit;
+	int				side;
+}					t_dda;
+
+typedef struct s_draw_wall
+{
+	t_img 			*text;
+	t_img			*win;
+	t_vector_dbl	text_pos;
+	t_vector_int	win_pos;
+	double			step;
+	char			*text_pxl;
+	char			*win_pxl;
+	int				cur_win_y;
+	double			cur_text_y;
+}			t_draw_wall;
 
 typedef struct s_cub
 {
@@ -221,12 +245,8 @@ void	update_v_plane(t_player *player);
 void 	player_rotate(t_player *player, bool turn_right);
 
 //column.c
-void	ini_column(t_pixel_column *column);
-void	config_column(t_pixel_column *column);
-void	destroy_column(t_pixel_column *column);
-
-//column_utils.c
-void	update_column(t_pixel_column *column, t_player *player, t_map_file *map_file, int column_index);
+void	ini_col(t_pxl_col *column);
+void	config_col(t_pxl_col *col, t_player *player, t_map_file *map_file, int col_i);
 
 //miminmap.c
 void	ini_minimap(t_minimap *minimap);
@@ -258,7 +278,6 @@ int		key_pressed(int keycode, t_controller *controller);
 int		key_released(int keycode, t_controller *controller);
 int		mouse_click(int button, int x, int y, t_cub *cub);
 int		mouse_move(int x, int y, t_cub *cub);
-void	destroy_controller(void *mlx, t_controller *controller);
 
 //model
 int		model(void *void_cub);

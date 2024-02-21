@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:52:12 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 19:08:31 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 20:55:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ini_map3d(t_map3d *map3d)
 
 	i = -1;
 	while (++i < WIN_WIDTH)
-		ini_column(&map3d->columns[i]);
+		ini_col(&map3d->cols[i]);
 	ini_img(&map3d->img_wall_no);
 	ini_img(&map3d->img_wall_ea);
 	ini_img(&map3d->img_wall_so);

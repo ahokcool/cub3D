@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:00:35 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 19:03:24 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 20:55:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static void	draw_rays_2d(t_cub *cub)
 	i = -1;
 	while (++i < WIN_WIDTH)
 	{
-		hit_pos.x = cub->map3d.columns[i].hit_pos.x * MAP2D_PIXEL_WIDTH
+		hit_pos.x = cub->map3d.cols[i].hit_pos.x * MAP2D_PIXEL_WIDTH
 			- player_cord.x;
-		hit_pos.y = cub->map3d.columns[i].hit_pos.y * MAP2D_PIXEL_WIDTH
+		hit_pos.y = cub->map3d.cols[i].hit_pos.y * MAP2D_PIXEL_WIDTH
 			- player_cord.y;
 		draw_line(&cub->img_2d, &player_cord, &hit_pos, 0xD2D2D2);
 	}
@@ -39,15 +39,15 @@ static void	draw_rays_hits(t_cub *cub)
 	i = -1;
 	while (++i < WIN_WIDTH)
 	{
-		hit_pos.x = cub->map3d.columns[i].hit_pos.x * MAP2D_PIXEL_WIDTH;
-		hit_pos.y = cub->map3d.columns[i].hit_pos.y * MAP2D_PIXEL_WIDTH;
-		if (cub->map3d.columns[i].hit_direction == 'N')
+		hit_pos.x = cub->map3d.cols[i].hit_pos.x * MAP2D_PIXEL_WIDTH;
+		hit_pos.y = cub->map3d.cols[i].hit_pos.y * MAP2D_PIXEL_WIDTH;
+		if (cub->map3d.cols[i].hit_direction == 'N')
 			set_pixel_to_image(&cub->img_2d, hit_pos.x, hit_pos.y, CLR_NORTH);
-		if (cub->map3d.columns[i].hit_direction == 'E')
+		if (cub->map3d.cols[i].hit_direction == 'E')
 			set_pixel_to_image(&cub->img_2d, hit_pos.x, hit_pos.y, CLR_EAST);
-		if (cub->map3d.columns[i].hit_direction == 'S')
+		if (cub->map3d.cols[i].hit_direction == 'S')
 			set_pixel_to_image(&cub->img_2d, hit_pos.x, hit_pos.y, CLR_SOUTH);
-		if (cub->map3d.columns[i].hit_direction == 'W')
+		if (cub->map3d.cols[i].hit_direction == 'W')
 			set_pixel_to_image(&cub->img_2d, hit_pos.x, hit_pos.y, CLR_WEST);
 	}
 }

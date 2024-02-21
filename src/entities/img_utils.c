@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:16:46 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 18:30:32 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 20:56:45 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	put_tile(t_vector_int pos, t_img *src, t_img *dest)
 		j = 0;
 		while (j < pixel_width)
 		{
-			src_pxl = src->addr + (i * src->line_len + j * (src->bpp / 8));
+			src_pxl = src->addr + (i * src->line_l + j * (src->bpp / 8));
 			if ((pos.y + i) < dest->height && (pos.x + j) < dest->width)
 			{
-				dst_pxl = dest->addr + ((pos.y + i) * dest->line_len
+				dst_pxl = dest->addr + ((pos.y + i) * dest->line_l
 						+ (pos.x + j) * (dest->bpp / 8));
 				*(unsigned int *)dst_pxl = *(unsigned int *)src_pxl;
 			}
@@ -48,7 +48,7 @@ void	set_pixel_to_image(t_img *img, int x, int y, int color)
 	{
 		if (x >= 0 && y >= 0 && x < img->width && y < img->height)
 		{
-			dst_pxl = img->addr + (y * img->line_len + x * (img->bpp / 8));
+			dst_pxl = img->addr + (y * img->line_l + x * (img->bpp / 8));
 			*(unsigned int *)dst_pxl = color;
 		}
 	}

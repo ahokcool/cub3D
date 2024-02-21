@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 18:16:56 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 20:56:45 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ini_img(t_img *img)
 	img->mlx_img = NULL;
 	img->addr = NULL;
 	img->bpp = 0;
-	img->line_len = 0;
+	img->line_l = 0;
 	img->endian = 0;
 	img->width = 0;
 	img->height = 0;
@@ -39,7 +39,7 @@ void	config_img_dim(t_cub *cub, t_img *img, t_vector_int *dimensions)
 		img->height = cub->win.win_height;
 	}
 	img->mlx_img = mlx_new_image(cub->win.mlx, img->width, img->height);
-	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp), &(img->line_len),
+	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp), &(img->line_l),
 			&(img->endian));
 	img_size = img->width * img->height * sizeof(img->bpp);
 	ft_bzero(img->addr, img_size);
@@ -49,7 +49,7 @@ void	config_img_file(t_cub *cub, t_img *img, char *path)
 {
 	img->mlx_img = mlx_xpm_file_to_image(cub->win.mlx, path, &img->width,
 			&img->height);
-	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp), &(img->line_len),
+	img->addr = mlx_get_data_addr(img->mlx_img, &(img->bpp), &(img->line_l),
 			&(img->endian));
 }
 
@@ -63,7 +63,7 @@ void	destroy_img(void *mlx, t_img *img)
 		img->mlx_img = NULL;
 		img->addr = NULL;
 		img->bpp = -1;
-		img->line_len = -1;
+		img->line_l = -1;
 		img->endian = -1;
 		img->width = -1;
 		img->height = -1;

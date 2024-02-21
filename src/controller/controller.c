@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 19:23:31 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 20:29:49 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ini_controller(t_controller *controller)
 	controller->game_over = false;
 	controller->show_3d = true;
 	controller->show_texture = true;
-	controller->acitvate_mouse_rotate = false;
+	controller->mouse_rot = false;
 }
 
 int	key_pressed(int keycode, t_controller *controller)
@@ -74,7 +74,7 @@ int	mouse_click(int button, int x, int y, t_cub *cub)
 	printf("button %d, Mouse clicked: %d, %d\n", button, x, y);
 	if (button == 1)
 	{
-		cub->controller.acitvate_mouse_rotate = !cub->controller.acitvate_mouse_rotate;
+		cub->controller.mouse_rot = !cub->controller.mouse_rot;
 		cub->controller.rotate_right = false;
 		cub->controller.rotate_left = false;
 	}
@@ -92,7 +92,7 @@ int	mouse_click(int button, int x, int y, t_cub *cub)
 int	mouse_move(int x, int y, t_cub *cub)
 {
 	(void)y;
-	if(cub->controller.acitvate_mouse_rotate)
+	if (cub->controller.mouse_rot)
 	{
 		if (x > 2 * (WIN_WIDTH / 3))
 			cub->controller.rotate_right = true;
@@ -105,10 +105,4 @@ int	mouse_move(int x, int y, t_cub *cub)
 		}
 	}
 	return (0);
-}
-
-void	destroy_controller(void *mlx, t_controller *controller)
-{
-	(void)controller;
-	(void)mlx;
 }

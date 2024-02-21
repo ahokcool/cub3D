@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:05:05 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 19:17:47 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 20:55:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	update_map3d(t_map3d *map3d, t_player *player, t_map_file *map_file)
 
 	i = -1;
 	while (++i < WIN_WIDTH)
-		update_column(&map3d->columns[i], player, map_file, i);
+		config_col(&map3d->cols[i], player, map_file, i);
 }
 
 void	update_map3d_frame(t_cub *cub)
@@ -30,14 +30,14 @@ void	update_map3d_frame(t_cub *cub)
 	while (x_screen < WIN_WIDTH)
 	{
 		y = 0;
-		while (y < cub->map3d.columns[x_screen].wall_start_y)
+		while (y < cub->map3d.cols[x_screen].wall_start_y)
 		{
 			set_pixel_to_image(&cub->img_3d, x_screen, y,
 				cub->map_file.rgb_ceiling);
 			y++;
 		}
 		draw_wall(cub, x_screen);
-		y = cub->map3d.columns[x_screen].wall_end_y;
+		y = cub->map3d.cols[x_screen].wall_end_y;
 		while (y < WIN_HEIGHT)
 		{
 			set_pixel_to_image(&cub->img_3d, x_screen, y,
