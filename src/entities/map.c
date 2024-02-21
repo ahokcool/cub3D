@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 08:58:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 18:12:17 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 21:32:31 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ bool	config_map(t_cub *cub, char *map_path)
 		cub->map_file.ceiling_clr.green, cub->map_file.ceiling_clr.blue);
 	cub->map_file.rgb_floor = create_rgb(cub->map_file.floor_clr.red, \
 		cub->map_file.floor_clr.green, cub->map_file.floor_clr.blue);
-	printf("color floor: %d\n", cub->map_file.rgb_floor);
-	printf("color c: %d\n", cub->map_file.rgb_ceiling);
 	return (true);
 }
 

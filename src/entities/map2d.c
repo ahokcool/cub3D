@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:42:25 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 19:02:38 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 21:49:44 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	config_map2d(t_cub *cub, t_map2d *map2d)
 
 void	destroy_map2d(void *mlx_ptr, t_map2d *map2d)
 {
-	destroy_img(mlx_ptr, map2d->img_wall.mlx_img);
-	destroy_img(mlx_ptr, map2d->img_floor.mlx_img);
+	destroy_img(mlx_ptr, &map2d->img_wall);
+	destroy_img(mlx_ptr, &map2d->img_floor);
 	free_whatever("m", map2d->map_2d);
 }

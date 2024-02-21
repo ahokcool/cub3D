@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 21:28:50 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 21:48:46 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,26 +80,21 @@ typedef struct s_player
 	t_vector_dbl	v_plane;
 	double			fov;	//field of view 1 for no changes
 	//Players Sprites for 2D map in different directions
-	t_img			player_N;
-	t_img			player_NE;
-	t_img			player_E;
-	t_img			player_SE;
-	t_img			player_S;
-	t_img			player_SW;
-	t_img			player_W;
-	t_img			player_NW;
+	// t_img			player_N;
+	// t_img			player_NE;
+	// t_img			player_E;
+	// t_img			player_SE;
+	// t_img			player_S;
+	// t_img			player_SW;
+	// t_img			player_W;
+	// t_img			player_NW;
 }					t_player;
 
 typedef struct s_map2d
 {
 	t_img			img_wall;
 	t_img			img_floor;
-	char			**map_2d;	//map[y][x] //if the parsing changes the orriginal map, this will not be affected. e.g. spaces could be overritten to 1 which we dont want to display in the 2d Version
-	// int				map_border;
-	// int				x0;
-	// int				x1;
-	// int				y0;
-	// int				y1;
+	char			**map_2d;
 }						t_map2d;
 
 typedef struct s_pxl_col
@@ -164,15 +159,11 @@ typedef struct s_draw_wall
 
 typedef struct s_cub
 {
-	//MLX DETAILS
 	t_win				win;
-	t_img				img_2d;		// Full 2D Map
-	t_img				img_3d;		// 3D View / Raycast
-	//MAP DETAILS
-	t_map_file		map_file;
-	//PLAYER DETAILS
+	t_img				img_2d;
+	t_img				img_3d;
+	t_map_file			map_file;
 	t_player			player;
-	//RENDER DETAILS
 	t_map2d				map2d;
 	t_map3d				map3d;
 	t_controller		controller;
@@ -181,14 +172,10 @@ typedef struct s_cub
 
 //main.c
 int main(int ac, char **av);
-int exit_game(t_cub *cub);
 
-//TODO: put in the right place
-// void	ini_cub(t_cub *cub);
-
-// cub.ccontroller->
+// cub.c
 bool	ready_cub(t_cub *cub, char *map_path);
-void	destroy_cub(t_cub *cub);
+int		destroy_cub(t_cub *cub);
 
 //math.c
 void	normalize_vector_dbl(t_vector_dbl *vector);
@@ -221,8 +208,7 @@ void	destroy_map(t_map_file *map);
 
 //player.c
 void	ini_player(t_player *player);
-void	config_player(t_cub *cub, t_map_file *map_file, t_player *player);
-void	destroy_player(void *mlx, t_player *player);
+void	config_player(t_map_file *map_file, t_player *player);
 
 // player_utils.c
 void 	player_move(t_player *player, t_controller *controller, t_map_file *map_file);

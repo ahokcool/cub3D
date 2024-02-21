@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 21:28:31 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 21:47:35 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static	bool	config_cub(t_cub *cub, char *map_path)
 	config_win(&cub->win);
 	config_img_dim(cub, &cub->img_2d, NULL);
 	config_img_dim(cub, &cub->img_3d, NULL);
-	config_player(cub, &cub->map_file, &cub->player);
+	config_player(&cub->map_file, &cub->player);
 	config_map2d(cub, &cub->map2d);
 	config_map3d(cub, &cub->map3d, &cub->player);
 	return (true);
@@ -49,14 +49,14 @@ bool	ready_cub(t_cub *cub, char *map_path)
 	return (true);
 }
 
-void	destroy_cub(t_cub *cub)
+int	destroy_cub(t_cub *cub)
 {
 	destroy_img(cub->win.mlx, &cub->img_2d);
 	destroy_img(cub->win.mlx, &cub->img_3d);
 	destroy_map(&cub->map_file);
-	destroy_player(cub->win.mlx, &cub->player);
 	destroy_map2d(cub->win.mlx, &cub->map2d);
 	destroy_map3d(cub->win.mlx, &cub->map3d);
 	destroy_win(&cub->win);
-	exit(0);
+	exit (0);
+	return (0);
 }
