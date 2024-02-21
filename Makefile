@@ -40,7 +40,6 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	controller/controller.c								\
 	core/main.c											\
 	core/cub.c											\
-	core/dbg.c											\
 	core/math.c											\
 	entities/img.c										\
 	entities/img_utils.c								\
@@ -100,9 +99,13 @@ fclean: clean
 
 re: fclean all
 
-run: all
+run1: all
 	@./$(NAME) $(MAPS_FOLDER)test.cub
 
-rerun: re run
+run2: all
+	@./$(NAME) $(MAPS_FOLDER)creppy.cub
+
+rerun: re run1
+
 val: all
-	@valgrind ./$(NAME) $(MAPS_FOLDER)test.cub
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(MAPS_FOLDER)test.cub

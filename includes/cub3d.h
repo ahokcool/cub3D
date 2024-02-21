@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 21:48:46 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 22:24:27 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,28 +66,19 @@ typedef struct s_map_file
 	char	*we_texture;
 	char	*ea_texture;
 	t_color	floor_clr;
-	t_color ceiling_clr;
-	int	rgb_floor;
-	int	rgb_ceiling;
-	char	**map;				//map[y][x]
+	t_color	ceiling_clr;
+	int		rgb_floor;
+	int		rgb_ceiling;
+	char	**map;
 }				t_map_file;
 
 //PLAYER STRUCT
 typedef struct s_player
-{	
-	t_vector_dbl	pos;	//player position
-	t_vector_dbl	dir;	//player view direction
+{
+	t_vector_dbl	pos;
+	t_vector_dbl	dir;
 	t_vector_dbl	v_plane;
-	double			fov;	//field of view 1 for no changes
-	//Players Sprites for 2D map in different directions
-	// t_img			player_N;
-	// t_img			player_NE;
-	// t_img			player_E;
-	// t_img			player_SE;
-	// t_img			player_S;
-	// t_img			player_SW;
-	// t_img			player_W;
-	// t_img			player_NW;
+	double			fov;
 }					t_player;
 
 typedef struct s_map2d
@@ -99,25 +90,24 @@ typedef struct s_map2d
 
 typedef struct s_pxl_col
 {
-	//For each Pixel (0->SCREEN WIDTH) we need to store the following information
 	double				perp_dist;
 	int					height;
-	char				hit_direction;	//N, S, E, W
+	char				hit_direction;
 	t_vector_dbl		ray;
 	t_vector_dbl		hit_pos;
 	int					wall_start_y;
 	int					wall_end_y;
 	double				wall_x;
-} 		t_pxl_col;
-	
+}	t_pxl_col;
+
 typedef struct s_map3d
 {
-	t_pxl_col		cols[WIN_WIDTH]; //ONE OBJECT FOR EACH PIXEL COLUMN (aka STRIPE)
+	t_pxl_col			cols[WIN_WIDTH];
 	t_img				img_wall_no;
 	t_img				img_wall_we;
 	t_img				img_wall_so;
 	t_img				img_wall_ea;
-} 						t_map3d;
+}	t_map3d;
 
 typedef struct s_controller
 {
@@ -146,7 +136,7 @@ typedef struct s_dda
 
 typedef struct s_draw_wall
 {
-	t_img 			*text;
+	t_img			*text;
 	t_img			*win;
 	t_vector_dbl	text_pos;
 	t_vector_int	win_pos;
@@ -171,7 +161,7 @@ typedef struct s_cub
 }						t_cub;
 
 //main.c
-int main(int ac, char **av);
+int		main(int ac, char **av);
 
 // cub.c
 bool	ready_cub(t_cub *cub, char *map_path);
@@ -181,25 +171,25 @@ int		destroy_cub(t_cub *cub);
 void	normalize_vector_dbl(t_vector_dbl *vector);
 void	rotate_vector_dbl(t_vector_dbl *vector, double degrees);
 void	rotate_vector_by_vector(t_vector_dbl *vector, t_vector_dbl *rotate);
-int	create_rgb(int r, int g, int b);
-
+int		create_rgb(int r, int g, int b);
 
 //mlx_win.c
 void	ini_win(t_win *win);
 void	config_win(t_win *win);
 void	destroy_win(t_win *win);
-void 	start_loop(t_cub *cub);
+void	start_loop(t_cub *cub);
 
 //img.c
 void	ini_img(t_img *img);
 void	config_img_dim(t_cub *cub, t_img *img, t_vector_int *dimensions);
-void	config_img_file(t_cub *cub, t_img *img, char* path);
+void	config_img_file(t_cub *cub, t_img *img, char *path);
 void	destroy_img(void *mlx, t_img *img);
 
 //img_utils.c
 void	put_tile(t_vector_int pos, t_img *src, t_img *dest);
 void	set_pixel_to_image(t_img *img, int x, int y, int color);
-void 	draw_line(t_img *img, t_vector_dbl *start_coordinates, t_vector_dbl *vector_of_line, int color);
+void	draw_line(t_img *img, t_vector_dbl *start_coordinates,
+			t_vector_dbl *vector_of_line, int color);
 
 //map.c
 void	ini_map(t_cub *cub);
@@ -211,13 +201,15 @@ void	ini_player(t_player *player);
 void	config_player(t_map_file *map_file, t_player *player);
 
 // player_utils.c
-void 	player_move(t_player *player, t_controller *controller, t_map_file *map_file);
+void	player_move(t_player *player, t_controller *controller,
+			t_map_file *map_file);
 void	update_v_plane(t_player *player);
-void 	player_rotate(t_player *player, bool turn_right);
+void	player_rotate(t_player *player, bool turn_right);
 
 //column.c
 void	ini_col(t_pxl_col *column);
-void	config_col(t_pxl_col *col, t_player *player, t_map_file *map_file, int col_i);
+void	config_col(t_pxl_col *col, t_player *player, t_map_file *map_file,
+			int col_i);
 
 //map2d.c
 void	ini_map2d(t_map2d *map2d);
@@ -250,10 +242,6 @@ int		model(void *void_cub);
 //view.c
 void	view(t_cub *cub);
 
-//dbg.c
-// void	dbg_put_minimap_big(char **map);
-void	dbg_put_player(t_player	*player);
-
 // parsing
 bool	parse(t_cub *cub, char *path);
 bool	check_format(char *path, char *expected_format);
@@ -261,15 +249,14 @@ bool	is_space(char c);
 bool	file_exists(const char *path);
 bool	is_line_empty(char *line);
 void	replace_whitespaces(char *line);
-bool    is_valid_map_char(char c);
+bool	is_valid_map_char(char c);
 bool	is_line_valid(char *line);
-void    replace_spaces(char *line);
-bool    validate_player(char *str);
+void	replace_spaces(char *line);
+bool	validate_player(char *str);
 
 bool	parse_textures_colors(t_cub *cub, int map_fd);
-bool    parse_map(t_cub *cub, int map_fd);
+bool	parse_map(t_cub *cub, int map_fd);
 bool	handle_texture_line(t_cub *cub, char **parts, int *found);
 bool	handle_color_line(t_cub *cub, char **parts, int *found);
 
 #endif
-

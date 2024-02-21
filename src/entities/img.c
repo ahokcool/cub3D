@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 21:44:46 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 21:55:50 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	config_img_file(t_cub *cub, t_img *img, char *path)
 
 void	destroy_img(void *mlx, t_img *img)
 {
-	// (void)mlx;
-	printf("destroying image at pointer %p\n", img);
 	if (mlx && img && img->mlx_img)
 		mlx_destroy_image(mlx, img->mlx_img);
 	if (img)

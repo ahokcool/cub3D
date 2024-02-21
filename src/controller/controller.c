@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 20:29:49 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 21:53:42 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	key_pressed(int keycode, t_controller *controller)
 
 int	key_released(int keycode, t_controller *controller)
 {
-	printf("Key released: %c\n", keycode);
 	if (keycode == 'w')
 		controller->move_forward = false;
 	else if (keycode == 's')
@@ -71,7 +70,8 @@ int	key_released(int keycode, t_controller *controller)
 
 int	mouse_click(int button, int x, int y, t_cub *cub)
 {
-	printf("button %d, Mouse clicked: %d, %d\n", button, x, y);
+	(void)x;
+	(void)y;
 	if (button == 1)
 	{
 		cub->controller.mouse_rot = !cub->controller.mouse_rot;

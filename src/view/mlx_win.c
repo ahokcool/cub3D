@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:18:39 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 21:40:24 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 22:04:55 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ void	destroy_win(t_win *win)
 	{
 		mlx_do_key_autorepeaton(win->mlx);
 		mlx_destroy_window(win->mlx, win->mlx_win);
+		mlx_destroy_display(win->mlx);
 	}
 	if (win)
 	{
 		win->mlx_win = NULL;
+		free(win->mlx);
 		win->mlx = NULL;
 		win->win_height = -1;
 		win->win_width = -1;
@@ -58,10 +60,10 @@ void	destroy_win(t_win *win)
 void	start_loop(t_cub *cub)
 {
 	mlx_hook(cub->win.mlx_win, 17, 0, destroy_cub, cub);
-	// mlx_hook(cub->win.mlx_win, 2, (1L << 0), key_pressed, &cub->controller);
-	// mlx_hook(cub->win.mlx_win, 3, (1L << 1), key_released, &cub->controller);
-	// mlx_hook(cub->win.mlx_win, 6, (1L << 6), mouse_move, cub);
-	// mlx_mouse_hook(cub->win.mlx_win, mouse_click, cub);
-	// mlx_loop_hook(cub->win.mlx, model, cub);
+	mlx_hook(cub->win.mlx_win, 2, (1L << 0), key_pressed, &cub->controller);
+	mlx_hook(cub->win.mlx_win, 3, (1L << 1), key_released, &cub->controller);
+	mlx_hook(cub->win.mlx_win, 6, (1L << 6), mouse_move, cub);
+	mlx_mouse_hook(cub->win.mlx_win, mouse_click, cub);
+	mlx_loop_hook(cub->win.mlx, model, cub);
 	mlx_loop(cub->win.mlx);
 }

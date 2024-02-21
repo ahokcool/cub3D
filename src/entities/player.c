@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 21:47:03 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 22:15:40 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ void	config_player(t_map_file *map_file, t_player *player)
 	config_player_start_pos(map_file, player);
 	update_v_plane(player);
 }
-
