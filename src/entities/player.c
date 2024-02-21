@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:20:19 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,18 @@ void config_player(t_cub *cub, t_map_file *map_file, t_player *player)
 	update_v_plane(player);
 }
 
-void	destroy_player(void *mlx, t_player *player)
+void	destroy_player(void *mlx_ptr, t_player *player)
 {
-	destroy_img(mlx, player->player_NE.mlx_img);
-	destroy_img(mlx, player->player_NW.mlx_img);
-	destroy_img(mlx, player->player_SE.mlx_img);
-	destroy_img(mlx, player->player_SW.mlx_img);
-	destroy_img(mlx, player->player_N.mlx_img);
-	destroy_img(mlx, player->player_S.mlx_img);
-	destroy_img(mlx, player->player_E.mlx_img);
-	destroy_img(mlx, player->player_W.mlx_img);
+	destroy_img(mlx_ptr, player->player_NE.mlx_img);
+	destroy_img(mlx_ptr, player->player_NW.mlx_img);
+	destroy_img(mlx_ptr, player->player_SE.mlx_img);
+	destroy_img(mlx_ptr, player->player_SW.mlx_img);
+	destroy_img(mlx_ptr, player->player_N.mlx_img);
+	destroy_img(mlx_ptr, player->player_S.mlx_img);
+	destroy_img(mlx_ptr, player->player_E.mlx_img);
+	destroy_img(mlx_ptr, player->player_W.mlx_img);
 
 }
-
-
 
 void 	player_rotate(t_player *player, bool turn_right)
 {
@@ -122,6 +120,7 @@ void 	player_rotate(t_player *player, bool turn_right)
 void 	player_move(t_player *player, t_controller *controller, t_map_file *map_file)
 {
 	t_vector_dbl	dir;
+	t_vector_dbl	colission;
 	
 	dir.x = 0;
 	dir.y = 0;
@@ -138,10 +137,25 @@ void 	player_move(t_player *player, t_controller *controller, t_map_file *map_fi
 	dir.x *= MOVE_SPEED;
 	dir.y *= MOVE_SPEED;
 	
+	colission.x = 0;
+	colission.y = 0;
+	if (dir.x > 0)
+		colission.x = 0.1;
+	else if (dir.x < 0)
+		colission.x = -0.1;
+	if (dir.y > 0)
+		colission.y = 0.1;
+	else if (dir.y < 0)
+		colission.y = -0.1;
+
+	// normalize_vector_dbl(&dir);
+	
 	// Coalision detection
-	if (map_file->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x))] == '0')
+	// && (map_file->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x) - 0.1)] == '0'))
+	if (map_file->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x) + colission.x)] == '0')
 		player->pos.x += dir.x;
-	if (map_file->map[(int)(player->pos.y + (dir.y))][(int)(player->pos.x)] == '0')
+	// && (map_file->map[(int)(player->pos.y + (dir.y))][(int)(player->pos.x - 0.1)] == '0'))
+	if (map_file->map[(int)(player->pos.y + (dir.y)  + colission.y)][(int)(player->pos.x)] == '0')
 		player->pos.y += dir.y;
 	
 	// update_v_plane(player);

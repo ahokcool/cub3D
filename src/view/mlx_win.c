@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_win.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:18:39 by astein            #+#    #+#             */
-/*   Updated: 2024/02/10 02:43:12 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/20 16:23:26 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,18 @@ void	config_win(t_win *win)
 
 void	destroy_win(t_win *win)
 {
-	mlx_do_key_autorepeaton(win->mlx);
-	if (win->mlx_win)
+	if (win && win->mlx_win)
+	{
+		mlx_do_key_autorepeaton(win->mlx);
 		mlx_destroy_window(win->mlx, win->mlx_win);
-	win->mlx_win = NULL;
-	win->mlx = NULL;
-	win->win_height = -1;
-	win->win_width = -1;
+	}
+	if (win)
+	{
+		win->mlx_win = NULL;
+		win->mlx = NULL;
+		win->win_height = -1;
+		win->win_width = -1;
+	}
 }
 
 void start_loop(t_cub *cub)

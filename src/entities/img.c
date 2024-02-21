@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:37 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 20:20:29 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/20 17:53:11 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,18 @@ void	config_img_file(t_cub *cub, t_img *img, char* path)
 void	destroy_img(void *mlx, t_img *img)
 {
 	printf("destroying image at pointer %p\n", img);
-	if (img->mlx_img)
+	if (mlx && img && img->mlx_img)
 		mlx_destroy_image(mlx, img->mlx_img);
-	img->mlx_img = NULL;
-	img->addr = NULL;
-	img->bpp = -1;
-	img->line_len = -1;
-	img->endian = -1;
-	img->width = -1;
-	img->height = -1;
+	if(img)
+	{
+		img->mlx_img = NULL;
+		img->addr = NULL;
+		img->bpp = -1;
+		img->line_len = -1;
+		img->endian = -1;
+		img->width = -1;
+		img->height = -1;
+	}
 }
 
 void	put_tile(t_cub *cub, int x, int y, t_img *src, t_img *dest, int pixel_width)

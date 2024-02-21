@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:09:14 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 20:14:56 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:45:21 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,15 @@ bool	parse(t_cub *cub, char *path)
 	if (map_fd < 0)
 		return (false);
 	if (!parse_textures_colors(cub, map_fd))
+	{
+		close (map_fd);
 		return (false);
+	}
 	if (!parse_map(cub, map_fd))
+	{
+		close (map_fd);
 		return (false);
+	}
 	close (map_fd);
 	return (true);
 }

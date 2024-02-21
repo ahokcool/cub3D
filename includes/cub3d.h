@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 20:36:29 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:24:48 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_map_file
 	char	*ea_texture;
 	t_color	floor_clr;
 	t_color ceiling_clr;
+	int	rgb_floor;
+	int	rgb_ceiling;
 	char	**map;				//map[y][x]
 }				t_map_file;
 
@@ -121,13 +123,18 @@ typedef struct s_pixel_column
 	char				hit_direction;	//N, S, E, W
 	t_vector_dbl		ray;
 	t_vector_dbl		hit_pos;
+	int					wall_start_y;
+	int					wall_end_y;
 	double				wall_x;
 } 		t_pixel_column;
 	
 typedef struct s_map3d
 {
 	t_pixel_column		columns[WIN_WIDTH]; //ONE OBJECT FOR EACH PIXEL COLUMN (aka STRIPE)
-	t_img				img_wall;
+	t_img				img_wall_no;
+	t_img				img_wall_we;
+	t_img				img_wall_so;
+	t_img				img_wall_ea;
 } 						t_map3d;
 
 typedef struct s_controller
@@ -167,8 +174,7 @@ int main(int ac, char **av);
 int exit_game(t_cub *cub);
 
 //TODO: put in the right place
-void	ini_cub(t_cub *cub);
-void	free_map(t_cub *cub);
+// void	ini_cub(t_cub *cub);
 
 // cub.c
 bool	ready_cub(t_cub *cub, char *map_path);
@@ -178,6 +184,7 @@ void	destroy_cub(t_cub *cub);
 void	normalize_vector_dbl(t_vector_dbl *vector);
 void	rotate_vector_dbl(t_vector_dbl *vector, double degrees);
 void	rotate_vector_by_vector(t_vector_dbl *vector, t_vector_dbl *rotate);
+int	create_rgb(int r, int g, int b);
 
 
 //mlx_win.c
@@ -198,8 +205,8 @@ void	set_pixel_to_image(t_img *img, int x, int y, int color);
 void	destroy_img(void *mlx, t_img *img);
 
 //map.c
-void	ini_map(t_map_file *map);
-void	config_map(t_map_file *map, char *map_path);
+void	ini_map(t_cub *cub);
+bool	config_map(t_cub *cub, char *map_path);
 void	destroy_map(t_map_file *map);
 
 //player.c
@@ -233,6 +240,7 @@ void	ini_map3d(t_map3d *map3d);
 void	config_map3d(t_cub *cub, t_map3d *map3d, t_player *player);
 void	update_map3d(t_map3d *map3d, t_player *player, t_map_file *map_file);
 void	update_map3d_frame(t_cub *cub);
+void	destroy_map3d(void *mlx, t_map3d *map3d);
 
 //controller.c
 void	ini_controller(t_controller *controller);

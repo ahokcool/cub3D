@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:42:25 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:15:35 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	config_map2d(t_cub *cub, t_map2d *map2d)
 	config_img_file(cub, &map2d->img_floor, "./textures/map2d/floor.xpm");
 }
 
-void	destroy_map2d(void *mlx, t_map2d *map2d)
+void	destroy_map2d(void *mlx_ptr, t_map2d *map2d)
 {
-	mlx_destroy_image(mlx, map2d->img_wall.mlx_img);
-	mlx_destroy_image(mlx, map2d->img_floor.mlx_img);
+	destroy_img(mlx_ptr, map2d->img_wall.mlx_img);
+	destroy_img(mlx_ptr, map2d->img_floor.mlx_img);
 	free_whatever("m", map2d->map_2d);
 }
 
@@ -46,7 +46,7 @@ void	 draw_rays_2d(t_cub *cub)
 	{
 		hit_pos.x = cub->map3d.columns[i].hit_pos.x * MAP2D_PIXEL_WIDTH - player_cord.x;
 		hit_pos.y = cub->map3d.columns[i].hit_pos.y * MAP2D_PIXEL_WIDTH - player_cord.y;
-		draw_line(&cub->img_2d, &player_cord, &hit_pos, 0xFFFFFF);
+		draw_line(&cub->img_2d, &player_cord, &hit_pos, 0xD2D2D2);
 	}
 }
 

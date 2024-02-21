@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:51:57 by astein            #+#    #+#             */
-/*   Updated: 2024/02/08 17:47:37 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/20 17:00:50 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,10 @@ void	rotate_vector_by_vector(t_vector_dbl *vector, t_vector_dbl *rotate)
     // Update the original vector with the new components
     vector->x = newX;
     vector->y = newY;
+}
+
+int	create_rgb(int r, int g, int b)
+{
+	printf("convert rgb %d %d %d\n",r,g,b);
+	return (r << 16 | g << 8 | b);
 }

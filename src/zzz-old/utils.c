@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 17:40:40 by astein            #+#    #+#             */
-/*   Updated: 2024/02/07 08:39:38 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/20 16:03:19 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_cub	ini_main(void)
-{
-	t_cub	cub;
+// t_cub	ini_main(void)
+// {
+// 	t_cub	cub;
 
-	ini_cub(&cub);
-	// parse map
-	// if(!parse(&cub, av[1]))
-	// {
-	// 	ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
-	// 	//exit (1);
-	// }
+// 	ini_cub(&cub);
+// 	// parse map
+// 	// if(!parse(&cub, av[1]))
+// 	// {
+// 	// 	ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
+// 	// 	//exit (1);
+// 	// }
 	
 
-	//Model
+// 	//Model
 
-	//View
+// 	//View
 	
-	return (cub);
-}
+// 	return (cub);
+// }
 
 void	config_main(t_cub *cub, char *path)
 {

@@ -5,7 +5,7 @@ NAME=cub3D
 
 # Compiler options
 CC = cc
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS =  -g #-O3 -Wall -Werror -Wextra
 CLIBS = -L$(LIB_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -rf
