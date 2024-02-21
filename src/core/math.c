@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:51:57 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 17:00:50 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:36:56 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	normalize_vector_dbl(t_vector_dbl *vector)
 	double	gcd;
 
 	gcd = sqrt(vector->x * vector->x + vector->y * vector->y);
-	if(gcd != 0)
+	if (gcd != 0)
 	{
 		vector->x /= gcd;
 		vector->y /= gcd;
@@ -52,20 +52,18 @@ void	rotate_vector_dbl(t_vector_dbl *vector, double degrees)
  */
 void	rotate_vector_by_vector(t_vector_dbl *vector, t_vector_dbl *rotate)
 {
-	// Calculate the angle of rotation using the rotate vector
-    double theta = atan2(rotate->y, rotate->x)+ M_PI / 2;
+	double	theta;
+	double	new_x;
+	double	new_y;
 
-    // Calculate the new components of the vector after rotation
-    double newX = vector->x * cos(theta) + vector->y * -sin(theta);
-    double newY = -vector->x * -sin(theta) + vector->y * cos(theta);
-
-    // Update the original vector with the new components
-    vector->x = newX;
-    vector->y = newY;
+	theta = atan2(rotate->y, rotate->x) + M_PI / 2;
+	new_x = vector->x * cos(theta) + vector->y * -sin(theta);
+	new_y = -vector->x * -sin(theta) + vector->y * cos(theta);
+	vector->x = new_x;
+	vector->y = new_y;
 }
 
 int	create_rgb(int r, int g, int b)
 {
-	printf("convert rgb %d %d %d\n",r,g,b);
 	return (r << 16 | g << 8 | b);
 }

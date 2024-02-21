@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:17:51 by anshovah          #+#    #+#             */
-/*   Updated: 2024/02/19 20:18:07 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:14:06 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	Skips the empty lines between the colors/textures lines and returns
 	the first line of the map
 */
-static  char	*skip_empty_lines(int map_fd)
+static char	*skip_empty_lines(int map_fd)
 {
 	char	*line;
 
