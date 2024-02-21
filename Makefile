@@ -5,7 +5,7 @@ NAME=cub3D
 
 # Compiler options
 CC = cc
-CFLAGS =  -g #-O3 -Wall -Werror -Wextra
+CFLAGS =  -g -Wall -Werror -Wextra #-O3 
 CLIBS = -L$(LIB_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -rf
@@ -40,18 +40,21 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	controller/controller.c								\
 	core/main.c											\
 	core/cub.c											\
-	core/dbg.c											\
 	core/math.c											\
 	entities/img.c										\
+	entities/img_utils.c								\
 	entities/map.c										\
 	entities/map2d.c									\
-	entities/minimap.c									\
+	entities/map2d_utils.c								\
+	entities/map3d.c									\
+	entities/map3d_utils.c								\
+	entities/draw_wall.c								\
 	entities/player.c									\
+	entities/player_utils.c								\
 	entities/column.c									\
+	entities/column_utils.c								\
 	model/model.c										\
 	model/collision_check.c								\
-	raycasting/dda.c									\
-	raycasting/map3d.c									\
 	view/mlx_win.c										\
 	view/view.c											\
 	)
@@ -96,9 +99,13 @@ fclean: clean
 
 re: fclean all
 
-run: all
+run1: all
 	@./$(NAME) $(MAPS_FOLDER)test.cub
 
-rerun: re run
+run2: all
+	@./$(NAME) $(MAPS_FOLDER)creppy.cub
+
+rerun: re run1
+
 val: all
-	@valgrind ./$(NAME) $(MAPS_FOLDER)test.cub
+	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(MAPS_FOLDER)test.cub

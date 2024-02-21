@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 17:33:23 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 21:47:35 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	ini_cub(t_cub *cub)
 	ini_player(&cub->player);
 	ini_map2d(&cub->map2d);
 	ini_map3d(&cub->map3d);
-	ini_minimap(&cub->minimap);
 	ini_controller(&cub->controller);
 }
 
@@ -34,11 +33,9 @@ static	bool	config_cub(t_cub *cub, char *map_path)
 	config_win(&cub->win);
 	config_img_dim(cub, &cub->img_2d, NULL);
 	config_img_dim(cub, &cub->img_3d, NULL);
-	config_img_dim(cub, &cub->img_mini, NULL);
-	config_player(cub, &cub->map_file, &cub->player);
+	config_player(&cub->map_file, &cub->player);
 	config_map2d(cub, &cub->map2d);
 	config_map3d(cub, &cub->map3d, &cub->player);
-	config_minimap(cub, &cub->minimap, cub->map_file.map);
 	return (true);
 }
 
@@ -52,17 +49,14 @@ bool	ready_cub(t_cub *cub, char *map_path)
 	return (true);
 }
 
-void	destroy_cub(t_cub *cub)
+int	destroy_cub(t_cub *cub)
 {
-	// TODO: copy the function names from ini and adjust them to free all the shit
 	destroy_img(cub->win.mlx, &cub->img_2d);
-	destroy_img(cub->win.mlx, &cub->img_mini);
 	destroy_img(cub->win.mlx, &cub->img_3d);
 	destroy_map(&cub->map_file);
-	destroy_player(cub->win.mlx, &cub->player);
 	destroy_map2d(cub->win.mlx, &cub->map2d);
 	destroy_map3d(cub->win.mlx, &cub->map3d);
-	destroy_minimap(cub->win.mlx, &cub->minimap);
 	destroy_win(&cub->win);
-	exit(0);
+	exit (0);
+	return (0);
 }

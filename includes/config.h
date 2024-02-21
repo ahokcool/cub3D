@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:18:47 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 16:47:26 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 22:20:37 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,18 @@
 
 //RENDER DETAILS
 # define MINIMAP_PIXEL_WIDTH 10
-# define MINIMAP_BORDER_SIZE 2 //if value is 3 it will be a 7x7 square
+# define MINIMAP_BORDER_SIZE 2
 # define MAP2D_PIXEL_WIDTH 20
 # define TILE_SIZE 10
 
 //MOVMENT DETAILS
 # define MOVE_SPEED 0.008
-# define ROT_SPEED 0.5	//DEGREES
-
+# define ROT_SPEED 0.5
 
 // COLORS WALLS
-# define CLR_NORTH 	0x8A2BE2 // BlueViolet: Offers a rich, deep purple
-# define CLR_SOUTH 	0x20B2AA // LightSeaGreen: A calming, medium teal
-# define CLR_EAST 	0xFF6347 // Tomato: A vibrant, warm red
-# define CLR_WEST 	0xFFD700 // Gold: Bright and cheerful yellow
+# define CLR_NORTH 	0x8A2BE2
+# define CLR_SOUTH 	0x20B2AA
+# define CLR_EAST 	0xFF6347
+# define CLR_WEST 	0xFFD700
 
 #endif

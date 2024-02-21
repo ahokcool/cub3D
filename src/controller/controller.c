@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 17:29:38 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 21:53:42 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	ini_controller(t_controller *controller)
 	controller->rotate_left = false;
 	controller->rotate_right = false;
 	controller->game_over = false;
-	controller->show_3d = false;
-	controller->show_texture = false;
+	controller->show_3d = true;
+	controller->show_texture = true;
+	controller->mouse_rot = false;
 }
 
-	// printf("Key pressed: %c\n", keycode);
 int	key_pressed(int keycode, t_controller *controller)
 {
 	if (keycode == K_ESC)
@@ -47,7 +47,6 @@ int	key_pressed(int keycode, t_controller *controller)
 
 int	key_released(int keycode, t_controller *controller)
 {
-	printf("Key released: %c\n", keycode);
 	if (keycode == 'w')
 		controller->move_forward = false;
 	else if (keycode == 's')
@@ -69,28 +68,17 @@ int	key_released(int keycode, t_controller *controller)
 	return (0);
 }
 
-int	key_clicked(int keycode, t_cub *cub)
-{
-	printf("Key clicked: %c\n", keycode);
-	if (keycode == K_ESC)
-		exit_game(cub);
-	return (0);
-}
-
-/**
- * @brief   THIS is the main controller of the game. it will be linked to the
- * 			mlx_key_hook and will be called every time a key is pressed or released
- * 
- * @param   key         
- * @param   cub         
- * @return  int         
- */
-
-	// printf("fov: %f\n", cub->player.fov);
 int	mouse_click(int button, int x, int y, t_cub *cub)
 {
-	printf("button %d, Mouse clicked: %d, %d\n", button, x, y);
-	if (button == 4)
+	(void)x;
+	(void)y;
+	if (button == 1)
+	{
+		cub->controller.mouse_rot = !cub->controller.mouse_rot;
+		cub->controller.rotate_right = false;
+		cub->controller.rotate_left = false;
+	}
+	else if (button == 4)
 		cub->player.fov += 5;
 	else if (button == 5)
 		cub->player.fov -= 5;
@@ -101,23 +89,20 @@ int	mouse_click(int button, int x, int y, t_cub *cub)
 	return (0);
 }
 
-	// printf("Mouse moved to: %d, %d\n", x, y);
 int	mouse_move(int x, int y, t_cub *cub)
 {
-	if (x > 2 * (WIN_WIDTH / 3))
-		cub->controller.rotate_right = true;
-	else if ((x < WIN_WIDTH / 3))
-		cub->controller.rotate_left = true;
-	else
+	(void)y;
+	if (cub->controller.mouse_rot)
 	{
-		cub->controller.rotate_right = false;
-		cub->controller.rotate_left = false;
+		if (x > 2 * (WIN_WIDTH / 3))
+			cub->controller.rotate_right = true;
+		else if ((x < WIN_WIDTH / 3))
+			cub->controller.rotate_left = true;
+		else
+		{
+			cub->controller.rotate_right = false;
+			cub->controller.rotate_left = false;
+		}
 	}
 	return (0);
-}
-
-void	destroy_controller(void *mlx, t_controller *controller)
-{
-	(void)controller;
-	(void)mlx;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 08:58:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 17:50:57 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 21:32:31 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ bool	config_map(t_cub *cub, char *map_path)
 		cub->map_file.ceiling_clr.green, cub->map_file.ceiling_clr.blue);
 	cub->map_file.rgb_floor = create_rgb(cub->map_file.floor_clr.red, \
 		cub->map_file.floor_clr.green, cub->map_file.floor_clr.blue);
-	dbg_put_minimap_big(cub->map_file.map);
 	return (true);
 }
 
