@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 08:58:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 17:07:42 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:59:17 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	config_map(t_cub *cub, char *map_path)
 		cub->map_file.floor_clr.green, cub->map_file.floor_clr.blue);
 	printf("color floor: %d\n", cub->map_file.rgb_floor);
 	printf("color c: %d\n", cub->map_file.rgb_ceiling);
-	dbg_put_minimap_big(cub->map_file.map);
+	// dbg_put_minimap_big(cub->map_file.map);
 	return (true);
 }
 

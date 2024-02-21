@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 15:20:19 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:58:47 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,66 +161,3 @@ void 	player_move(t_player *player, t_controller *controller, t_map_file *map_fi
 	// update_v_plane(player);
 	// dbg_put_player(player);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//----------------------------------------------------------------------------
-//OLD SHIT BELOW!!
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-
-
-int	get_player_pos(t_cub *cub, char format)
-{
-	if (format == 'x')
-		return (cub->player.pos.x);
-	else if (format == 'y')
-		return (cub->player.pos.y);
-	else
-		return (0);
-}
-
-
-
-// void player_move(t_cub *cub, char direction)
-// {
-// 	(void)cub;
-// 	(void)direction;
-// 	// Walking vectors for U, D, L, R
-//     // double walk_vectors[4][2] = {
-//     //     {0, -1},  // U - forward
-//     //     {0, 1}, // D - backward
-//     //     {-1, 0}, // L - left
-//     //     {1, 0}   // R - right
-//     // };
-
-//     // int dir_index;
-//     // if (direction == 'U') dir_index = 0;
-//     // else if (direction == 'D') dir_index = 1;
-//     // else if (direction == 'L') dir_index = 2;
-//     // else if (direction == 'R') dir_index = 3;
-
-
-// 	// TODO: DOESNT WORK SINCE WE NOW USE VECTORS
-//     // // Convert rotation angle to radians
-//     // double rad = cub->player.rot_angle * (M_PI / 180.0); 
-
-//     // // Calculate the rotated walking vector
-//     // double walk_x = walk_vectors[dir_index][0] * cos(rad) - walk_vectors[dir_index][1] * sin(rad);
-//     // double walk_y = walk_vectors[dir_index][0] * sin(rad) + walk_vectors[dir_index][1] * cos(rad);
-// 	// // TODO: check if the player is walking into a wall
-// 	// cub->player.pos_x += (walk_x / TILE_SIZE);
-// 	// cub->player.pos_y += (walk_y / TILE_SIZE);
-// }

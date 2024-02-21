@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 16:24:48 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:06:14 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,8 @@ void 	player_rotate(t_player *player, bool turn_right);
 void	ini_column(t_pixel_column *column);
 void	config_column(t_pixel_column *column);
 void	destroy_column(t_pixel_column *column);
+
+//column_utils.c
 void	update_column(t_pixel_column *column, t_player *player, t_map_file *map_file, int column_index);
 
 //miminmap.c
@@ -258,8 +260,7 @@ int		model(void *void_cub);
 void	view(t_cub *cub);
 
 //dbg.c
-void 	create_test_map(t_map_file *map);
-void	dbg_put_minimap_big(char **map);
+// void	dbg_put_minimap_big(char **map);
 void	dbg_put_player(t_player	*player);
 
 // parsing

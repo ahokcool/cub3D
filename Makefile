@@ -48,6 +48,7 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	entities/minimap.c									\
 	entities/player.c									\
 	entities/column.c									\
+	entities/column_utils.c								\
 	model/model.c										\
 	model/collision_check.c								\
 	raycasting/dda.c									\
