@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:40:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 16:18:24 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:20:19 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void 	player_rotate(t_player *player, bool turn_right)
 void 	player_move(t_player *player, t_controller *controller, t_map_file *map_file)
 {
 	t_vector_dbl	dir;
+	t_vector_dbl	colission;
 	
 	dir.x = 0;
 	dir.y = 0;
@@ -136,10 +137,25 @@ void 	player_move(t_player *player, t_controller *controller, t_map_file *map_fi
 	dir.x *= MOVE_SPEED;
 	dir.y *= MOVE_SPEED;
 	
+	colission.x = 0;
+	colission.y = 0;
+	if (dir.x > 0)
+		colission.x = 0.1;
+	else if (dir.x < 0)
+		colission.x = -0.1;
+	if (dir.y > 0)
+		colission.y = 0.1;
+	else if (dir.y < 0)
+		colission.y = -0.1;
+
+	// normalize_vector_dbl(&dir);
+	
 	// Coalision detection
-	if (map_file->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x))] == '0')
+	// && (map_file->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x) - 0.1)] == '0'))
+	if (map_file->map[(int)(player->pos.y)][(int)(player->pos.x + (dir.x) + colission.x)] == '0')
 		player->pos.x += dir.x;
-	if (map_file->map[(int)(player->pos.y + (dir.y))][(int)(player->pos.x)] == '0')
+	// && (map_file->map[(int)(player->pos.y + (dir.y))][(int)(player->pos.x - 0.1)] == '0'))
+	if (map_file->map[(int)(player->pos.y + (dir.y)  + colission.y)][(int)(player->pos.x)] == '0')
 		player->pos.y += dir.y;
 	
 	// update_v_plane(player);
