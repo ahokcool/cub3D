@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 08:58:53 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 17:07:42 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:50:57 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,15 @@ void	ini_map(t_cub *cub)
 
 bool	config_map(t_cub *cub, char *map_path)
 {
-	printf("config_map\n");
-	if(!parse(cub, map_path))
+	if (!parse(cub, map_path))
 	{
 		ft_putstr_fd("Error\nInvalid map\n", STDERR_FILENO);
 		return (false);
 	}
-	printf ("COLORS: \n Floor: \n Red - %d\n Green - %d\n Blue - %d\n \
-					 \n Ceiling: \n Red - %d\n Green - %d\n Blue - %d\n",
-			cub->map_file.floor_clr.red, cub->map_file.floor_clr.green, cub->map_file.floor_clr.blue,
-			cub->map_file.ceiling_clr.red, cub->map_file.ceiling_clr.green, cub->map_file.ceiling_clr.blue);
-	
-	cub->map_file.rgb_ceiling =	create_rgb(cub->map_file.ceiling_clr.red, \
+	cub->map_file.rgb_ceiling = create_rgb(cub->map_file.ceiling_clr.red, \
 		cub->map_file.ceiling_clr.green, cub->map_file.ceiling_clr.blue);
-	cub->map_file.rgb_floor =	create_rgb(cub->map_file.floor_clr.red, \
+	cub->map_file.rgb_floor = create_rgb(cub->map_file.floor_clr.red, \
 		cub->map_file.floor_clr.green, cub->map_file.floor_clr.blue);
-	printf("color floor: %d\n", cub->map_file.rgb_floor);
-	printf("color c: %d\n", cub->map_file.rgb_ceiling);
 	dbg_put_minimap_big(cub->map_file.map);
 	return (true);
 }
@@ -65,4 +57,3 @@ void	destroy_map(t_map_file *map)
 	if (map->map)
 		free_whatever("m", map->map);
 }
-

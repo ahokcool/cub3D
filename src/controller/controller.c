@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
+/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/10 02:46:20 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 17:29:38 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ void	ini_controller(t_controller *controller)
 	controller->show_texture = false;
 }
 
-int key_pressed(int keycode, t_controller *controller)
+	// printf("Key pressed: %c\n", keycode);
+int	key_pressed(int keycode, t_controller *controller)
 {
-	printf("Key pressed: %c\n", keycode);
-	// only change the boolean values of the struct t_controller
-
 	if (keycode == K_ESC)
 		controller->game_over = true;
 	else if (keycode == 'w')
@@ -47,7 +45,7 @@ int key_pressed(int keycode, t_controller *controller)
 	return (0);
 }
 
-int key_released(int keycode, t_controller *controller)
+int	key_released(int keycode, t_controller *controller)
 {
 	printf("Key released: %c\n", keycode);
 	if (keycode == 'w')
@@ -62,24 +60,20 @@ int key_released(int keycode, t_controller *controller)
 		controller->rotate_left = false;
 	else if (keycode == K_ARROW_RIGHT || keycode == 'e')
 		controller->rotate_right = false;
-	else if(keycode == '2')
+	else if (keycode == '2')
 		controller->show_3d = false;
-	else if(keycode == '3')
+	else if (keycode == '3')
 		controller->show_3d = true;
-	else if(keycode == 't')
+	else if (keycode == 't')
 		controller->show_texture = !controller->show_texture;
 	return (0);
 }
-int key_clicked(int keycode, t_cub *cub)
+
+int	key_clicked(int keycode, t_cub *cub)
 {
 	printf("Key clicked: %c\n", keycode);
 	if (keycode == K_ESC)
 		exit_game(cub);
-	// else if (keycode == '1')
-	// 	cub->show_mini = !cub->show_mini;
-	// else if (keycode == '2')
-	// 	cub->show_map2d = !cub->show_map2d;
-
 	return (0);
 }
 
@@ -92,6 +86,7 @@ int key_clicked(int keycode, t_cub *cub)
  * @return  int         
  */
 
+	// printf("fov: %f\n", cub->player.fov);
 int	mouse_click(int button, int x, int y, t_cub *cub)
 {
 	printf("button %d, Mouse clicked: %d, %d\n", button, x, y);
@@ -103,129 +98,26 @@ int	mouse_click(int button, int x, int y, t_cub *cub)
 		cub->player.fov = 50;
 	else if (cub->player.fov > 200)
 		cub->player.fov = 200;
-	
-	
-	printf("fov: %f\n", cub->player.fov);
 	return (0);
 }
 
+	// printf("Mouse moved to: %d, %d\n", x, y);
 int	mouse_move(int x, int y, t_cub *cub)
 {
-	if(x > 2 * (WIN_WIDTH / 3))
+	if (x > 2 * (WIN_WIDTH / 3))
 		cub->controller.rotate_right = true;
-	else if((x < WIN_WIDTH / 3))
+	else if ((x < WIN_WIDTH / 3))
 		cub->controller.rotate_left = true;
 	else
 	{
 		cub->controller.rotate_right = false;
 		cub->controller.rotate_left = false;
 	}
-	printf("Mouse moved to: %d, %d\n", x, y);
 	return (0);
 }
-
 
 void	destroy_controller(void *mlx, t_controller *controller)
 {
 	(void)controller;
 	(void)mlx;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//----------------------------------------------------------------------------
-//OLD SHIT BELOW!!
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-// static void	turn(int key, t_cub *cub)
-// {
-// 	double	offset;
-
-// 	offset = 10;
-// 	// call a function that chanes the struct params of the player ( changing the model)
-// 	//after changing the model we have to calculate the new images (ray and mini) and show them
-// 	if (key == K_ARROW_LEFT)
-// 	    cub->player.rot_angle -= offset;
-// 	else if (key == K_ARROW_RIGHT)
-// 	    cub->player.rot_angle += offset;
-	
-// 	// Correctly wrap the angle between 0 and 360 degrees
-// 	if (cub->player.rot_angle >= 360)
-// 	    cub->player.rot_angle -= 360;
-// 	else if (cub->player.rot_angle < 0)
-// 	    cub->player.rot_angle += 360;
-	
-// }
-
-// static void	move(int key, t_cub *cub)
-// {
-// 	if (key == 'a')
-// 		player_move(cub, 'L');
-// 	else if (key == 'd')
-// 		player_move(cub, 'R');
-// 	else if (key == 'w')
-// 		player_move(cub, 'U');
-// 	else if (key == 's')
-// 		player_move(cub, 'D');
-		
-// 	// call a function that chanes the struct params of the player ( changing the model)
-// 	//after changing the model we have to calculate the new images (ray and mini) and show them
-// }
-
-// int cread_keys(int key, t_cub *cub)
-// {
-// 	// ft_putstr_fd("Key down: ", STDOUT_FILENO);
-// 	move(key, cub);
-	
-// 	update_model(cub);
-// 	return (0);
-// }
-
-// int	deal_key(int key, t_cub *cub)
-// {
-// 	// ft_putstr_fd("Key pressed: ", STDOUT_FILENO);
-// 	// ft_putchar_fd(key, STDOUT_FILENO);
-// 	// ft_putchar_fd('\n', STDOUT_FILENO);
-// 	if (key == K_ESC)
-// 		exit(0); //TODO: CHANGE
-// 	if (key == 'm')
-// 		cub->show_mini = !cub->show_mini;
-// 	if (key == '2')
-// 		cub->show_map2d = !cub->show_map2d;
-// 	turn(key, cub);
-// 	update_model(cub);
-// 	return (0);
-// }
