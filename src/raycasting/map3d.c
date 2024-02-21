@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:52:12 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 16:54:38 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:06:36 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,11 @@ static void	draw_wall_xpm(t_cub *cub, int win_pos_x)
 	win_pos.y = cur_y;
 
 	// the x position in the texture we want to copy the pixelswhile (++(*y) <= y_end) // Ensure y is within the screen bounds from
-	text_pos.x = (double)texture->width * cub->map3d.columns[win_pos_x].wall_x;
+
+	if (cub->map3d.columns[win_pos_x].hit_direction == 'S' || cub->map3d.columns[win_pos_x].hit_direction == 'W')
+		text_pos.x = (double)texture->width * cub->map3d.columns[win_pos_x].wall_x;
+	else
+		text_pos.x = ((double)texture->width * (1.0 - cub->map3d.columns[win_pos_x].wall_x));
 	// printf("text_pos.x %f\n",text_pos.x);
 
 	step = 1.0 * texture->height / cub->map3d.columns[win_pos_x].height;
