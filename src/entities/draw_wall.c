@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:05:38 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 21:03:20 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 21:12:42 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,27 @@ static void	config_draw_wall(t_cub *cub, t_draw_wall *w, int x_screen)
 	w->step = 1.0 * w->text->height / cub->map3d.cols[w->win_pos.x].height;
 }
 
+static void	calculate_close_to_wall(t_cub *cub, t_draw_wall *w)
+{
+	double	col_h;
+	double	win_h;
+	double	text_h;
+
+	col_h = (double)cub->map3d.cols[w->win_pos.x].height;
+	win_h = (double)cub->win.win_height;
+	text_h = (double)w->text->height;
+	w->text_pos.y = ((((col_h - win_h) / 2) / col_h) * text_h);
+	w->step = 1 - ((col_h - win_h) / col_h);
+	w->step *= text_h;
+	w->step /= win_h;
+}
+
 static void	draw_wall_xpm(t_cub *cub, t_draw_wall *w)
 {
 	if (cub->map3d.cols[w->win_pos.x].height < cub->win.win_height)
 		w->text_pos.y = 0.0;
 	else
-	{
-		w->text_pos.y = (((((double)cub->map3d.cols[w->win_pos.x].height
-							- (double)cub->win.win_height) / 2)
-					/ (double)cub->map3d.cols[w->win_pos.x].height)
-				* (double)w->text->height);
-		w->step = ((1 - ((double)(cub->map3d.cols[w->win_pos.x].height - (double)cub->win.win_height) / (double)cub->map3d.cols[w->win_pos.x].height)) * (double)w->text->height) / (double)cub->win.win_height;
-	}
+		calculate_close_to_wall(cub, w);
 	w->cur_text_y = (w->cur_win_y - 600.0 / 2 + w->text->line_l / 2) * w->step;
 	while (w->cur_win_y < cub->map3d.cols[w->win_pos.x].wall_end_y)
 	{
