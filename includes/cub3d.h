@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 17:40:16 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:24:48 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ typedef struct s_pixel_column
 	char				hit_direction;	//N, S, E, W
 	t_vector_dbl		ray;
 	t_vector_dbl		hit_pos;
+	int					wall_start_y;
+	int					wall_end_y;
 	double				wall_x;
 } 		t_pixel_column;
 	

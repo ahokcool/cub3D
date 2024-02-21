@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:52:12 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 15:36:47 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:54:38 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,27 @@ void	update_map3d(t_map3d *map3d, t_player *player, t_map_file *map_file)
 	}
 }
 
-static void	draw_wall_clr(t_cub *cub, int x_screen, int y_end, int *y)
+static void	draw_wall_clr(t_cub *cub, int win_pos_x)
 {
+	int cur_y;
 	int wall_color;
 
-		if (cub->map3d.columns[x_screen].hit_direction == 'N')
-			wall_color = (int)CLR_NORTH;
-		else if (cub->map3d.columns[x_screen].hit_direction == 'S')
-			wall_color = (int)CLR_SOUTH;
-		else if (cub->map3d.columns[x_screen].hit_direction == 'E')
-			wall_color = (int)CLR_EAST;
-		else if (cub->map3d.columns[x_screen].hit_direction == 'W')
-			wall_color = (int)CLR_WEST;
-	while (++(*y) <= y_end) // Ensure y is within the screen bounds
-		if (*y >= 0 && *y < WIN_HEIGHT)
-			set_pixel_to_image(&cub->img_3d, x_screen, *y, wall_color);
+	cur_y = cub->map3d.columns[win_pos_x].wall_start_y;
+	if (cub->map3d.columns[win_pos_x].hit_direction == 'N')
+		wall_color = (int)CLR_NORTH;
+	else if (cub->map3d.columns[win_pos_x].hit_direction == 'S')
+		wall_color = (int)CLR_SOUTH;
+	else if (cub->map3d.columns[win_pos_x].hit_direction == 'E')
+		wall_color = (int)CLR_EAST;
+	else if (cub->map3d.columns[win_pos_x].hit_direction == 'W')
+		wall_color = (int)CLR_WEST;
+	
+	while (cur_y < cub->map3d.columns[win_pos_x].wall_end_y)
+	{
+		if (cur_y >= 0 && cur_y < WIN_HEIGHT)
+			set_pixel_to_image(&cub->img_3d, win_pos_x, cur_y, wall_color);
+		cur_y++;
+	}
 }
 
 static void	choose_texture(t_cub *cub, int win_pos_x, t_img **src, t_img **dest)
@@ -76,20 +82,23 @@ static void	choose_texture(t_cub *cub, int win_pos_x, t_img **src, t_img **dest)
 	*dest = &cub->img_3d;
 }
 
-static void	draw_wall_xpm(t_cub *cub, int win_pos_x, int y_end, int *y)
+static void	draw_wall_xpm(t_cub *cub, int win_pos_x)
 {
 	t_img 			*texture;
 	t_img 			*win;
 	char 			*text_pxl;
 	char 			*win_pxl;
 	t_vector_dbl	text_pos;
-	t_vector_dbl	win_pos;
+	t_vector_int	win_pos;
 	double step;
+	int cur_y;
+
+	cur_y = cub->map3d.columns[win_pos_x].wall_start_y;
 
 	choose_texture(cub, win_pos_x, &texture, &win);
 	
 	win_pos.x = win_pos_x;
-	win_pos.y = *y;
+	win_pos.y = cur_y;
 
 	// the x position in the texture we want to copy the pixelswhile (++(*y) <= y_end) // Ensure y is within the screen bounds from
 	text_pos.x = (double)texture->width * cub->map3d.columns[win_pos_x].wall_x;
@@ -116,7 +125,7 @@ static void	draw_wall_xpm(t_cub *cub, int win_pos_x, int y_end, int *y)
 	
 	
 	// cur_text_pos_y is the current pos_y in texture as double
-	double cur_text_pos_y = (*y - 600.0 / 2 + texture->line_len / 2) * step;
+	double cur_text_pos_y = (cur_y - 600.0 / 2 + texture->line_len / 2) * step;
 
 	// if(x_screen == WIN_WIDTH)
 		// printf("wall heugt: %d\n",cub->map3d.columns[win_pos_x].height);
@@ -127,9 +136,9 @@ static void	draw_wall_xpm(t_cub *cub, int win_pos_x, int y_end, int *y)
 	// dest = &cub->img_3d;
 
 
-	while (++(*y) <= y_end) // Ensure y is within the screen bounds
+	while (cur_y < cub->map3d.columns[win_pos_x].wall_end_y)
 	{
-		win_pos.y = *y;
+		win_pos.y = cur_y;
 
 		// 1 find the pixel in the texure we want to copy from
 		text_pxl = texture->addr + ((int)(text_pos.y) * texture->line_len + (int)(text_pos.x) * (texture->bpp / 8));
@@ -142,10 +151,6 @@ static void	draw_wall_xpm(t_cub *cub, int win_pos_x, int y_end, int *y)
 
 		// printf("pos y %d\t", (int)text_pos.y);
 
-		if(text_pos.y < 0)
-			printf("FUUU SMALL\n");
-		if((int)text_pos.y > 63)
-			printf("FUUU BIIIIIG\n");
 
 		text_pos.y += step;
 
@@ -156,47 +161,52 @@ static void	draw_wall_xpm(t_cub *cub, int win_pos_x, int y_end, int *y)
 	// 	win_pxl = dest->addr + ((*y) * dest->line_len + (x_screen) * (dest->bpp / 8));
 	// 	*(unsigned int*)win_pxl = *(unsigned int*)text_pxl;
 	// 	// set_pixel_to_image(&cub->img_3d, x_screen, *y, color);
+		cur_y++;
 	}
 	// exit(0);
 }
 
-static void	draw_wall(t_cub *cub, int x_screen, int y_end, int *y)
+static void	draw_wall(t_cub *cub, int x_screen)
 {
-	(*y)--;
 	if (cub->controller.show_texture)
-		draw_wall_xpm(cub, x_screen, y_end, y);
+		draw_wall_xpm(cub, x_screen);
 	else
-		draw_wall_clr(cub, x_screen, y_end, y);
+		draw_wall_clr(cub, x_screen);
 }
 
 void	update_map3d_frame(t_cub *cub)
 {
 	int x_screen;
 	int y;
-	// int height;
-	int y_start;
-	int y_end;
-	int screen_middle_y;
 
 	x_screen = 0;
-	screen_middle_y = WIN_HEIGHT / 2 - 1;
+	
 	while (x_screen < WIN_WIDTH)
 	{
-		y_start = fmax(0, screen_middle_y - (cub->map3d.columns[x_screen].height / 2));
-		y_end = fmin(WIN_HEIGHT - 1, screen_middle_y + (cub->map3d.columns[x_screen].height / 2));
-		y = -1;
+		
+		y = 0;
 		// Draw sky
-		while (++y < y_start)
-    		if (y >= 0 && y < WIN_HEIGHT)
-        		set_pixel_to_image(&cub->img_3d, x_screen, y, cub->map_file.rgb_ceiling);
+		while (y < cub->map3d.columns[x_screen].wall_start_y)
+		{
+			set_pixel_to_image(&cub->img_3d, x_screen, y, cub->map_file.rgb_ceiling);
+			y++;
+		}
+		
+    	
 		
 		// Draw wall
-		draw_wall(cub, x_screen, y_end, &y);
+		draw_wall(cub, x_screen);
 		
 		// Draw floor
-		y--;	
-		while (++y < WIN_HEIGHT)
+		y = cub->map3d.columns[x_screen].wall_end_y ;
+		// Draw sky
+		while (y < WIN_HEIGHT)
+		{
     		set_pixel_to_image(&cub->img_3d, x_screen, y, cub->map_file.rgb_floor);
+			y++;
+		}
+
+
 		x_screen++;
 	}
 }

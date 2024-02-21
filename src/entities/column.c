@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:17:03 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 21:03:49 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:36:30 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ini_column(t_pixel_column *column)
 	column->hit_pos.y = -1;
 	column->ray.x = 0;
 	column->ray.y = 0;
+	column->wall_start_y = -1;
+	column->wall_end_y = -1;
 }
 
 void	config_column(t_pixel_column *column)
@@ -33,6 +35,18 @@ void	destroy_column(t_pixel_column *column)
 {
 	(void)column;
 		// TODO:
+}
+
+static void	configure_wall(t_pixel_column *column)
+{
+	int screen_middle_y;
+	
+	screen_middle_y = WIN_HEIGHT / 2 - 1;
+
+	column->wall_start_y = fmax(0, screen_middle_y - (column->height / 2));
+	column->wall_end_y = fmin(WIN_HEIGHT - 1, screen_middle_y + ((int)ceil(column->height / 2)));
+	// printf("wall height %d\n", column->height);
+	// printf("start %d end %d\n",column->wall_start_y,column->wall_end_y );
 }
 
 void	update_column(t_pixel_column *column, t_player *player, t_map_file *map_file, int column_index)
@@ -84,7 +98,7 @@ void	update_column(t_pixel_column *column, t_player *player, t_map_file *map_fil
 		step.y = 1;
 		sideDist.y = (tile_index.y + 1.0 - player->pos.y) * deltaDist.y;
 	}
-
+column->wall_start_y = -1;
 	while (!hit)
 	{
 		if (sideDist.x < sideDist.y)
@@ -150,6 +164,6 @@ void	update_column(t_pixel_column *column, t_player *player, t_map_file *map_fil
 		column->wall_x = column->hit_pos.y;
 		column->wall_x -= floor(column->wall_x);		
 	}
-	
+	configure_wall(column);
 }
 
