@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:19:58 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 17:56:41 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 19:09:10 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ini_minimap(t_minimap *minimap)
 	ini_img(&minimap->img_floor);
 	minimap->map_mini = NULL;
 	minimap->size = -1;
-} 
+}
 
 void	config_minimap(t_cub *cub, t_minimap *minimap, char **map)
 {

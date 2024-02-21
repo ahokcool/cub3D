@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 18:28:10 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/21 19:20:02 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,9 @@ typedef struct s_controller
 	bool				rotate_left;
 	bool				rotate_right;
 	bool				game_over;
-	bool				show_3d;		//true=3d, false=2d
-	bool				show_texture;	//true=texture, false=color
+	bool				show_3d;		
+	bool				show_texture;	
+	bool				acitvate_mouse_rotate;	
 }						t_controller;
 
 typedef struct s_cub
@@ -176,7 +177,7 @@ int exit_game(t_cub *cub);
 //TODO: put in the right place
 // void	ini_cub(t_cub *cub);
 
-// cub.c
+// cub.ccontroller->
 bool	ready_cub(t_cub *cub, char *map_path);
 void	destroy_cub(t_cub *cub);
 
@@ -213,6 +214,8 @@ void	destroy_map(t_map_file *map);
 void	ini_player(t_player *player);
 void	config_player(t_cub *cub, t_map_file *map_file, t_player *player);
 void	destroy_player(void *mlx, t_player *player);
+
+// player_utils.c
 void 	player_move(t_player *player, t_controller *controller, t_map_file *map_file);
 void	update_v_plane(t_player *player);
 void 	player_rotate(t_player *player, bool turn_right);
@@ -235,6 +238,8 @@ void	update_mapmini_frame(t_cub *cub);
 void	ini_map2d(t_map2d *map2d);
 void	config_map2d(t_cub *cub, t_map2d *map2d);
 void	destroy_map2d(void *mlx, t_map2d *map2d);
+
+//map2d_utils.c
 void	update_map2d_frame(t_cub *cub);
 
 //map3d.c
@@ -244,11 +249,13 @@ void	update_map3d(t_map3d *map3d, t_player *player, t_map_file *map_file);
 void	update_map3d_frame(t_cub *cub);
 void	destroy_map3d(void *mlx, t_map3d *map3d);
 
+//draw_wall.c
+void	draw_wall(t_cub *cub, int x_screen);
+
 //controller.c
 void	ini_controller(t_controller *controller);
 int		key_pressed(int keycode, t_controller *controller);
 int		key_released(int keycode, t_controller *controller);
-int		key_clicked(int keycode, t_cub *cub);
 int		mouse_click(int button, int x, int y, t_cub *cub);
 int		mouse_move(int x, int y, t_cub *cub);
 void	destroy_controller(void *mlx, t_controller *controller);
