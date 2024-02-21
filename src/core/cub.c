@@ -6,17 +6,16 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:15:01 by astein            #+#    #+#             */
-/*   Updated: 2024/02/20 17:36:25 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:33:23 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+	// printf("ini_cub\n");
 static void	ini_cub(t_cub *cub)
 {
-	printf("ini_cub\n");
 	cub->running = false;
-	
 	ini_win(&cub->win);
 	ini_img(&cub->img_2d);
 	ini_map(cub);
@@ -24,13 +23,12 @@ static void	ini_cub(t_cub *cub)
 	ini_map2d(&cub->map2d);
 	ini_map3d(&cub->map3d);
 	ini_minimap(&cub->minimap);
-	// ini_ray(cub->ray);
-	ini_controller(&cub->controller);	
+	ini_controller(&cub->controller);
 }
 
+	// printf("config_cub\n");
 static	bool	config_cub(t_cub *cub, char *map_path)
 {
-	printf("config_cub\n");
 	if (!config_map(cub, map_path))
 		return (false);
 	config_win(&cub->win);
@@ -41,9 +39,9 @@ static	bool	config_cub(t_cub *cub, char *map_path)
 	config_map2d(cub, &cub->map2d);
 	config_map3d(cub, &cub->map3d, &cub->player);
 	config_minimap(cub, &cub->minimap, cub->map_file.map);
-	return(true);
-	// config_ray(cub->ray);
+	return (true);
 }
+
 bool	ready_cub(t_cub *cub, char *map_path)
 {
 	ini_cub(cub);
@@ -65,7 +63,6 @@ void	destroy_cub(t_cub *cub)
 	destroy_map2d(cub->win.mlx, &cub->map2d);
 	destroy_map3d(cub->win.mlx, &cub->map3d);
 	destroy_minimap(cub->win.mlx, &cub->minimap);
-	// free_ray(cub->ray);
 	destroy_win(&cub->win);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 09:43:08 by astein            #+#    #+#             */
-/*   Updated: 2024/02/19 19:35:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:34:13 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,39 @@
 
 void create_test_map(t_map_file *map)
 {
-    int rows = 16; // Adjusted to match the actual data size
-    int columns = 36; // Assuming this is the max length required including the null terminator
-    char *data[] = {
-        "11111111111111111111111111         ",
-        "11111111111111111111111111         ",
-        "10000N00001101111111000011         ",
-        "101100000111011   11000011         ",
-        "10010000000001111111000011111111111",
-        "11111111101100000111000000000000111",
-        "11111000001100000111011111111110111",
-        "    1111011111111101110000001000111",
-        "    1111011111111101110101001000111",
-        "    1100000011010101110000000000111",
-        "    1000000000000000110000001000111",
-        "    1000000000000000000101001000111",
-        "11110000011110000011110101101001111",
-        "1111110111  1000001  10111101000111",
-        "1111111111  1111111  11111111111111",
-        "1111111111  1111111  11111111111111"
-    };
-    
-    char **mat = (char **)malloc((rows + 1) * sizeof(char *));
-    if (mat == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        return; // Important to return or exit here
-    }
+	int rows = 16; // Adjusted to match the actual data size
+	int columns = 36; // Assuming this is the max length required including the null terminator
+	char *data[] = {
+		"11111111111111111111111111         ",
+		"11111111111111111111111111         ",
+		"10000N00001101111111000011         ",
+		"101100000111011   11000011         ",
+		"10010000000001111111000011111111111",
+		"11111111101100000111000000000000111",
+		"11111000001100000111011111111110111",
+		"    1111011111111101110000001000111",
+		"    1111011111111101110101001000111",
+		"    1100000011010101110000000000111",
+		"    1000000000000000110000001000111",
+		"    1000000000000000000101001000111",
+		"11110000011110000011110101101001111",
+		"1111110111  1000001  10111101000111",
+		"1111111111  1111111  11111111111111",
+		"1111111111  1111111  11111111111111"
+	};
+	
+	char **mat = (char **)malloc((rows + 1) * sizeof(char *));
+	if (mat == NULL) {
+		fprintf(stderr, "Memory allocation failed\n");
+		return; // Important to return or exit here
+	}
 
-    for (int i = 0; i < rows; i++) {
-        mat[i] = (char *)malloc((columns + 1) * sizeof(char));
-        strcpy(mat[i], data[i]);
-    }
-    mat[rows] = NULL; // Correctly use the variable instead of hardcoded value
-    map->map = mat;
+	for (int i = 0; i < rows; i++) {
+		mat[i] = (char *)malloc((columns + 1) * sizeof(char));
+		strcpy(mat[i], data[i]);
+	}
+	mat[rows] = NULL; // Correctly use the variable instead of hardcoded value
+	map->map = mat;
 }
 void	dbg_put_minimap_big(char **map)
 {
