@@ -52,9 +52,7 @@ SRCS = $(addprefix $(SRC_FOLDER), 						\
 	entities/player.c									\
 	entities/player_utils.c								\
 	entities/column.c									\
-	entities/column_utils.c								\
 	model/model.c										\
-	model/collision_check.c								\
 	view/mlx_win.c										\
 	view/view.c											\
 	)
