@@ -6,15 +6,15 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 22:24:27 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/25 18:49:55 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../lib/libft_printf.h"
-# include "../mlx/mlx.h"
+# include "../lib/libft/libft_gnl_printf.h"
+# include "../lib/minilibx-linux/mlx.h"
 # include "config.h"
 # include <stdbool.h>
 # include <stdint.h> 

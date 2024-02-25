@@ -6,7 +6,7 @@ NAME=cub3D
 # Compiler options
 CC = cc
 CFLAGS =  -g -Wall -Werror -Wextra #-O3 
-CLIBS = -L$(LIB_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
+CLIBS = -L$(LIB_FOLDER) -L$(LIBFT_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -rf
 
@@ -23,11 +23,12 @@ INCLUDE_FOLDER 	= ./includes/
 SRC_FOLDER     	= ./src/
 OBJ_FOLDER     	= ./obj/
 LIB_FOLDER     	= ./lib/
-MLX_FOLDER		= ./mlx/
+LIBFT_FOLDER    = $(LIB_FOLDER)libft/
+MLX_FOLDER		= $(LIB_FOLDER)minilibx-linux/
 MAPS_FOLDER 	= ./maps/
 
 # Files
-LIBFT = $(LIB_FOLDER)libft.a
+LIBFT = $(LIBFT_FOLDER)libft.a
 MLX = $(MLX_FOLDER)libmlx.a
 SRCS = $(addprefix $(SRC_FOLDER), 						\
 	parsing/parsing_main.c								\
@@ -79,7 +80,7 @@ $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.c
 
 $(LIBFT):
 	@./make_banner.sh libft.a compiling "$(ORANGE)"
-	@$(MAKE) -sC $(LIB_FOLDER) DEBUG=$(DEBUG)
+	@$(MAKE) -sC $(LIBFT_FOLDER) DEBUG=$(DEBUG)
 
 $(MLX):
 	@./make_banner.sh mlx.a compiling "$(BLUE)"
@@ -91,7 +92,7 @@ clean:
 	@./make_banner.sh $(NAME) cleaned "$(RED)"
 
 fclean: clean
-	@make -sC $(LIB_FOLDER) fclean
+	@make -sC $(LIBFT_FOLDER) fclean
 	@make -sC $(MLX_FOLDER) clean
 	@$(RM) $(NAME)
 
