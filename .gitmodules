@@ -1,6 +1,0 @@
-[submodule "lib"]
-	path = lib
-	url = git@github.com:ahokcool/libft-getnextline-printf.git
-[submodule "mlx"]
-	path = mlx
-	url = git@github.com:42Paris/minilibx-linux.git
