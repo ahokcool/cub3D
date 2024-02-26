@@ -6,7 +6,7 @@ NAME=cub3D
 # Compiler options
 CC = cc
 CFLAGS =  -g -Wall -Werror -Wextra #-O3 
-CLIBS = -L$(LIB_FOLDER) -L$(LIBFT_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
+CLIBS = -L$(LIBFT_FOLDER) -L$(MLX_FOLDER) -lft -lm -lmlx -lX11 -lXext
 CINCLUDES  = -I$(INCLUDE_FOLDER) -I$(MLX_FOLDER)
 RM = rm -rf
 
@@ -30,6 +30,7 @@ MAPS_FOLDER 	= ./maps/
 # Files
 LIBFT = $(LIBFT_FOLDER)libft.a
 MLX = $(MLX_FOLDER)libmlx.a
+BANNER = $(LIBFT_FOLDER)make_banner.sh
 SRCS = $(addprefix $(SRC_FOLDER), 						\
 	parsing/parsing_main.c								\
 	parsing/parsing_utils.c								\
@@ -66,12 +67,10 @@ OBJS = $(SRCS:$(SRC_FOLDER)%.c=$(OBJ_FOLDER)%.o)
 # Targets
 .PHONY: all clean fclean re
 
-all: $(NAME)
+all: MSG_START $(NAME) MSG_DONE
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
-	@./make_banner.sh $(NAME) compiling "$(ORANGE)"
 	@$(CC) $(OBJS) $(CFLAGS) $(CLIBS) $(CINCLUDES) -o $(NAME)
-	@./make_banner.sh $(NAME) done "$(GREEN)"
 
 $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.c 
 	@mkdir -p $(@D)
@@ -79,17 +78,16 @@ $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.c
 	@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 $(LIBFT):
-	@./make_banner.sh libft.a compiling "$(ORANGE)"
-	@$(MAKE) -sC $(LIBFT_FOLDER) DEBUG=$(DEBUG)
+	@$(MAKE) --no-print-directory -C $(LIBFT_FOLDER)
 
 $(MLX):
-	@./make_banner.sh mlx.a compiling "$(BLUE)"
+	@$(BANNER) MLX compiling "$(ORANGE)"
 	@make --no-print-directory -C > /dev/null 2>&1 $(MLX_FOLDER)
-	@./make_banner.sh mlx.a created "$(GREEN)"
+	@$(BANNER) MLX compiled "$(GREEN)"
 
 clean:
 	@$(RM) $(OBJ_FOLDER)
-	@./make_banner.sh $(NAME) cleaned "$(RED)"
+	@$(BANNER) $(NAME) cleaned "$(RED)"
 
 fclean: clean
 	@make -sC $(LIBFT_FOLDER) fclean
@@ -108,3 +106,9 @@ rerun: re run1
 
 val: all
 	@valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(MAPS_FOLDER)test.cub
+
+MSG_START:
+	@$(BANNER) $(NAME) compiling "$(ORANGE)"
+
+MSG_DONE:
+	@$(BANNER) $(NAME) compiled "$(GREEN)"
