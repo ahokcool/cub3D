@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:22:21 by astein            #+#    #+#             */
-/*   Updated: 2024/02/25 18:49:55 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/27 00:34:00 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void	config_player(t_map_file *map_file, t_player *player);
 void	player_move(t_player *player, t_controller *controller,
 			t_map_file *map_file);
 void	update_v_plane(t_player *player);
-void	player_rotate(t_player *player, bool turn_right);
+void	player_rotate(t_player *player, bool turn_right, bool turn_left);
 
 //column.c
 void	ini_col(t_pxl_col *column);

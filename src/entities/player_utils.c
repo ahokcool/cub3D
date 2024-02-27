@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:44:57 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 18:57:51 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/27 00:34:30 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ void	player_move(t_player *player, t_controller *controller,
 	check_colision_move(player, map_file, dir);
 }
 
-void	player_rotate(t_player *player, bool turn_right)
+void	player_rotate(t_player *player, bool turn_right, bool turn_left)
 {
 	if (turn_right)
 		rotate_vector_dbl(&player->dir, ROT_SPEED);
-	else
+	if (turn_left)
 		rotate_vector_dbl(&player->dir, -ROT_SPEED);
 	normalize_vector_dbl(&player->dir);
 }

@@ -6,7 +6,7 @@
 /*   By: astein <astein@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:27:07 by astein            #+#    #+#             */
-/*   Updated: 2024/02/21 21:53:42 by astein           ###   ########.fr       */
+/*   Updated: 2024/02/27 00:30:43 by astein           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	key_pressed(int keycode, t_controller *controller)
 		controller->move_left = true;
 	else if (keycode == 'd')
 		controller->move_right = true;
-	else if (keycode == K_ARROW_LEFT || keycode == 'q')
+	else if (!controller->mouse_rot && (keycode == K_ARROW_LEFT || keycode == 'q'))
 		controller->rotate_left = true;
-	else if (keycode == K_ARROW_RIGHT || keycode == 'e')
+	else if (!controller->mouse_rot && (keycode == K_ARROW_RIGHT || keycode == 'e'))
 		controller->rotate_right = true;
 	return (0);
 }
@@ -55,9 +55,9 @@ int	key_released(int keycode, t_controller *controller)
 		controller->move_left = false;
 	else if (keycode == 'd')
 		controller->move_right = false;
-	else if (keycode == K_ARROW_LEFT || keycode == 'q')
+	else if (!controller->mouse_rot && (keycode == K_ARROW_LEFT || keycode == 'q'))
 		controller->rotate_left = false;
-	else if (keycode == K_ARROW_RIGHT || keycode == 'e')
+	else if (!controller->mouse_rot && (keycode == K_ARROW_RIGHT || keycode == 'e'))
 		controller->rotate_right = false;
 	else if (keycode == '2')
 		controller->show_3d = false;
