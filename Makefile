@@ -86,13 +86,15 @@ $(MLX):
 	@$(BANNER) MLX compiled "$(GREEN)"
 
 clean:
+	@make --no-print-directory -C $(LIBFT_FOLDER) clean
 	@$(RM) $(OBJ_FOLDER)
-	@$(BANNER) $(NAME) cleaned "$(RED)"
+	@$(BANNER) $(NAME) "removed object files" "$(RED)"
 
 fclean: clean
 	@make -sC $(LIBFT_FOLDER) fclean
-	@make -sC $(MLX_FOLDER) clean
+	@make --no-print-directory -sC $(MLX_FOLDER) clean
 	@$(RM) $(NAME)
+	@$(BANNER) $(NAME) "removed program" "$(RED)"
 
 re: fclean all
 
