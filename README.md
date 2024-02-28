@@ -5,11 +5,15 @@
   <a href="https://github.com/ahokcool/ahokcool/blob/main/README.md">
     <img src="images/alexgit.png" alt="Logo" width="150">
   </a><br>
-  An overview of all my projects can be found here: <a href="https://github.com/ahokcool/ahokcool/blob/main/README.md" target="_blank">ahokcool</a><br><br>
+An overview of all my projects can be found here: <a href="https://github.com/ahokcool/ahokcool/blob/main/README.md" target="_blank">ahokcool</a><br><br>
   <a href="https://www.42lisboa.com">
     <img src="images/logo42.svg" alt="Logo" width="100">
   </a><br>
   This project was created as part of my studies at: <a href="https://www.42lisboa.com" target="_blank">42 Lisboa</a><br>
+  This project is a group project with 
+	<a href="https://github.com/AshParker19" target="_blank">ashParker19</a>,
+	<a href="https://github.com/joaodibba" target="_blank">joaodibba</a> &
+	<a href="https://github.com/rajh-phuyal" target="_blank">rajh-phuyal</a><br
 </div>
 
 ---
@@ -20,9 +24,9 @@
   <a href="./">
     <img src="images/logo.gif" alt="Logo" width="600">
   </a>
-  <h1 align="center">fdf</h1>
+  <h1 align="center">cub3D</h1>
 <p align="center">
-    The idea of the fdf project, French "fil de fer" for "wireframe model", is to visualise wireframe models. This is done by reading a map with 3-D coordinates from a file and storing it in a linked list. These 3D coordinates are then transformed into 2D coordinates according to the user's preferences and displayed in a window.
+    createing a 3D game in C using raycasting
 </p>
 </div>
 <br>
@@ -42,7 +46,7 @@ $ make                                                                  # Compil
 $ ./fdf map_file                                                        # Run
 ```
 
-Create a 3D game in C using raycasting.
+
 
 
 # cub3d
