@@ -33,6 +33,7 @@
 <!-- PROJECT HEADER END -->
 
 ## :bulb: Lessons learned
+- [ray casting](https://en.wikipedia.org/wiki/Ray_casting#Ray_casting_in_early_computer_games)
 - the software design pattern [model–view–controller](Model–view–controller)
 - [digital differential analyzer](https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)) (graphics algorithm)
 - vector handling including: addition, rotation, normalisation
